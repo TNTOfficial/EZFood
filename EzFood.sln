@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EZFood.Application", "EZFood.Application\EZFood.Application.csproj", "{3D285AF5-8105-4091-9999-80B625BEB5B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EZFood.Domain", "EZFood.Domain\EZFood.Domain.csproj", "{4D5D486D-79A5-4033-B879-2D03F0FDFDA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EZFood.Infrastructure", "EZFood.Infrastructure\EZFood.Infrastructure.csproj", "{C07A83CA-9000-4E73-A02D-853D24AA1C4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EZFood.Presentation", "EZFood.Presentation\EZFood.Presentation.csproj", "{AC628911-EAA5-4D46-A421-000C9EDB25CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EZFood.Shared", "EZFood.Shared\EZFood.Shared.csproj", "{E6BFC29E-241A-452B-83F7-9AF6AC71F478}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EZFood.Server", "EZFood.Server\EZFood.Server.csproj", "{05C757A4-0AED-4D5F-AA5E-30ABABED196B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3D285AF5-8105-4091-9999-80B625BEB5B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D285AF5-8105-4091-9999-80B625BEB5B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D285AF5-8105-4091-9999-80B625BEB5B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D285AF5-8105-4091-9999-80B625BEB5B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D5D486D-79A5-4033-B879-2D03F0FDFDA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D5D486D-79A5-4033-B879-2D03F0FDFDA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D5D486D-79A5-4033-B879-2D03F0FDFDA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D5D486D-79A5-4033-B879-2D03F0FDFDA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C07A83CA-9000-4E73-A02D-853D24AA1C4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C07A83CA-9000-4E73-A02D-853D24AA1C4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C07A83CA-9000-4E73-A02D-853D24AA1C4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C07A83CA-9000-4E73-A02D-853D24AA1C4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC628911-EAA5-4D46-A421-000C9EDB25CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC628911-EAA5-4D46-A421-000C9EDB25CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC628911-EAA5-4D46-A421-000C9EDB25CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC628911-EAA5-4D46-A421-000C9EDB25CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6BFC29E-241A-452B-83F7-9AF6AC71F478}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6BFC29E-241A-452B-83F7-9AF6AC71F478}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6BFC29E-241A-452B-83F7-9AF6AC71F478}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6BFC29E-241A-452B-83F7-9AF6AC71F478}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05C757A4-0AED-4D5F-AA5E-30ABABED196B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05C757A4-0AED-4D5F-AA5E-30ABABED196B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05C757A4-0AED-4D5F-AA5E-30ABABED196B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05C757A4-0AED-4D5F-AA5E-30ABABED196B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2518F1AE-41A0-4C1F-8F74-BB2E4B016E09}
+	EndGlobalSection
+EndGlobal
