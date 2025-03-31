@@ -1,0 +1,76 @@
+<header
+  class="w-full bg-white dark:bg-zinc-900 py-1 px-1 border border-zinc-100 dark:border-zinc-800 rounded-xl flex gap-2 justify-between items-center">
+  <div class="flex-1 serach-form max-md:hidden">
+    <!-- <form>
+      <label for="search"
+             class="px-4 py-1 flex justify-start items-center gap-2 rounded-full bg-gray-25 dark:bg-zinc-950">
+        <div class="icon pt-2">
+          <i-tabler name="search"
+                    class="text-zinc-500 dark:text-zinc-300"
+                    style="height: 30px; width: 30px; stroke-width: 1"></i-tabler>
+        </div>
+        <input id="search"
+               type="search"
+               placeholder="Search Something ..."
+               class="placeholder:text-zinc-600 placeholder:dark:text-zinc-200 text-zinc-800 dark:text-zinc-100 flex-1 appearance-none outline-none" />
+      </label>
+    </form> -->
+  </div>
+  <!-- <div class="notification flex justify-center items-center gap-0.5 rounded-full p-1 bg-gray-25 dark:bg-zinc-950">
+    <div
+      class="h-[45px] w-[45px] transition-al duration-300 cursor-pointer rounded-full hover:bg-white hover:dark:bg-zinc-800 hover:shadow-lg flex justify-center items-center">
+      <i-lucide [img]="BellDot" strokeWidth="2" class="text-zinc-950 dark:text-white"></i-lucide>
+    </div>
+    <div
+      class="h-[45px] w-[45px] transition-al duration-300 cursor-pointer rounded-full hover:bg-white hover:dark:bg-zinc-800 hover:shadow-lg flex justify-center items-center">
+      <i-lucide [img]="MessageSquareText" strokeWidth="2" class="text-zinc-950 dark:text-white"></i-lucide>
+    </div>
+  </div> -->
+
+  <div class="uerSetting relative z-20">
+    <div (click)="showMenu()" [class]="isDropdownOpen ? '-rotate-90':'rotate-0'"
+      class="h-[45px] w-[45px] transition-all duration-300 cursor-pointer rounded-full bg-gray-25 dark:bg-zinc-950 flex justify-center items-center">
+      <i-lucide [img]="Settings" strokeWidth="2" class="text-zinc-950 dark:text-white"></i-lucide>
+    </div>
+
+    <ul (mouseleave)="showMenuOut()"
+      [class]="isDropdownOpen ? 'visible opacity-100':'invisible opacity-0'"
+      class="transition-all duration-300 bg-white invisible opacity-0 top-[110%] dark:bg-zinc-800 shadow-fxl select-none rounded-xl p-1 min-w-[200px] absolute right-0 z-50">
+      <li>
+        <a routerLink="/setting"
+          class="flex justify-start items-center 2xl:gap-2 gap-2 text-[1rem] font-normal leading-[100%] 2xl:py-2 2xl:px-2 p-1 text-black dark:text-white hover:bg-gray-25 hover:dark:bg-zinc-950 rounded-lg">
+          <i-lucide strokeWidth="2" [img]="ScanFace" class=" h-7 w-7 text-blue-600"></i-lucide>
+          <span>Account Info</span>
+        </a>
+      </li>
+      <li>
+        <button 
+          class="flex justify-start items-stretch 2xl:gap-2 gap-2 text-[1rem] font-normal leading-[100%] 2xl:py-2 2xl:px-2 p-1 text-black dark:text-white hover:bg-gray-25 hover:dark:bg-zinc-950 rounded-lg">
+          <div class=" h-7 w-7 aspect-square relative z-0">
+            <i-lucide strokeWidth="2" [img]="Moon"
+              class="absolute inline-block z-0 inset-0 2 h-7 w-7 rotate-45 dark:rotate-0 transition-all duration-700 text-white opacity-0 dark:opacity-100 invisible dark:visible"></i-lucide>
+
+            <i-lucide strokeWidth="2" [img]="Sun"
+              class="absolute inline-block z-0 inset-0 2 h-7 w-7 rotate-0 dark:-rotate-45 transition-all duration-700 text-yellow-500 opacity-100 dark:opacity-0 visible dark:invisible"></i-lucide>
+          </div>
+
+          <span (click)="themeService.toggleDarkMode()" class="text-start text-nowrap flex justify-center items-center">Switch Appearance</span>
+        </button>
+      </li>
+      <li>
+        <a routerLink="/setting"
+          class="flex justify-start items-center 2xl:gap-2 gap-2 text-[1rem] font-normal leading-[100%] 2xl:py-2 2xl:px-2 p-1 text-black dark:text-white hover:bg-gray-25 hover:dark:bg-zinc-950 rounded-lg">
+          <i-lucide strokeWidth="2" [img]="Settings" class=" h-7 w-7 text-green-600"></i-lucide>
+          <span>Settings</span>
+        </a>
+      </li>
+      <li>
+        <button (click)="logout()"
+          class="flex justify-start items-center 2xl:gap-2 gap-2 text-[1rem] font-normal leading-[100%] 2xl:py-2 2xl:px-2 p-1 text-black dark:text-white hover:bg-gray-25 hover:dark:bg-zinc-950 rounded-lg w-full">
+          <i-lucide strokeWidth="2" [img]="Power" class=" h-7 w-7 text-red-600"></i-lucide>
+          <span class="text-red-600 dark:text-red-300">Logout</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</header>

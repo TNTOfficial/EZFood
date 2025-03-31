@@ -1,0 +1,24 @@
+<div class="relative">
+  <input
+         type="text"
+         [attr.placeholder]="placeholder"
+         [(ngModel)]="inputValue"
+         (input)="onSearch($event)"
+         (keyDown)="onKeyDown($event)"
+         (blur)="onBlur()"
+         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-300 focus:border-green-300 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"/>
+
+  @if(showSuggestions){
+  <div class="absolute z-50 max-h-80 overflow-x-hidden overflow-y-auto top-[100%] start-auto end-auto bg-white rounded-xl w-full border-2 px-4 py-2">
+    <ul class="list-group">
+     @for(item of filteredItems; track item.name){
+      <li [class.active]="item === highlightedIndex"
+          (click)="onSelect(item)"
+          class="list-group-item list-group-item-action border-b-2 rounded-lg p-2 block">
+        {{item.name}}
+      </li>
+      }
+    </ul>
+  </div>
+  }
+</div>

@@ -1,0 +1,7 @@
+<ng-container *ngIf="isPopUp">
+ <div class="d-flex">
+  <button type="button" class="btn btn-primary btn-sm ms-1" container="body" tooltipClass="tooltip-custom" triggers="mouseenter:mouseleave" ngbPopover="{{'labelText.' + btnText[0] | translate}} (Alt+S)" [disabled]="disable" (click)="onAdd(false)" *ngIf="btnShow[0]">{{'labelText.'+btnText[0] | translate}}</button>
+  <button type="button" class="btn btn-primary btn-sm ms-1" container="body" tooltipClass="tooltip-custom" triggers="mouseenter:mouseleave" ngbPopover="{{'labelText.' + btnText[1] | translate}} (Shift+Esc)" [disabled]="disable" (click)="onAdd(true)" *ngIf="btnShow[1]">{{'labelText.'+btnText[1] | translate}}</button>
+  <button type="button" class="btn btn-light btn-sm ms-1" container="body" tooltipClass="tooltip-custom" triggers="mouseenter:mouseleave" ngbPopover="{{'labelText.close' | translate }} (Esc)" (click)="onCancel()" *ngIf="btnShow[2]">{{'labelText.'+btnText[2] | translate}}</button>
+</div>
+</ng-container>

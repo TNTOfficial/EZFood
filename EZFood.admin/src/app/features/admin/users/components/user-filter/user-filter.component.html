@@ -1,0 +1,38 @@
+<div class="filter relative z-0">
+  <form [formGroup]="form" class="flex md:justify-end justify-start flex-wrap sm:gap-4 gap-2 items-end">
+    <!-- Search Input -->
+    <div class="flex-grow  w-full flex-[1_1_9.375rem]">
+      <label for="searchTerm" class="block text-sm font-medium text-zinc-700 dark:text-zinc-100 mb-1">
+        Search Users
+      </label>
+      <div class="relative">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <i-lucide [img]="Search" class="size-4 text-zinc-600 dark:text-zinc-300"></i-lucide>
+        </div>
+        <input id="searchTerm"
+               type="text"
+               formControlName="searchTerm"
+               placeholder="Search by name, email, code or phone"
+               class="pl-8 p-2 block w-full tracking-wider rounded-md border border-zinc-300 dark:border-zinc-600 text-black dark:text-white focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+      </div>
+    </div>
+
+    <!--Sort Dropdown-->
+    <div class="w-full  flex-[1_1_9.375rem] sm:max-w-[16.375rem]">
+      <label for="sortBy" class="block text-sm font-medium text-zinc-700 dark:text-zinc-100 mb-1">
+        Sort By
+      </label>
+      <select id="sortBy"
+              (change)="onSortChange($event)"
+              class="block w-full p-2 rounded-md border border-zinc-300 dark:border-zinc-600 text-black dark:text-white focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        @for (option of sortOptions; track option.value) {
+        <option [value]="option.value" class="text-black">{{ option.label }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="w-fit md:w-auto md:absolute -top-12 z-30 right-4">
+      
+    </div>
+  </form>
+</div>

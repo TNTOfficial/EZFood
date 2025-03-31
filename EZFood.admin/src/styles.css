@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap");
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* a tag focus */
+a {
+  @apply focus-visible:outline-none;
+}
+
+/* Theme Start >> */
+@theme {
+  /* Font >> */
+  --font-body: "Roboto Flex", serif;
+  --font-display: "Josefin Sans", serif;
+
+  /* Color >> */
+  /* Green tree Color ================================ */
+  --color-tree-50: #f0f9f5;
+  --color-tree-100: #dbf0e5;
+  --color-tree-200: #b9e1cf;
+  --color-tree-300: #8acbb0;
+  --color-tree-400: #5caf90;
+  --color-tree-500: #389173;
+  --color-tree-600: #27745b;
+  --color-tree-700: #1f5d4a;
+  --color-tree-800: #1b4a3d;
+  --color-tree-900: #173d33;
+  --color-tree-950: #0c221d;
+
+  /* Bad river Color ================================ */
+  --color-river-50: #f4f6f7;
+  --color-river-100: #e3e8ea;
+  --color-river-200: #c9d2d8;
+  --color-river-300: #a4b2bc;
+  --color-river-400: #778b99;
+  --color-river-500: #5c6f7e;
+  --color-river-600: #4b5966;
+  --color-river-700: #444f5a;
+  --color-river-800: #3d444d;
+  --color-river-900: #363b43;
+  --color-river-950: #21252b;
+
+  /* Red poppy Color ================================ */
+
+  /* bg light color */
+  --color-gray-25: #f8f8f8;
+
+  --shadow-f2xs: 0 0 1px rgb(0 0 0 / 0.05);
+  --shadow-fxs: 0 0 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-fsm: 0 0 3px 0 rgb(0 0 0 / 0.1), 0 0 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-fmd: 0 0 6px -1px rgb(0 0 0 / 0.1), 0 0 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-flg: 0 0 15px -3px rgb(0 0 0 / 0.1), 0 0 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-fxl: 0 0 25px -5px rgb(0 0 0 / 0.1), 0 0 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-f2xl: 0 0 50px -12px rgb(0 0 0 / 0.25);
+}
+
+/* Theme End >> */
+
+/* Layer Start >> */
+@layer utilities {
+  .container {
+    @apply px-4 mx-auto min-[1600px]:max-w-[1600px] min-[1400px]:max-w-[1390px] max-[1399.98px]:max-w-full ;
+  }
+}
+/* Layer End  >> */
+.swiper-cont {
+  @apply [&::part(container)]:rounded;
+}
+
+.multy-view .swiper-pagi {
+  @apply [&::part(container)]:py-10 [&::part(pagination)]:bottom-0 max-md:[&::part(pagination)]:hidden [&::part(pagination)]:w-fit [&::part(pagination)]:pl-[1.875rem];
+}
+.swiper-pagi-btn {
+  @apply [&::part(bullet)]:bg-river-600 dark:[&::part(bullet)]:bg-river-50 [&::part(bullet)]:w-3 [&::part(bullet)]:h-3 [&::part(bullet)]:rounded-full [&::part(bullet)]:transition-all [&::part(bullet)]:duration-300;
+}
+
+.swiper-pagi-btn-active {
+  @apply [&::part(bullet-active)]:bg-river-600 dark:[&::part(bullet-active)]:bg-river-100 [&::part(bullet-active)]:w-10 [&::part(bullet-active)]:h-3 [&::part(bullet-active)]:rounded-full [&::part(bullet-active)]:transition-all [&::part(bullet-active)]:duration-300;
+}
+
+.landing-area .swiper-pagi {
+  @apply lg:[&::part(pagination)]:bottom-16 [&::part(pagination)]:bottom-5 [&::part(pagination)]:w-fit [&::part(pagination)]:pl-[6.25rem] max-lg:[&::part(pagination)]:pl-[4.375rem] max-md:[&::part(pagination)]:pl-[1.875rem];
+}
+
+.landing-area .swiper-pagi-btn {
+  @apply [&::part(bullet)]:bg-river-600;
+}
+
+.landing-area .swiper-pagi-btn-active {
+  @apply [&::part(bullet-active)]:bg-river-600;
+}
+
+.swiper-prev-btn {
+  @apply [&::part(button-prev)]:bg-river-100 dark:[&::part(button-prev)]:bg-river-100 [&::part(button-prev)]:h-10 [&::part(button-prev)]:w-10 [&::part(button-prev)]:py-3 [&::part(button-prev)]:pe-0.5 [&::part(button-prev)]:rounded-full [&::part(button-prev)]:text-black dark:[&::part(button-prev)]:text-black [&::part(button-prev)]:box-border [&::part(button-prev)]:bottom-2 [&::part(button-prev)]:top-auto [&::part(button-prev)]:left-auto [&::part(button-prev)]:right-[60px] [&::part(button-prev)]:shadow-md [&::part(button-prev)]:shadow-river-200 dark:[&::part(button-prev)]:shadow-river-600 [&::part(button-prev)]:transition-all [&::part(button-prev)]:duration-300;
+}
+
+.swiper-next-btn {
+  @apply [&::part(button-next)]:bg-river-100 dark:[&::part(button-next)]:bg-river-100 [&::part(button-next)]:h-10 [&::part(button-next)]:w-10 [&::part(button-next)]:py-3 [&::part(button-next)]:ps-0.5 [&::part(button-next)]:rounded-full [&::part(button-next)]:text-black dark:[&::part(button-next)]:text-black [&::part(button-next)]:box-border [&::part(button-next)]:bottom-2 [&::part(button-next)]:top-auto [&::part(button-next)]:left-auto [&::part(button-next)]:right-[10px] [&::part(button-next)]:shadow-md [&::part(button-next)]:shadow-river-200 dark:[&::part(button-next)]:shadow-river-600 [&::part(button-next)]:transition-all [&::part(button-next)]:duration-300;
+}
+
+*::-webkit-scrollbar {
+  @apply w-2.5 h-1;
+}
+
+*::-webkit-scrollbar-track {
+  @apply bg-zinc-400 rounded;
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply bg-zinc-500 rounded;
+}
+

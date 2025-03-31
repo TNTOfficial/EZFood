@@ -1,4 +1,4 @@
-﻿using EZFood.Infrastructure.Persistance.DbContext;
+﻿using EZFood.Infrastructure.Persistence.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 

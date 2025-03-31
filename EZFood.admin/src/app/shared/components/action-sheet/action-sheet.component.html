@@ -1,0 +1,19 @@
+<aside class="sheet-wrapper">
+    <div (click)="sheetOpen(false)" [class]="isOpenSheet ? 'visible opacity-100':'invisible opacity-0'"
+        class="transition-[opacity] right-0 duration-300 fixed z-[198] top-0 h-[100dvh] w-full bg-black/30 dark:bg-black/70">
+    </div>
+    <div [class]="isOpenSheet ? 'right-0':'-right-full'"
+            [ngClass]="classList"
+        class="transition-all duration-300 fixed z-[199] top-0 h-[100dvh] overflow-y-auto w-full bg-white dark:bg-zinc-900">
+        <div class="sheetHeader p-5">
+            <h3 class="text-xl text-black dark:text-white font-bold">{{title}}</h3>
+            @if(subTitle != undefined){
+                <h5 class="text-sm text-zinc-600">This is sheet title.</h5>
+            }
+        </div>
+        <div class="sheetBody p-5">
+            <ng-content></ng-content>
+        </div>
+    </div>
+
+</aside>

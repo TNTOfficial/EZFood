@@ -1,0 +1,78 @@
+<aside [class]="
+    sideClose ? 'lg:w-[70px] lg:hover:w-[280px]  left-[-300px]' : 'lg:w-[280px]  left-[0]'
+  " class="group/sidebar transition-all duration-300 h-[100dvh] fixed z-[150] top-0 lg:left-0  group/side  p-[5px]">
+  <div
+    class="transition-all duration-300 h-full w-full overflow-y-auto overflow-x-hidden flex justify-between items-stretch flex-col border rounded-xl border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-2">
+    <!-- Top Menu -->
+    <div class="top-menu">
+      <div [class]="sideClose ? '' : ''"
+        class="transition-all duration-300 profile flex justify-between items-stretch gap-1">
+        <div [class]="
+            sideClose
+              ? 'bg-transparent dark:bg-transparent shadow-none p-0 group-hover/sidebar:p-1 group-hover/sidebar:bg-white group-hover/sidebar:dark:bg-zinc-800 group-hover/sidebar:shadow-md'
+              : 'bg-white dark:bg-zinc-800 shadow-md p-1'
+          " class="transition-all duration-300 flex-1 flex justify-start items-center gap-2 rounded-md">
+          <div class="profile-pic h-[40px] w-[40px] aspect-square">
+            <img src="user5.webp" alt="user profile"
+              class="h-full w-full aspect-square block rounded-md object-cover" />
+          </div>
+          <div [class]="
+              sideClose
+                ? 'invisible opacity-0 group-hover/sidebar:visible group-hover/sidebar:opacity-100'
+                : 'visible opacity-100'
+            " class="transition-all duration-300 profile-info">
+            <h5 class="text-[1rem] max-md-[1.2rem] text-zinc-900 dark:text-zinc-100">
+              {{currentUser?.name}}
+            </h5>
+            <h6 class="text-[0.8rem] max-md:text-[1rem] text-zinc-400">
+              {{currentUser?.email}}
+            </h6>
+          </div>
+        </div>
+
+        <div (click)="clickEvent()" [class]="
+            sideClose
+              ? 'invisible opacity-0  duration-100 group-hover/sidebar:visible group-hover/sidebar:opacity-100 group-hover/sidebar:duration-300'
+              : 'visible opacity-100  duration-300'
+          "
+          class="transition-all cursor-pointer flex justify-center items-center relative sideLock bg-white dark:bg-zinc-800 shadow-md rounded-md min-w-[40px] max-w-[40px] w-full">
+          <i-lucide [img]="LockKeyhole" strokeWidth="1" [class]="sideClose ? 'opacity-0' : 'opacity-100'"
+            class="transition-all duration-300 h-5 w-5 text-black dark:text-white block absolute top-1/2 left-1/2 -translate-1/2"></i-lucide>
+          <i-lucide [img]="LockKeyholeOpen" strokeWidth="1" [class]="
+              sideClose ? 'group-hover/sidebar:opacity-100' : 'opacity-0'
+            "
+            class="transition-all duration-300 h-5 w-5 text-black dark:text-white block absolute top-1/2 left-1/2 -translate-1/2"></i-lucide>
+        </div>
+      </div>
+
+      <div class="menu py-2">
+        <ul class="space-y-1">
+          <li *ngFor="let item of menus">
+            <a [title]="item.name" [class]="sideClose ? 'w-[42px] group-hover/sidebar:w-full px-2' : 'w-full px-3'"
+              [routerLink]="item.link" routerLinkActive="active"
+              [routerLinkActiveOptions]="item.link === '/dashboard' ? { exact: true } : { exact: false }"
+              class="transition-all duration-300 group/link py-2 bg-transparent hover:bg-zinc-200 hover:dark:bg-zinc-800 rounded-lg flex flex-nowrap gap-3 justify-start items-center [.active]:bg-zinc-700 [.active]:text-white">
+              <i-tabler [name]="item.icon"
+                class="text-zinc-700 group-hover/link:text-black group-hover/link:dark:text-white dark:text-zinc-500 [.active>&]:text-white"
+                style="height: 1.5625rem; width: 1.5625rem; aspect-ratio: 1/1; stroke-width: 1;"></i-tabler>
+              <span [class]="
+                sideClose
+                  ? 'invisible opacity-0 group-hover/sidebar:visible group-hover/sidebar:opacity-100'
+                  : 'visible opacity-100'
+              "
+                class="text-zinc-700 [.active>&]:text-white group-hover/link:text-black group-hover/link:dark:text-white transition-all duration-300 dark:text-zinc-400 text-base font-normal [leading-100%] pt-1 min-w-[170px] flex-1 select-none">
+                {{ item.name }}
+              </span>
+            </a>
+
+
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Bottom Menu -->
+    <div class="bottom-menu">
+
+    </div>
+  </div>
+</aside>

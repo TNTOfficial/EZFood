@@ -1,0 +1,394 @@
+<!-- Header >> -->
+<header class="pt-[42.2px] sm:pt-[46px]">
+  <!-- Header Info >> -->
+  <div class="header-info py-2.5 bg-gray-50 dark:bg-river-950 fixed w-full top-0 z-50">
+    <div class="container flex justify-between items-center gap-2">
+      <div class="left-info flex-1">
+        <ul class="contact flex justify-start items-center gap-4 max-md:hidden">
+          <li
+            class="group/contact flex justify-start items-center gap-1 cursor-pointer"
+          >
+            <i-lucide
+              [img]="PhoneCall"
+              [strokeWidth]="1"
+              class="text-river-700 dark:text-river-100 size-5 group-hover/contact:text-tree-600 transition-all duration-300"
+            ></i-lucide>
+            <span
+              class="text-sm text-river-400 dark:text-river-100 font-normal  align-text-bottom"
+            >
+              +91 000 000 0000</span
+            >
+          </li>
+          <li
+            class="group/contact flex justify-start items-start gap-1 cursor-pointer"
+          >
+            <i-tabler
+              name="brand-whatsapp"
+              class="text-river-700 dark:text-river-100 group-hover/contact:text-tree-600 transition-all duration-300"
+              style="height: 1.25rem; width: 1.25rem; stroke-width: 1"
+            ></i-tabler>
+            <span
+              class="text-sm text-river-400 dark:text-river-100 font-normal  align-text-bottom"
+            >
+              +91 000 000 0000</span
+            >
+          </li>
+        </ul>
+        <ul class="contact flex justify-start items-center gap-4">
+          <li class="md:ps-3">
+            <button
+              onclick="toggleClass('.nav-menu', 'max-lg:left-0'), toggleClass('.nav-menu-layer', 'visible', 'opacity-100')"
+              class="text-sm text-river-400 dark:text-river-100 hover:text-tree-400 md:hidden"
+            >
+              <i-lucide [img]="AlignJustify" [strokeWidth]="1"></i-lucide>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div
+        class="center-info flex-1 text-center text-river-400 dark:text-river-100 text-sm max-xl:hidden"
+      >
+        <span>World's Fastest Online Shopping Destination</span>
+      </div>
+      <div class="right-info flex-1">
+        <div class="flex justify-end items-center">
+          <ul class="flex justify-end items-center max-lg:hidden">
+            <li class="ps-3">
+              <button
+                (click)="themeService.toggleDarkMode()"
+                class="text-sm text-river-400 dark:text-river-100 cursor-pointer relative p-3 outline-none"
+              >
+                <div
+                  title="Switch to light theme"
+                  class="invisible dark:visible flex justify-center items-center dark-btn absolute inset-0 transition-all duration-300 opacity-0 dark:opacity-100 rotate-45 dark:rotate-0"
+                >
+                  <i-tabler
+                    style="height: 1rem; width: 1rem"
+                    name="moon-filled"
+                    class="text-base text-white"
+                  ></i-tabler>
+                </div>
+                <div
+                  title="Switch to dark theme"
+                  class="flex dark:invisible justify-center items-center light-btn absolute inset-0 transition-all duration-300 opacity-100 dark:opacity-0 rotate-0 dark:-rotate-45"
+                >
+                  <i-lucide
+                    [img]="Sun"
+                    [strokeWidth]="3"
+                    class="size-4 text-yellow-400"
+                  ></i-lucide>
+                </div>
+              </button>
+            </li>
+            <li class="ps-3">
+              <a routerLink="#" class="text-sm text-river-400 dark:text-river-100"
+                ><span>Help<sup>?</sup></span></a
+              >
+            </li>
+            <li class="ps-3">
+              <a routerLink="#" class="text-sm text-river-400 dark:text-river-100"
+                ><span>Teack Order<sup>?</sup></span></a
+              >
+            </li>
+            <li class="ps-3">
+              <a routerLink="#" class="text-sm text-river-400 dark:text-river-100"
+                ><span>English</span>
+                <i-tabler
+                  name="language"
+                  class="text-river-500 dark:text-river-300"
+                  style="height: 1.125rem; width: 1.125rem"
+                ></i-tabler
+              ></a>
+            </li>
+          </ul>
+
+          <ul class="flex justify-end items-center lg:hidden">
+            <li class="ps-3">
+              <button
+                (click)="themeService.toggleDarkMode()"
+                class="text-sm text-river-400 dark:text-river-100 cursor-pointer relative p-3 outline-none"
+              >
+                <div
+                  title="Switch to light theme"
+                  class="invisible dark:visible flex justify-center items-center dark-btn absolute inset-0 transition-all duration-300 opacity-0 dark:opacity-100 rotate-45 dark:rotate-0"
+                >
+                  <i-tabler
+                    style="height: 1.25rem; width: 1.25rem"
+                    name="moon-filled"
+                    class="text-base text-white"
+                  ></i-tabler>
+                </div>
+                <div
+                  title="Switch to dark theme"
+                  class="flex dark:invisible justify-center items-center light-btn absolute inset-0 transition-all duration-300 opacity-100 dark:opacity-0 rotate-0 dark:-rotate-45"
+                >
+                  <i-lucide
+                    [img]="Sun"
+                    [strokeWidth]="3"
+                    class="size-5 text-yellow-400"
+                  ></i-lucide>
+                </div>
+              </button>
+            </li>
+            <li class="ps-3">
+              <a routerLink="#" class="text-sm text-river-400 dark:text-river-100"
+                ><i-lucide [img]="User" [strokeWidth]="1"></i-lucide
+              ></a>
+            </li>
+            <li class="ps-3">
+              <a
+                routerLink="#"
+                class="text-sm text-river-400 dark:text-river-100 relative group"
+                ><i-lucide [img]="Heart" [strokeWidth]="1"></i-lucide>
+                <span
+                  class="absolute -top-1 -right-2 size-4 rounded-full text-white group-hover:bg-red-600 transition-all duration-150 bg-river-800  text-xs flex justify-center items-center"
+                  >2</span
+                >
+              </a>
+            </li>
+            <li class="ps-3">
+              <a
+                routerLink="#"
+                class="text-sm text-river-400 dark:text-river-100 relative group"
+                ><i-lucide [img]="ShoppingCart" [strokeWidth]="1"></i-lucide>
+                <span
+                  class="absolute -top-1 -right-2 size-4 rounded-full text-white group-hover:bg-red-600 transition-all duration-150 bg-river-800  text-xs flex justify-center items-center"
+                  >3</span
+                >
+              </a>
+            </li>
+            <li class="ps-3">
+              <button
+                onclick="toggleClass('.nav-menu', 'max-lg:left-0'), toggleClass('.nav-menu-layer', 'visible', 'opacity-100')"
+                class="text-sm text-river-400 dark:text-river-100 hover:text-tree-400 max-md:hidden"
+              >
+                <i-lucide [img]="AlignJustify" [strokeWidth]="1"></i-lucide>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Header Info << -->
+  <!-- Header Tools >> -->
+  <div
+    class="header-tools 2xl:py-7 p-4 border-b border-river-100 dark:border-tree-800"
+  >
+    <div class="container flex justify-between items-center gap-7">
+      <!-- logo >> -->
+      <div class="logo w-fit">
+        <a routerLink="#" class="flex justify-start items-end ">
+          <img
+            src="logo.png"
+            alt="logo"
+            class="w-14 max-xl:w-8 h-full object-contain"
+          />
+          <span class="lg:text-[1.9rem] text-[1.5rem] leading-[100%] text-river-400 font-bold">VED<span class="text-tree-400">AA</span>N</span>
+        </a>
+      </div>
+      <!-- serach bar >> -->
+      <div
+        class="flex-[1_1_270px] md:max-w-[700px] sm:min-w-[300px] sm:max-w-[320px] w-full lg:mx-auto max-lg: ms-auto"
+      >
+        <form
+          class="gi-search-group-form flex border-[1px] border-solid border-tree-100 dark:border-tree-900 items-center rounded"
+          action="#"
+        >
+          <input
+            class="form-control gi-search-bar block w-full min-h-12 h-min-h-12 max-lg:h-10 max-lg:min-h-10 px-3.5 text-sm font-normal leading-[1] text-river-500 dark:text-river-300 appearance-none outline-none"
+            placeholder="Search Products..."
+            type="text"
+          />
+          <button
+            type="submit"
+            class="flex items-center justify-center w-12 h-10 basis-12"
+          >
+            <i-lucide
+              [img]="Search"
+              class="text-river-400 size-5 dark:text-river-200 transition-all duration-300 ease-in-out"
+              [strokeWidth]="1"
+            ></i-lucide>
+          </button>
+        </form>
+      </div>
+      <!-- Notify Tools >> -->
+      <div class="notify-tools max-lg:hidden w-fit">
+        <ul class="flex justify-end items-center gap-5">
+          <li>
+            <a
+              routerLink="/login"
+              class="text-sm text-river-500 dark:text-river-300 group flex justify-center items-center gap-x-1 gap-y-0"
+            >
+              <i-lucide
+                [strokeWidth]="1"
+                [img]="User"
+                class="w-7 h-7"
+              ></i-lucide>
+              <div class="flex flex-col">
+                <span class="text-xs text-river-400 dark:text-river-100"
+                  >Account</span
+                >
+                <span class="text-xs text-river-500 dark:text-river-300 -mt-1"
+                  >login</span
+                >
+              </div>
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="#"
+              class="text-sm text-river-500 dark:text-river-300 group flex justify-center items-center gap-x-1 gap-y-0"
+            >
+              <i-lucide
+                [strokeWidth]="1"
+                [img]="Heart"
+                class="w-7 h-7"
+              ></i-lucide>
+              <div class="flex flex-col">
+                <span class="text-xs text-river-400 dark:text-river-100"
+                  >Wishlist</span
+                >
+                <span class="text-xs text-river-500 dark:text-river-300 -mt-1"
+                  ><span class="">2</span>-items</span
+                >
+              </div>
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="#"
+              class="text-sm text-river-500 dark:text-river-300 group flex justify-center items-center gap-x-1 gap-y-0"
+            >
+              <i-lucide
+                [strokeWidth]="1"
+                [img]="ShoppingCart"
+                class="w-7 h-7"
+              ></i-lucide>
+              <div class="flex flex-col">
+                <span class="text-xs text-river-400 dark:text-river-100"
+                  >Cart</span
+                >
+                <span class="text-xs text-river-500 dark:text-river-300 -mt-1"
+                  ><span class="">3</span>-items</span
+                >
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- Header Tools << -->
+  <!-- Header Navigation >> -->
+  <div
+    class="header-navigation lg:py-1 lg:border-b border-river-100 dark:border-tree-800"
+  >
+    <div class="container flex justify-between items-center gap-7">
+      <!-- all categories >> -->
+      <div class="all-categories w-fit relative max-lg:hidden">
+        <div
+          class="xl:w-[200px] w-fit min-h-12 px-3.5 flex items-center bg-tree-400 rounded cursor-pointer max-lx:w-auto max-lg:border-0"
+        >
+          <i-tabler
+            style="height: 1.25rem; width: 1.25rem; stroke-width: 2"
+            name="apps"
+            class="ti ti-apps text-[1.125rem] text-white"
+          ></i-tabler>
+          <span
+            class="text ml-2.5 text-base text-white font-medium max-xl:hidden"
+            >All Categories</span
+          >
+          <i-lucide
+            [img]="ChevronDown"
+            [strokeWidth]="2"
+            class="w-5 h-5 text-white text-center absolute right-3.5 max-xl:hidden"
+          ></i-lucide>
+        </div>
+      </div>
+      <!-- nav menu >> -->
+      <!-- close layer for nav menu -->
+      <div
+        onclick="toggleClass('.nav-menu', 'max-lg:left-0'), toggleClass('.nav-menu-layer', 'visible', 'opacity-100')"
+        f
+        class="nav-menu-layer lg:hidden fixed z-40 bg-black/60 inset-0 transition-all duration-300 invisible opacity-0"
+      ></div>
+      <div
+        class="nav-menu flex-1 mx-auto max-lg:fixed max-lg:h-[100dvh] max-lg:top-0 max-lg:-left-[300px] max-lg:w-[300px] max-lg:bg-white max-lg:dark:bg-gray-950 z-50 max-lg:p-4 transition-all duration-300"
+      >
+        <div class="lg:hidden flex justify-between items-center pb-3">
+          <h4 class="font-bold text-base text-tree-700 dark:text-tree-400">
+            Main Menu
+          </h4>
+          <button
+            onclick="toggleClass('.nav-menu', 'max-lg:left-0'), toggleClass('.nav-menu-layer', 'visible', 'opacity-100')"
+          >
+            <i-lucide [img]="X" class="h-6 w-6 text-river-600 dark:text-river-300"></i-lucide>
+          </button>
+        </div>
+        <ul
+          class="flex justify-center items-center max-lg:flex-col max-lg:items-stretch"
+        >
+          <li>
+            <a
+              routerLink="/"
+              class="text-river-700 text-sm hover:text-tree-500 dark:text-river-100 dark:hover:text-tree-200 font-medium 2xl:px-4 px-2 max-lg:shadow rounded shadow-river-200 dark:shadow-river-950 max-lg:w-full inline-block max-lg:p-2 mb-2"
+              ><span>Home</span></a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/about"
+              class="text-river-700 text-sm hover:text-tree-500 dark:text-river-100 dark:hover:text-tree-200 font-medium 2xl:px-4 px-2 max-lg:shadow rounded shadow-river-200 dark:shadow-river-950 max-lg:w-full inline-block max-lg:p-2 mb-2"
+              ><span>About us</span></a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="#"
+              class="text-river-700 text-sm hover:text-tree-500 dark:text-river-100 dark:hover:text-tree-200 font-medium 2xl:px-4 px-2 max-lg:shadow rounded shadow-river-200 dark:shadow-river-950 max-lg:w-full inline-block max-lg:p-2 mb-2"
+              ><span>Products</span></a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="#"
+              class="text-river-700 text-sm hover:text-tree-500 dark:text-river-100 dark:hover:text-tree-200 font-medium 2xl:px-4 px-2 max-lg:shadow rounded shadow-river-200 dark:shadow-river-950 max-lg:w-full inline-block max-lg:p-2 mb-2"
+              ><span>Blog</span></a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="#"
+              class="text-river-700 text-sm hover:text-tree-500 dark:text-river-100 dark:hover:text-tree-200 font-medium 2xl:px-4 px-2 max-lg:shadow rounded shadow-river-200 dark:shadow-river-950 max-lg:w-full inline-block max-lg:p-2 mb-2"
+              ><span>Terms Condition</span></a
+            >
+          </li>
+        </ul>
+      </div>
+      <!-- locations >> -->
+      <div class="locations w-fit relative max-lg:hidden">
+        <div
+          class="xl:w-[200px] w-fit min-h-12 px-3.5 flex items-center bg-tree-400 rounded cursor-pointer max-lx:w-auto max-lg:border-0"
+        >
+          <i-lucide
+          [strokeWidth]="2"
+            [img]="MapPin"
+            class="w-5 h-5 text-white"
+          ></i-lucide>
+          <span
+            class="text ml-2.5 text-base text-white font-medium max-xl:hidden"
+            >India</span
+          >
+          <i-lucide
+            [img]="ChevronDown"
+            [strokeWidth]="2"
+            class="w-5 h-5 text-white text-center absolute right-3.5 max-xl:hidden"
+          ></i-lucide>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Header Navigation << -->
+</header>
+<!-- Header << -->

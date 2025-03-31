@@ -1,0 +1,61 @@
+<section class="categoriesTable bg-white dark:bg-zinc-900 rounded-lg shadow p-1">
+  <div class="px-4 py-2 flex gap-4 justify-between items-center relative z-0">
+    <div class="tableHeading flex-[1_1_300px] max-w-[300px]">
+      <h2 class="text-2xl font-semibold text-zinc-800 dark:text-white">User Management</h2>
+      <p class="text-zinc-600 dark:text-zinc-100 text-sm">View and manage all users in the system</p>
+    </div>
+  </div>
+
+  <div class="flex-1 mb-4 px-4">
+    <!-- Filter Section -->
+    <app-user-filter [form]="filterForm" (sortChange)="onSortChange($event)">
+    </app-user-filter>
+
+  </div>
+
+  <!-- Loading State -->
+  @if (loading()) {
+  <div class="flex justify-center my-8">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+  }
+
+  <!-- Error State -->
+  @if (error()) {
+  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+    <p>{{ error() }}</p>
+    <button (click)="loadUsers()" class="mt-2 bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded text-sm">
+      Retry
+    </button>
+  </div>
+  }
+
+  <!-- Users Table -->
+  @if (!loading() && !error() && users().length > 0) {
+  <app-user-table [users]="users()" (viewUser)="viewUserDetails($event)">
+  </app-user-table>
+
+  <!-- Pagination -->
+  @if (pagedResponse()) {
+  <div class="mt-4 px-4 pb-2">
+    <app-pagination [currentPage]="pagedResponse()!.pageNumber" [totalPages]="pagedResponse()!.totalPages"
+      (pageChange)="onPageChange($event)">
+    </app-pagination>
+  </div>
+  }
+  }
+
+  <!-- Empty State -->
+  @if (!loading() && !error() && users().length === 0) {
+  <div class="bg-white rounded-lg shadow p-8 text-center my-8">
+    <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+      </path>
+    </svg>
+    <h3 class="text-lg font-medium text-gray-900">No users found</h3>
+    <p class="text-gray-500 mt-2">Try adjusting your search or filter criteria</p>
+  </div>
+  }
+</section>

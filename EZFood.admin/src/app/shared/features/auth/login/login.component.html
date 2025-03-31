@@ -1,0 +1,99 @@
+<section class="auth ">
+  <div class="container">
+    <div class="h-[100dvh] flex justify-center items-center">
+      <div class="authCard bg-white dark:bg-zinc-950 rounded border border-zinc-200 dark:border-ziinc-700 max-w-md shadow-xl w-full p-3 py-8">
+        <div class="authCard-header mb-3">
+          <h5 class="text-start text-[1.2rem] leading-[110%] text-river-500 dark:text-white font-bold ps-5">
+            Login
+          </h5>
+          <img src="ez-logo.png"
+               alt="Logo"
+               class="mx-auto w-[250px] aspect-square object-contain" />
+        </div>
+        <div class="authCard-body">
+          <form  [formGroup]="loginForm"  (ngSubmit)="onSubmit()" class="sm:px-8 px-4">
+            <div class="flex flex-wrap">
+              @if(errorMessage) {
+              <div class="flex-[1_1_300px] w-full mb-3">
+                <app-error [message]="errorMessage"></app-error>
+              </div>
+              }
+
+              <div class="flex-[1_1_300px] w-full mb-3">
+                <label for="email"
+                       class="text-[1rem] dark:text-white text-black px-2 mb-1 inline-block">
+                  Email
+                </label>
+                <div class="relative flex items-center">
+                  <input id="email"
+                         type="text"
+                         formControlName="email"
+                         placeholder="Enter Email"
+                         class="px-4 py-3 pe-10 bg-white dark:bg-zinc-950 dark:text-white border-solid text-black w-full text-lg border border-zinc-300 dark:border-zinc-700 focus:border-tree-500 rounded outline-none"
+                         [class.border-red-500]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" />
+                  <lucide-icon [name]="Mail"
+                               strokeWidth="1"
+                               class="text-black dark:text-white w-[1.125rem] h-[1.125rem] absolute right-2"></lucide-icon>
+                </div>
+                @if(loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+                <small class="text-red-500 px-2">Email is required</small>
+                }
+              </div>
+
+              <div class="flex-[1_1_300px] w-full mb-3">
+                <label for="password"
+                       class="text-[1rem] dark:text-white text-black px-2 mb-1 inline-block">
+                  Password
+                </label>
+                <div class="relative flex items-center">
+                  <input id="password"
+                         type="password"
+                         formControlName="password"
+                         placeholder="Enter Your Password"
+                         class="px-4 py-3 pe-10 bg-white dark:bg-zinc-950 dark:text-white border-solid text-black w-full text-lg border border-zinc-300 dark:border-zinc-700 focus:border-tree-500 rounded outline-none"
+                         [class.border-red-500]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" />
+                  <lucide-icon [name]="KeyRound"
+                               strokeWidth="1"
+                               class="text-black dark:text-white w-[1.125rem] h-[1.125rem] absolute right-2"></lucide-icon>
+                </div>
+                @if(loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+                <small class="text-red-500 px-2">Password is required</small>
+                }
+              </div>
+
+              <div class="flex-[1_1_300px] w-full my-5">
+                <div class="flex justify-between items-center px-2">
+                  <label for="rememberMe"
+                         class="group flex justify-start items-center gap-1 cursor-pointer">
+                    <div class="transition-all duration-300 h-4 w-4 rounded flex justify-center items-center dark:bg-zinc-950 bg-gray-25 border border-zinc-950 dark:border-zinc-700"
+                         [class.bg-tree-500]="loginForm.get('rememberMe')?.value"
+                         [class.dark:bg-tree-500]="loginForm.get('rememberMe')?.value">
+                      <input type="checkbox" formControlName="rememberMe" id="rememberMe" class="hidden" />
+                      @if(loginForm.get('rememberMe')?.value) {
+                      <lucide-icon [name]="Check"
+                                   strokeWidth="2"
+                                   class="h-3 w-3 dark:text-zinc-950 text-gray-25"></lucide-icon>
+                      }
+                    </div>
+                    <span class="text-[1.1rem] leading-[100%] pt-1 select-none text-zinc-500 dark:text-zinc-300">Remember Me</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="flex-[1_1_300px] w-full">
+                <button type="submit"
+                        [disabled]="isLoading"
+                        class="px-4 py-3 bg-tree-500 dark:bg-river-800 dark:text-white border-solid text-white w-full text-lg border border-zinc-300 dark:border-zinc-700 focus:border-tree-500 rounded outline-none disabled:opacity-70 disabled:cursor-not-allowed">
+                  @if(isLoading) {
+                  <span class="inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></span>
+                  }
+                  Login
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

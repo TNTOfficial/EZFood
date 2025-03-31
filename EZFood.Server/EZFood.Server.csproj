@@ -14,11 +14,19 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.7.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="8.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.7.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EZFood.Application\EZFood.Application.csproj" />
     <ProjectReference Include="..\EZFood.Infrastructure\EZFood.Infrastructure.csproj" />
     <ProjectReference Include="..\EZFood.Presentation\EZFood.Presentation.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="uploads\" />
   </ItemGroup>
 
 </Project>

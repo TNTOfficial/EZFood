@@ -1,0 +1,50 @@
+<div class="relative">
+  <div (click)="toggleDropdown()"
+       class="cursor-pointer px-4 py-4 flex items-center justify-between bg-zinc-100/80 dark:bg-zinc-800 dark:text-white border-solid text-black w-full border border-zinc-400 dark:border-zinc-600 focus:border-tree-500 rounded"
+       tabindex="0"
+       (keydown)="onTriggerKeyDown($event)">
+    @if (selectedItem) {
+    <span>{{ selectedItem.name }}</span>
+    } @else {
+    <span class="text-gray-500 dark:text-gray-400">{{ placeholder }}</span>
+    }
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="h-5 w-5 transition-transform"
+         [class.rotate-180]="isOpen"
+         fill="none"
+         viewBox="0 0 24 24"
+         stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </div>
+
+  @if (isOpen) {
+  <div class="absolute z-50 mt-1 w-full bg-white dark:bg-zinc-700 rounded-md shadow-lg max-h-60 overflow-auto">
+    <div class="sticky top-0 bg-white dark:bg-zinc-700 p-2 border-b border-gray-200 dark:border-gray-600">
+      <input #searchInput
+             type="text"
+             [(ngModel)]="searchTerm"
+             (input)="filterItems()"
+             (keydown)="onSearchKeyDown($event)"
+             class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-zinc-800 dark:text-white"
+             placeholder="Search..."
+             (click)="$event.stopPropagation()" />
+    </div>
+
+    <ul class="py-2">
+      @for (item of filteredItems; track item.id; let i = $index) {
+      <li (click)="selectItem(item)"
+          class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-zinc-600 cursor-pointer"
+          [class.bg-gray-100]="i === highlightedIndex"
+          [class.dark:bg-zinc-600]="i === highlightedIndex">
+        {{ item.name }}
+      </li>
+      } @empty {
+      <li class="px-4 py-2 text-gray-500 dark:text-gray-400">
+        No results found
+      </li>
+      }
+    </ul>
+  </div>
+  }
+</div>

@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 
 namespace EZFood.Infrastructure.Identity;
-
-public class ApplicationUser:IdentityUser<Guid>
+public class ApplicationUser : IdentityUser<Guid>
 {
     public virtual User? Profile { get; set; }
 }
