@@ -71,7 +71,13 @@ export class SidebarComponent {
       name: 'User Management',
       link: '/dashboard/users',
       icon: 'subtask',
-    }
+    },    
+    {
+      name: 'Cuisine Types',
+      link: '/dashboard/cuisine-types',
+      icon: 'bell-star',
+    },
+
 
   ];
 

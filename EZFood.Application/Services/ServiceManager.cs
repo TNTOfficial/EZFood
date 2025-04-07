@@ -16,6 +16,7 @@ public sealed class ServiceManager : IServiceManager
     private readonly Lazy<IEmailService> _emailService;
     private readonly Lazy<IAuthService> _authService;
     private readonly Lazy<IDataSeedService> _dataSeedService;
+    private readonly Lazy<ICuisineTypeService> _cuisineTypeService;
 
     public ServiceManager(EZFoodContext context,IRepositoryManager repositoryManager, 
         UserManager<ApplicationUser> userManager,RoleManager<IdentityRole<Guid>> roleManager, IConfiguration configuration, HttpClient httpClient)
@@ -26,12 +27,14 @@ public sealed class ServiceManager : IServiceManager
         _authService = new Lazy<IAuthService>(() => new AuthService(repositoryManager, userManager, _tokenService.Value, _emailService.Value)); 
         _dataSeedService = new Lazy<IDataSeedService>(() => new DataSeedService(context, userManager, roleManager,
             repositoryManager));
+        _cuisineTypeService = new Lazy<ICuisineTypeService>(() => new CuisineTypeService(repositoryManager));
     }
     public IUserService UserService => _userService.Value;
     public IEmailService EmailService => _emailService.Value;
     public ITokenService TokenService => _tokenService.Value;
     public IAuthService AuthService => _authService.Value;
     public IDataSeedService DataSeedService => _dataSeedService.Value;
+    public ICuisineTypeService CuisineTypeService => _cuisineTypeService.Value;
 
 
 }

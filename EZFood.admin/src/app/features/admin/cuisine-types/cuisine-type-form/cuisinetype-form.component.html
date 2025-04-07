@@ -1,0 +1,104 @@
+<div class="container mx-auto p-4">
+  <app-toast-container></app-toast-container>
+  <div class="mb-6">
+    <a [routerLink]="['/dashboard/pack-types']"
+       class="w-fit flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded shadow-sm text-sm font-medium text-white bg-zinc-600 hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500">
+      <i-lucide [img]="Undo2" class="size-5"></i-lucide>
+      <span>Back to cuisine types</span>
+    </a>
+  </div>
+
+  <div class="bg-white dark:bg-zinc-800 rounded-lg shadow p-6">
+    <h1 class="text-2xl font-bold mb-6 text-zinc-800 dark:text-white">
+      {{isEditMode() ? 'Edit Cuisine Type' : 'Create New Cuisine Type'}}
+    </h1>
+
+    @if(loading()){
+    <div class="flex justify-center items-center py-8">
+      <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-blue-600"></div>
+    </div>
+    }@else {
+    <form [formGroup]="packtypeForm" (ngSubmit)="onSubmit()" class="space-y-6">
+
+      <div class="flex gap-5 flex-wrap justify-center items-stretch">
+        <!-- Name -->
+
+        <div class="flex-[1_1_400px]">
+          <label for="name" class="inline-block mb-1 text-sm font-bold text-zinc-700 dark:text-zinc-200">
+            Name <span class="text-red-500">*</span>
+          </label>
+          <div class="w-full">
+            <input type="text" id="name" formControlName="name" placeholder="Enter PackType Name "
+                   class="px-4 py-4 pe-10 text-base bg-zinc-100/80 dark:bg-zinc-900 dark:text-white border-solid text-black w-full border border-zinc-300 dark:border-zinc-600 focus:border-zinc-500 rounded outline-none"
+                   [ngClass]="{'border-red-500': packtypeForm.get('name')?.invalid && packtypeForm.get('name')?.touched}" />
+            @if (packtypeForm.get('name')?.invalid && packtypeForm.get('name')?.touched) {
+            <p class="mt-1 text-sm text-red-500">
+              @if (packtypeForm.get('name')?.errors?.['required']) {
+              Name is required
+              } @else if (packtypeForm.get('name')?.errors?.['maxlength']) {
+              Name cannot exceed 30 characters
+              }
+            </p>
+            }
+          </div>
+        </div>
+
+
+        <!-- Description -->
+        <div class="flex-[1_1_400px] min-w-full">
+          <label for="description" class="inline-block mb-1 text-sm font-bold text-zinc-700 dark:text-zinc-200">
+            Description
+          </label>
+          <div class="w-full">
+            <textarea id="description" formControlName="description" placeholder="Enter Description"
+                      class="px-4 py-4 pe-10 text-base bg-zinc-100/80 dark:bg-zinc-900 dark:text-white border-solid text-black w-full border border-zinc-300 dark:border-zinc-600 focus:border-zinc-500 rounded outline-none"
+                      [ngClass]="{'border-red-500': packtypeForm.get('description')?.invalid && packtypeForm.get('description')?.touched}"></textarea>
+            @if (packtypeForm.get('description')?.invalid && packtypeForm.get('description')?.touched) {
+            <p class="mt-1 text-sm text-red-500">
+              Description cannot exceed 200 characters
+            </p>
+            }
+          </div>
+        </div>      
+
+        <!-- Status -->
+        <div class="flex-[1_1_400px]">
+          <label for="status" class="inline-block mb-1 text-sm font-bold text-zinc-700 dark:text-zinc-200">
+            Status
+          </label>
+          <div class="md:col-span-2">
+            <label class="inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="status" formControlName="status" class="sr-only peer">
+              <div class="relative w-11 h-6 bg-zinc-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-zinc-300 dark:peer-focus:ring-zinc-800 rounded-full peer dark:bg-zinc-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-zinc-600 peer-checked:bg-zinc-600">
+              </div>
+              <span class="ml-3 text-base font-bold text-zinc-600 dark:text-zinc-300">
+                {{ packtypeForm.get('status')?.value ? 'Active' : 'Inactive' }}
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Submit buttons -->
+        <div class="flex justify-end pt-4 gap-3 flex-[1_1_400px]">
+          <a [routerLink]="['/dashboard/pack-types']"
+             class="w-fit flex justify-center items-center gap-2 py-3 px-5 border border-zinc-400 dark:border-zinc-700 rounded shadow-sm text-sm font-medium text-black dark:text-white bg-transparent hover:bg-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500">
+            Cancel
+          </a>
+          <button type="submit" [disabled]="submitting()"
+                  class="w-fit flex justify-center items-center gap-2 py-3 px-5 border border-transparent rounded shadow-sm text-sm font-medium text-white bg-zinc-600 hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500">
+            @if (submitting()) {
+            <span class="flex items-center">
+              <span class="w-4 h-4 mr-2 border-2 border-white rounded-full animate-spin border-t-transparent"></span>
+              Saving...
+            </span>
+            } @else {
+            {{ isEditMode() ? 'Update' : 'Create' }}
+            }
+          </button>
+        </div>
+
+      </div>
+    </form>
+    }
+  </div>
+</div>

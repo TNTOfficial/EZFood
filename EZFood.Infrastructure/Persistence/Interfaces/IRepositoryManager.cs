@@ -3,6 +3,7 @@ public interface IRepositoryManager
 {
     Task<T> ExecuteScalarAsync<T>(string sql);
     IUserRepository User { get; }
+    ICuisineTypeRepository CuisineType { get; }
     Task SaveAsync();
 }
 

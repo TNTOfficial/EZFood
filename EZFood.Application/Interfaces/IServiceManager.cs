@@ -6,4 +6,5 @@ public interface IServiceManager
     IAuthService AuthService { get; }
     IEmailService EmailService { get; }
     IDataSeedService DataSeedService { get; }
+    ICuisineTypeService CuisineTypeService { get; }
 }

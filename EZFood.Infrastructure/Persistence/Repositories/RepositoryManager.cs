@@ -9,15 +9,12 @@ public sealed class RepositoryManager(EZFoodContext context):IRepositoryManager
 {
     private readonly EZFoodContext _context = context;
     private readonly Lazy<IUserRepository> userRepository = new(() => new UserRepository(context));
-    
-
-
-
-
+    private readonly Lazy<ICuisineTypeRepository> cuisineTypeRepository = new(() => new CuisineTypeRepository(context));
 
 
     public IUserRepository User => userRepository.Value;
-    
+    public ICuisineTypeRepository CuisineType => cuisineTypeRepository.Value;
+
     public async Task<T> ExecuteScalarAsync<T>(string sql)
     {
         var connection = _context.Database.GetDbConnection();

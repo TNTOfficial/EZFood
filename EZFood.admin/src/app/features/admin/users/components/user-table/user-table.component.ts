@@ -24,11 +24,4 @@ export class UserTableComponent {
     this.viewUser.emit(userId);
   }
 
-  getUserLocationInfo(user: UserDetail): string {
-    const cityName = user.city?.name || '';
-    const stateName = user.city?.state?.name || '';
-    const country = user.country || '';
-    const parts = [cityName, stateName, country].filter(part => part.trim() !== '');
-    return parts.join(', ');
-  }
 }

@@ -28,6 +28,32 @@ export const ADMIN_ROUTES: Routes = [
           },
         ]
       },
+      {
+        path: "cuisine-types",
+        children: [
+          {
+            path: "",
+            loadComponent: () => import("../admin/cuisine-types/cuisine-types.component").then(
+              p => p.CuisineTypesComponent)
+          },
+          {
+            path: "create",
+            loadComponent: () => import("./cuisine-types/cuisine-type-form/cuisinetype-form.component")
+              .then(p => p.CuisineTypeFormComponent)
+
+          },
+          {
+            path: "edit/:id",
+            loadComponent: () => import("./cuisine-types/cuisine-type-form/cuisinetype-form.component").then(
+              p => p.CuisineTypeFormComponent
+            )
+          }
+
+        ]
+
+        
+
+      },
     ]
   }
 ]

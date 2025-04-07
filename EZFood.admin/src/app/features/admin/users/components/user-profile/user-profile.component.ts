@@ -58,17 +58,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  getUserLocationInfo(): string {
-    if (!this.user()) return '';
-
-    const user = this.user()!;
-    const cityName = user.city?.name || '';
-    const stateName = user.city?.state?.name || '';
-    const country = user.country || '';
-
-    const parts = [cityName, stateName, country].filter(part => part.trim() !== '');
-    return parts.join(', ');
-  }
+ 
   editUser(): void {
     if (this.user()) {
       this.router.navigate(['/dashboard/users', this.user()!.id, 'edit']);

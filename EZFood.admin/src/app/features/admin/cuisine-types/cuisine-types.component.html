@@ -1,0 +1,67 @@
+<div class="container mx-auto p-4">
+  <app-toast-container></app-toast-container>
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Cuisine Types</h1>
+    <a [routerLink]="['/dashboard/cuisine-types/create']"
+       class="w-fit flex justify-center items-center gap-2 py-3 px-4 text-nowrap border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-600 hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500">
+      <i-lucide [img]="Plus" class="size-5"></i-lucide>
+      <span>Add New Cuisine Type</span>
+    </a>
+  </div>
+
+  @if (loading()) {
+  <div class="flex justify-center items-center py-8">
+    <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-zinc-600"></div>
+  </div>
+  } @else if (cuisineTypes().length === 0) {
+  <div class="bg-white dark:bg-zinc-800 rounded shadow p-6 text-center">
+    <p class="text-gray-600 dark:text-gray-300">
+      No cuisine type found. Create your first cuisine type by clicking the 'Add New
+      cuisine type' button.
+    </p>
+  </div>
+  }@else{
+  <div class="bg-white dark:bg-zinc-800 rounded shadow overflow-x-auto">
+    <table class="min-w-full">
+      <thead>
+        <tr class="bg-gray-100 dark:bg-zinc-700 text-left">
+          <th class="py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-300 text-nowrap">Name</th>
+          <th class="py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-300 text-nowrap">Description</th>
+          <th class="py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-300 text-nowrap">Status</th>
+          <th class="py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-300 text-nowrap">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(packtype of cuisineTypes(); track packtype.id){
+        <tr class="border-t border-gray-200 dark:border-zinc-700">
+
+          <td class="py-3 px-4 text-nowrap text-gray-800 dark:text-gray-200">{{ packtype.name }}</td>
+          <td class="py-3 px-4 text-nowrap text-gray-800 dark:text-gray-200">{{ packtype.description }}</td>
+          <td class="py-3 px-4 text-nowrap text-gray-800 dark:text-gray-200">{{ packtype.status ? 'Active' : 'Inactive' }}</td>
+
+          <td class="py-3 px-4 text-nowrap whitespace-nowrap">
+            <div class="flex items-center gap-2">
+              <a [routerLink]="['/dashboard/cuisine-types/edit', packtype.id]"
+                 class="text-white hover:text-white h-10 w-10 flex justify-center items-center rounded-full bg-zinc-600 relative z-0 cursor-pointer group">
+                <span class="text-sm text-black dark:text-white bg-zinc-50 dark:bg-zinc-600 border border-zinc-300 dark:border-zinc-800 py-1 px-2 rounded absolute -top-1/2 -left-1/2 z-[2] group-hover:visible invisible group-hover:opacity-100 opacity-0 transition-all duration-100">Edit</span>
+                <i-lucide [img]="Pencil" class="size-5"></i-lucide>
+              </a>
+              <button (click)="delete(packtype.id)" [disabled]="processingId() === packtype.id"
+                      class="text-white hover:text-white h-10 w-10 flex justify-center items-center rounded-full bg-red-500 relative z-0 cursor-pointer group">
+                <span class="text-sm text-black dark:text-white bg-zinc-50 dark:bg-zinc-600 border border-zinc-300 dark:border-zinc-800 py-1 px-2 rounded absolute -top-1/2 -left-1/2 z-[2] group-hover:visible invisible group-hover:opacity-100 opacity-0 transition-all duration-100">
+                  @if (processingId() === packtype.id) {
+                  <span class="inline-block w-4 h-4 border-2 border-white rounded-full animate-spin border-t-transparent"></span>
+                  } @else {
+                  Delete
+                  }
+                </span>
+                <i-lucide [img]="Trash" class="size-5"></i-lucide>
+              </button>
+            </div>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  }
+</div>

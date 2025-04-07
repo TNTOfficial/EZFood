@@ -10,6 +10,7 @@ public class EZFoodContext(DbContextOptions<EZFoodContext> options) :
     IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>(options)
 {
     public DbSet<User> UserProfile { get; set; }
+    public DbSet<CuisineType> CuisineTypes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
