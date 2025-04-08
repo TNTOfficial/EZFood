@@ -36,8 +36,8 @@ public class AuthController(IServiceManager serviceManager) : ControllerBase
     {
         try
         {
-            string token = await _serviceManager.AuthService.LoginAsync(loginRequest);
-            return Ok(new { success = true, token });
+           var (token, name) = await _serviceManager.AuthService.LoginAsync(loginRequest);
+            return Ok(new { success = true, name, token });
         }
         catch (Exception ex)
         {

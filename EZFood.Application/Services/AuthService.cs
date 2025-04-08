@@ -20,14 +20,14 @@ public class AuthService(IRepositoryManager repositoryManager,UserManager<Applic
     private readonly IEmailService _emailService = emailService;
 
 
-    public async Task<string> LoginAsync(LoginRequestDto loginRequest)
+    public async Task<(string token, string name)> LoginAsync(LoginRequestDto loginRequest)
     {
          (ApplicationUser appUser,User userProfile) = await GetUserAsync(loginRequest.Email);
 
         if (!await _userManager.CheckPasswordAsync(appUser, loginRequest.Password))
             throw new EZFoodException("Invalid credentials");
 
-        return await _tokenService.GenerateJwtTokenAsync(appUser, userProfile);
+        return  (await _tokenService.GenerateJwtTokenAsync(appUser, userProfile), userProfile.Name);
     }
 
     public async Task<RegistrationResponseDto> RegisterUser(UserForRegistrationDto registrationDto)
