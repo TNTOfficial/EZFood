@@ -1,0 +1,18 @@
+﻿
+using EZFood.Domain.Entities.Models;
+
+namespace EZFood.Infrastructure.Persistence.Interfaces;
+
+public interface ITruckDetailRepository : IReposioryBase<TruckDetail>
+{
+    Task<IEnumerable<TruckDetail>>GetAllTruckDetailsAsync();
+    Task<TruckDetail?> GetTruckDetailByIdAsync(Guid id);
+     void CreateTruckDetailAsync(TruckDetail truckDetail);
+    void UpdateTruckDetailAsync(TruckDetail truckDetail);
+    Task<bool> DeleteTruckDetailAsync(Guid id);
+    Task<bool> TruckDetailExistsAsync(Guid id);
+    Task<IEnumerable<TruckDetail>> GetActiveTruckDetaisAsync();
+    Task<IEnumerable<TruckDetail>> GetPendingTruckDetaisAsync();
+    Task<IEnumerable<TruckDetail>> GetRejectedTruckDetaisAsync();
+
+}
