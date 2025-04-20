@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api-ezfood.myvedaan.com/api',
-  assetsUrl: 'https://api-ezfood.myvedaan.com/',
+  apiUrl: 'http://143.198.101.124:5000/api',
+  assetsUrl: 'http://143.198.101.124:5000/',
 };
