@@ -25,7 +25,7 @@ public class DataSeedService(
     public async Task<User?> SeedAdminUserAsync()
     {
         await SeedRolesAsync(_roleManager);
-        var existingAdminUser = await _userManager.FindByEmailAsync("admin.vedaant@gmail.com");
+        var existingAdminUser = await _userManager.FindByEmailAsync("itsupport@ezfoodtrucks.com");
         // Check if admin already exists
         if (existingAdminUser != null)
         {
@@ -39,7 +39,7 @@ public class DataSeedService(
             {
                 Id = Guid.NewGuid(),
                 UserName = "Admin",
-                Email = "admin.ezfood@gmail.com",
+                Email = "itsupport@ezfoodtrucks.com",
                 PhoneNumber = "9876543210",
                 PhoneNumberConfirmed = true,
                 EmailConfirmed = true
@@ -59,7 +59,7 @@ public class DataSeedService(
             Id = Guid.NewGuid(),
             IdentityUserId = adminIdentityUser.Id,
             Name = "Admin",
-            Email = "admin.ezfood@gmail.com",
+            Email = "itsupport@ezfoodtrucks.com",
             PhoneNumber = "9876543210",
             Status = true,
             CreatedAt = DateTime.UtcNow

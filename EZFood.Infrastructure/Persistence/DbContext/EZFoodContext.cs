@@ -1,4 +1,5 @@
-﻿using EZFood.Domain.Entities.Models;
+﻿using System.Reflection.Emit;
+using EZFood.Domain.Entities.Models;
 using EZFood.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -36,7 +37,12 @@ public class EZFoodContext(DbContextOptions<EZFoodContext> options) :
             entity.HasKey(u => u.Id);
             entity.HasIndex(u => u.BusinessEmail).IsUnique(true);
             entity.HasIndex(e => e.PhoneNumber).IsUnique(true);
+            entity.HasMany(s => s.CuisineTypes) // Student can enroll in many Courses
+                .WithMany(c => c.TruckDetails) // Course can have many Students
+                .UsingEntity(j => j.ToTable("TruckDetailCuisineTypes"));
         });
+        
+
 
     }
 }

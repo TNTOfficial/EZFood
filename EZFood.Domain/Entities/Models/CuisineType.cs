@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace EZFood.Domain.Entities.Models;
 
@@ -12,5 +13,6 @@ public class CuisineType
     [MaxLength(200, ErrorMessage = "Maximum length for Description is 200 characters.")]
     public string? Description { get; set; }
     public bool Status { get; set; } = true;
+    public List<TruckDetail> TruckDetails { get; } = [];
 
 }

@@ -26,12 +26,13 @@ public class TruckDetail
     public required string BusinessEmail { get; set; }
     [MaxLength(200, ErrorMessage = "maximum length for address name is 200 characters")]
     public required string Address { get; set; }
+    public bool IsOtherCuisine { get; set; } = false;
 
     [MaxLength(200, ErrorMessage = "Maximum length for Description is 200 characters.")]
     public string? CuisineNote { get; set; }
     [MaxLength(200, ErrorMessage = "Maximum length for Description is 200 characters.")]
     public string? BusinessDescription { get; set; }
-    public int BussinessStartYear { get; set; }
+    public int? BussinessStartYear { get; set; }
     [MaxLength(15, ErrorMessage = "maximum length for EIN is 15 characters")]
     [Required]
     public required string EIN { get; set; }
@@ -64,8 +65,7 @@ public class TruckDetail
 
     [JsonIgnore]
     public virtual User? User { get; set; }
-    [JsonIgnore]
-    public virtual ICollection<TruckCuisineType>? TruckCuisines { get; set; }
+    public List<CuisineType> CuisineTypes { get; } = [];
     [NotMapped]
     public virtual List<string>? ImageList
     {
