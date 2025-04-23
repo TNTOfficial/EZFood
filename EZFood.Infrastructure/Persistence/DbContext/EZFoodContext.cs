@@ -13,6 +13,7 @@ public class EZFoodContext(DbContextOptions<EZFoodContext> options) :
     public DbSet<User> UserProfile { get; set; }
     public DbSet<CuisineType> CuisineTypes { get; set; }
     public DbSet<TruckDetail> TruckDetails { get; set; }
+    public DbSet<CuisineTypeTruckDetail> TruckDetailCuisineTypes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -32,6 +33,7 @@ public class EZFoodContext(DbContextOptions<EZFoodContext> options) :
             entity.HasIndex(e => e.PhoneNumber).IsUnique(true);            
         });
 
+        builder.Entity<CuisineTypeTruckDetail>().HasKey(table => new { table.CuisineTypesId, table.TruckDetailsId });
         builder.Entity<TruckDetail>(entity =>
         {
             entity.HasKey(u => u.Id);
@@ -39,9 +41,10 @@ public class EZFoodContext(DbContextOptions<EZFoodContext> options) :
             entity.HasIndex(e => e.PhoneNumber).IsUnique(true);
             entity.HasMany(s => s.CuisineTypes) // Student can enroll in many Courses
                 .WithMany(c => c.TruckDetails) // Course can have many Students
-                .UsingEntity(j => j.ToTable("TruckDetailCuisineTypes"));
+                .UsingEntity<CuisineTypeTruckDetail>();
         });
-        
+
+
 
 
     }

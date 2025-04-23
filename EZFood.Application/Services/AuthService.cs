@@ -36,7 +36,7 @@ public class AuthService(IRepositoryManager repositoryManager,UserManager<Applic
         return  (await _tokenService.GenerateJwtTokenAsync(appUser, userProfile), userDto);
     }
 
-    public async Task<RegistrationResponseDto> RegisterUser(UserForRegistrationDto registrationDto)
+    public async Task<RegistrationResponseDto> RegisterUser(UserForRegistrationDto registrationDto, bool isSeller = false)
     {
 
         // Use a transaction scope to ensure all operations succeed or fail together
@@ -61,8 +61,9 @@ public class AuthService(IRepositoryManager repositoryManager,UserManager<Applic
                          identityResult.Errors.Select(e => e.Description).ToArray());
             }
 
-            // 2. Assign User Role
-            await _userManager.AddToRoleAsync(identityUser, Roles.User);
+            // 2. Assign Role
+            
+            await _userManager.AddToRoleAsync(identityUser, isSeller ? Roles.Seller : Roles.User);
 
             // 3. Create user profile
             User user = CreateUserEntity(registrationDto, identityUser.Id);

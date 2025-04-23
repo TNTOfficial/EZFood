@@ -34,8 +34,7 @@ public class TruckDetail
     public string? BusinessDescription { get; set; }
     public int? BussinessStartYear { get; set; }
     [MaxLength(15, ErrorMessage = "maximum length for EIN is 15 characters")]
-    [Required]
-    public required string EIN { get; set; }
+    public string? EIN { get; set; }
     public bool IsBreakfast { get; set; } = false;
     public bool IsLunch { get; set; } = false;
     public bool IsDinner { get; set; } = false;
@@ -65,7 +64,7 @@ public class TruckDetail
 
     [JsonIgnore]
     public virtual User? User { get; set; }
-    public List<CuisineType> CuisineTypes { get; } = [];
+    public List<CuisineType> CuisineTypes { get; set; } = [];
     [NotMapped]
     public virtual List<string>? ImageList
     {

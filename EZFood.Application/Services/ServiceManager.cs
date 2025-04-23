@@ -4,6 +4,7 @@ using EZFood.Application.Services;
 using EZFood.Infrastructure.Identity;
 using EZFood.Infrastructure.Persistence.DbContext;
 using EZFood.Infrastructure.Persistence.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 
@@ -19,7 +20,7 @@ public sealed class ServiceManager : IServiceManager
     private readonly Lazy<ICuisineTypeService> _cuisineTypeService;
     private readonly Lazy<ITruckDetailService> _truckDetailService;
 
-    public ServiceManager(EZFoodContext context,IRepositoryManager repositoryManager, 
+    public ServiceManager(EZFoodContext context,IRepositoryManager repositoryManager, IHttpContextAccessor httpContextAccessor,
         UserManager<ApplicationUser> userManager,RoleManager<IdentityRole<Guid>> roleManager, IConfiguration configuration, HttpClient httpClient)
     {
         _userService = new Lazy<IUserService>(() => new UserService(repositoryManager, userManager));
@@ -29,7 +30,7 @@ public sealed class ServiceManager : IServiceManager
         _dataSeedService = new Lazy<IDataSeedService>(() => new DataSeedService(context, userManager, roleManager,
             repositoryManager));
         _cuisineTypeService = new Lazy<ICuisineTypeService>(() => new CuisineTypeService(repositoryManager));
-        _truckDetailService = new Lazy<ITruckDetailService>(() => new TruckDetailService(repositoryManager));
+        _truckDetailService = new Lazy<ITruckDetailService>(() => new TruckDetailService(repositoryManager, httpContextAccessor));
     }
     public IUserService UserService => _userService.Value;
     public IEmailService EmailService => _emailService.Value;

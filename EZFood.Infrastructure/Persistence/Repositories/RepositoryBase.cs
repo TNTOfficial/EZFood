@@ -18,4 +18,6 @@ public abstract class RepositoryBase<T>(EZFoodContext context):IReposioryBase<T>
     public void Create(T entity) => _context.Set<T>().Add(entity);
     public void Update(T entity) => _context.Set<T>().Update(entity);
     public void Delete(T entity) => _context.Set<T>().Remove(entity);
+
+    public void DeleteMany(List<T> entities) => entities.ForEach(x => _context.Set<T>().Remove(x)); 
 }

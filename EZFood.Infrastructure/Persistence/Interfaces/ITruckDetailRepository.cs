@@ -7,7 +7,8 @@ public interface ITruckDetailRepository : IReposioryBase<TruckDetail>
 {
     Task<IEnumerable<TruckDetail>>GetAllTruckDetailsAsync();
     Task<TruckDetail?> GetTruckDetailByIdAsync(Guid id);
-     void CreateTruckDetailAsync(TruckDetail truckDetail);
+    Task<TruckDetail?> getTruckDetailByUserAsync(Guid id);
+    void CreateTruckDetailAsync(TruckDetail truckDetail);
     void UpdateTruckDetailAsync(TruckDetail truckDetail);
     Task<bool> DeleteTruckDetailAsync(Guid id);
     Task<bool> TruckDetailExistsAsync(Guid id);

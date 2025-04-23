@@ -6,10 +6,13 @@ using Microsoft.Extensions.Logging;
 using EZFood.Application.Interfaces;
 using EZFood.Domain.Entities.Models;
 using EZFood.Shared.Dtos.CuisineType;
+using EZFood.Shared.Dtos.TruckDetail;
+using EZFood.Domain.Entities.Enums;
 
 namespace MLM.Presentation.Controllers;
 
 [ApiController]
+[Authorize(Roles = "Seller")]
 [Route("api/truck-details")]
 public class TruckDetailsController(IServiceManager serviceManager, ILogger<TruckDetailsController> logger) : ControllerBase
 {
@@ -53,22 +56,46 @@ public class TruckDetailsController(IServiceManager serviceManager, ILogger<Truc
 
     }
 
-    [HttpPost]
-    public async Task<ActionResult<TruckDetail>> CreateTruckDetail([FromBody] CreateTruckDetailDto truckDetailDto)
+    [HttpPost("step-one-data")]
+    public async Task<ActionResult<TruckDetail>> CreateStepOne([FromBody] CreateStepOneDto detailDto)
     {
         try
         {
-            TruckDetail? truckDetail = await _serviceManager.TruckDetailService.CreateTruckDetailAsync(truckDetailDto);
-            return Ok(truckDetail);
+            StepResponseDto? response = await _serviceManager.TruckDetailService.CreateStepOneAsync(detailDto);
+            return Ok(response);
         }
         catch (Exception ex) {
-            _logger.LogError(ex, "Error creating truck detail");
-            return StatusCode(500, "An error occurred while creating truck detail.");
-
-        }
-            
+            _logger.LogError(ex, "Error creating/updating truck detail step 1");
+            return Ok(new StepResponseDto
+            {
+                Result = false,
+                OnboardingStatus = OnboardingStatus.Step1,
+                Message = ex.Message
+            });
+        }            
     }
-       
+
+
+    [HttpPost("step-two-data")]
+    public async Task<ActionResult<TruckDetail>> CreateStepTwo([FromBody] CreateStepTwoDto detailDto)
+    {
+        try
+        {
+            StepResponseDto? response = await _serviceManager.TruckDetailService.CreateStepTwoAsync(detailDto);
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error creating/updating truck detail step 1");
+            return Ok(new StepResponseDto
+            {
+                Result = false,
+                OnboardingStatus = OnboardingStatus.Step1,
+                Message = ex.Message
+            });
+        }
+    }
+
 
     [HttpPut("{id}")]
     public async Task<ActionResult<TruckDetail>> UpdateTruckDetail(Guid id,

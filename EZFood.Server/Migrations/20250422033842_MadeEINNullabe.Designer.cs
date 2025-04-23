@@ -4,6 +4,7 @@ using EZFood.Infrastructure.Persistence.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EZFood.Server.Migrations
 {
     [DbContext(typeof(EZFoodContext))]
-    partial class EZFoodContextModelSnapshot : ModelSnapshot
+    [Migration("20250422033842_MadeEINNullabe")]
+    partial class MadeEINNullabe
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,7 +60,7 @@ namespace EZFood.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CuisineTypes", (string)null);
+                    b.ToTable("CuisineTypes");
                 });
 
             modelBuilder.Entity("EZFood.Domain.Entities.Models.TruckDetail", b =>
@@ -182,7 +185,7 @@ namespace EZFood.Server.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TruckDetails", (string)null);
+                    b.ToTable("TruckDetails");
                 });
 
             modelBuilder.Entity("EZFood.Domain.Entities.Models.User", b =>
@@ -238,7 +241,7 @@ namespace EZFood.Server.Migrations
                     b.HasIndex("PhoneNumber")
                         .IsUnique();
 
-                    b.ToTable("UserProfile", (string)null);
+                    b.ToTable("UserProfile");
                 });
 
             modelBuilder.Entity("EZFood.Infrastructure.Identity.ApplicationUser", b =>

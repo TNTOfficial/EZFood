@@ -26,13 +26,13 @@ public class AuthController(IServiceManager serviceManager) : ControllerBase
         {
             return BadRequest(ModelState);
         }
-        RegistrationResponseDto user = await _serviceManager.AuthService.RegisterUser(registrationDto);
+        RegistrationResponseDto user = await _serviceManager.AuthService.RegisterUser(registrationDto, true);
         return Ok(user);
     }
 
 
     [HttpPost("login")]
-    public async Task<ActionResult<string>> Login([FromBody] LoginRequestDto loginRequest)
+    public async Task<IActionResult> Login([FromBody] LoginRequestDto loginRequest)
     {
         try
         {
