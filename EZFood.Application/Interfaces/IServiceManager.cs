@@ -8,4 +8,5 @@ public interface IServiceManager
     IDataSeedService DataSeedService { get; }
     ICuisineTypeService CuisineTypeService { get; }
     ITruckDetailService TruckDetailService { get; }
+    //IFileStorageService FileStorageService { get; }
 }

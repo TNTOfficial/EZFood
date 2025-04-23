@@ -8,6 +8,7 @@ using EZFood.Domain.Entities.Enums;
 using Microsoft.AspNetCore.Http;
 using AutoMapper;
 using EZFood.Shared.Dtos.TruckDetail;
+using MLM.Application.Services;
 
 namespace EZFood.Application.Services;
 
@@ -17,11 +18,13 @@ public class TruckDetailService : ITruckDetailService
     private readonly IRepositoryManager _repositoryManager;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private Guid _userId = Guid.Empty;
+    private readonly IFileStorageService _fileStorageService;
 
-    public TruckDetailService(IRepositoryManager repositoryManager, IHttpContextAccessor httpContextAccessor)
+    public TruckDetailService(IRepositoryManager repositoryManager, IHttpContextAccessor httpContextAccessor, IFileStorageService fileStorageService)
     {
         _repositoryManager = repositoryManager;
         _httpContextAccessor = httpContextAccessor;
+        _fileStorageService = fileStorageService;
         string? userId = _httpContextAccessor.HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "userId")?.Value;
         if (userId != null)
         {
@@ -107,6 +110,8 @@ public class TruckDetailService : ITruckDetailService
              
             existingTruck.IsOtherCuisine = detailDto.IsOtherCuisine;
             existingTruck.CuisineNote = detailDto.IsOtherCuisine ? detailDto.CuisineNote : null;
+
+            existingTruck.OnboardingStatus = OnboardingStatus.Step3;
             existingTruck.UpdatedAt = DateTime.UtcNow;
             if(cuisines != null)
             {
@@ -132,6 +137,80 @@ public class TruckDetailService : ITruckDetailService
             };
         }
 
+    }
+
+    public async Task<StepResponseDto> CreateStepThreeAsync(CreateStepThreeDto detailDto)
+    {
+        TruckDetail? existingTruck = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
+        if (existingTruck != null)
+        {
+            if (detailDto.COI is not null)
+            {
+                if (!string.IsNullOrEmpty(existingTruck.COI))
+                {
+                    _fileStorageService.DeleteFile(existingTruck.COI);
+                }
+                string subDirectory = $"documents/COI";
+                existingTruck.COI = await _fileStorageService.SaveFileAsync(detailDto.COI!, subDirectory, "coi");
+            }
+
+            if (detailDto.W9 is not null)
+            {
+                if (!string.IsNullOrEmpty(existingTruck.W9))
+                {
+                    _fileStorageService.DeleteFile(existingTruck.W9);
+                }
+                string subDirectory = $"documents/W9";
+                existingTruck.W9 = await _fileStorageService.SaveFileAsync(detailDto.W9!, subDirectory, "W9");
+            }
+
+            if (detailDto.DCHCertificate is not null)
+            {
+                if (!string.IsNullOrEmpty(existingTruck.DCHCertificate))
+                {
+                    _fileStorageService.DeleteFile(existingTruck.DCHCertificate);
+                }
+                string subDirectory = $"documents/DCHCertificate";
+                existingTruck.DCHCertificate = await _fileStorageService.SaveFileAsync(detailDto.DCHCertificate!, subDirectory, "DCHCertificate");
+            }
+
+            if (detailDto.ServeSafeCertificate is not null)
+            {
+                if (!string.IsNullOrEmpty(existingTruck.ServeSafeCertificate))
+                {
+                    _fileStorageService.DeleteFile(existingTruck.ServeSafeCertificate);
+                }
+                string subDirectory = $"documents/ServeSafeCertificate";
+                existingTruck.ServeSafeCertificate = await _fileStorageService.SaveFileAsync(detailDto.ServeSafeCertificate!, subDirectory, "ServeSafeCertificate");
+            }
+
+            existingTruck.BusinessDescription = detailDto.BusinessDescription;
+            existingTruck.BussinessStartYear = detailDto.BussinessStartYear;
+            existingTruck.EIN = detailDto.EIN;
+            existingTruck.IsBreakfast = detailDto.IsBreakfast;
+            existingTruck.IsLunch = detailDto.IsLunch;
+            existingTruck.IsDinner = detailDto.IsDinner;
+            existingTruck.MinimumGuaranteeAmount = detailDto.MinimumGuaranteeAmount;
+            existingTruck.OnboardingStatus = OnboardingStatus.Step4;
+            existingTruck.UpdatedAt = DateTime.UtcNow;
+            
+            _repositoryManager.TruckDetail.Update(existingTruck);
+            await _repositoryManager.SaveAsync();
+            return new StepResponseDto
+            {
+                OnboardingStatus = OnboardingStatus.Step4,
+                Message = "Step 3 details updated successfully."
+            };
+        }
+        else
+        {
+            return new StepResponseDto
+            {
+                Result = false,
+                OnboardingStatus = OnboardingStatus.Step3,
+                Message = "Step 3 details could not be updated."
+            };
+        }
     }
 
 

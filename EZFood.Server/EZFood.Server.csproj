@@ -25,4 +25,8 @@
     <ProjectReference Include="..\EZFood.Presentation\EZFood.Presentation.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="uploads\documents\" />
+  </ItemGroup>
+
 </Project>

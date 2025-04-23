@@ -4,9 +4,11 @@ using EZFood.Application.Services;
 using EZFood.Infrastructure.Identity;
 using EZFood.Infrastructure.Persistence.DbContext;
 using EZFood.Infrastructure.Persistence.Interfaces;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using MLM.Application.Services;
 
 namespace EZFood.Application.Services;
 
@@ -19,9 +21,10 @@ public sealed class ServiceManager : IServiceManager
     private readonly Lazy<IDataSeedService> _dataSeedService;
     private readonly Lazy<ICuisineTypeService> _cuisineTypeService;
     private readonly Lazy<ITruckDetailService> _truckDetailService;
+    private readonly Lazy<IFileStorageService> _fileStorageService;
 
     public ServiceManager(EZFoodContext context,IRepositoryManager repositoryManager, IHttpContextAccessor httpContextAccessor,
-        UserManager<ApplicationUser> userManager,RoleManager<IdentityRole<Guid>> roleManager, IConfiguration configuration, HttpClient httpClient)
+        UserManager<ApplicationUser> userManager,RoleManager<IdentityRole<Guid>> roleManager, IConfiguration configuration, HttpClient httpClient, IWebHostEnvironment environment)
     {
         _userService = new Lazy<IUserService>(() => new UserService(repositoryManager, userManager));
         _emailService = new Lazy<IEmailService>(() => new EmailService(configuration));
@@ -30,7 +33,8 @@ public sealed class ServiceManager : IServiceManager
         _dataSeedService = new Lazy<IDataSeedService>(() => new DataSeedService(context, userManager, roleManager,
             repositoryManager));
         _cuisineTypeService = new Lazy<ICuisineTypeService>(() => new CuisineTypeService(repositoryManager));
-        _truckDetailService = new Lazy<ITruckDetailService>(() => new TruckDetailService(repositoryManager, httpContextAccessor));
+        _truckDetailService = new Lazy<ITruckDetailService>(() => new TruckDetailService(repositoryManager, httpContextAccessor, _fileStorageService.Value)); 
+        _fileStorageService = new Lazy<IFileStorageService>(() => new FileStorageService(environment, configuration));
     }
     public IUserService UserService => _userService.Value;
     public IEmailService EmailService => _emailService.Value;
@@ -39,6 +43,7 @@ public sealed class ServiceManager : IServiceManager
     public IDataSeedService DataSeedService => _dataSeedService.Value;
     public ICuisineTypeService CuisineTypeService => _cuisineTypeService.Value;
     public ITruckDetailService TruckDetailService => _truckDetailService.Value;
+    public IFileStorageService FileStorageService => _fileStorageService.Value;
 
 
 }
