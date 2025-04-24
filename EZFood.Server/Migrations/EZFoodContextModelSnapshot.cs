@@ -22,21 +22,6 @@ namespace EZFood.Server.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CuisineTypeTruckDetail", b =>
-                {
-                    b.Property<Guid>("CuisineTypesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TruckDetailsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("CuisineTypesId", "TruckDetailsId");
-
-                    b.HasIndex("TruckDetailsId");
-
-                    b.ToTable("TruckDetailCuisineTypes", (string)null);
-                });
-
             modelBuilder.Entity("EZFood.Domain.Entities.Models.CuisineType", b =>
                 {
                     b.Property<Guid>("Id")
@@ -57,7 +42,22 @@ namespace EZFood.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CuisineTypes", (string)null);
+                    b.ToTable("CuisineTypes");
+                });
+
+            modelBuilder.Entity("EZFood.Domain.Entities.Models.CuisineTypeTruckDetail", b =>
+                {
+                    b.Property<Guid>("CuisineTypesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TruckDetailsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CuisineTypesId", "TruckDetailsId");
+
+                    b.HasIndex("TruckDetailsId");
+
+                    b.ToTable("TruckDetailCuisineTypes");
                 });
 
             modelBuilder.Entity("EZFood.Domain.Entities.Models.TruckDetail", b =>
@@ -182,7 +182,7 @@ namespace EZFood.Server.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TruckDetails", (string)null);
+                    b.ToTable("TruckDetails");
                 });
 
             modelBuilder.Entity("EZFood.Domain.Entities.Models.User", b =>
@@ -238,7 +238,7 @@ namespace EZFood.Server.Migrations
                     b.HasIndex("PhoneNumber")
                         .IsUnique();
 
-                    b.ToTable("UserProfile", (string)null);
+                    b.ToTable("UserProfile");
                 });
 
             modelBuilder.Entity("EZFood.Infrastructure.Identity.ApplicationUser", b =>
@@ -438,19 +438,23 @@ namespace EZFood.Server.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CuisineTypeTruckDetail", b =>
+            modelBuilder.Entity("EZFood.Domain.Entities.Models.CuisineTypeTruckDetail", b =>
                 {
-                    b.HasOne("EZFood.Domain.Entities.Models.CuisineType", null)
+                    b.HasOne("EZFood.Domain.Entities.Models.CuisineType", "CuisineType")
                         .WithMany()
                         .HasForeignKey("CuisineTypesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EZFood.Domain.Entities.Models.TruckDetail", null)
+                    b.HasOne("EZFood.Domain.Entities.Models.TruckDetail", "TruckDetail")
                         .WithMany()
                         .HasForeignKey("TruckDetailsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("CuisineType");
+
+                    b.Navigation("TruckDetail");
                 });
 
             modelBuilder.Entity("EZFood.Domain.Entities.Models.TruckDetail", b =>
