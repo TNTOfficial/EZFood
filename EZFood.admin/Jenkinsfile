@@ -1,0 +1,33 @@
+pipeline {
+    agent { label 'ezfooddo' }
+
+    stages {
+        
+        stage('Git checkout') {
+            steps {
+                checkout scm
+            }
+        }
+     
+        stage('Build Docker Image') {
+            steps {
+				      dir('EZFood.admin') {
+					      sh 'docker build . -t ezfood-admin/ezfood-admin-dev'
+				      }
+              // sh 'NODE_ENV=devuction npm run build'
+            }
+        }
+    
+        stage('Run Docker Image') {
+            steps {
+                sh 'echo "Stopping Running ezfoodAdmin_dev container"'
+                sh 'docker stop ezfoodAdmin_dev || true'
+				        sh 'echo "Stopped Running ezfoodAdmin_dev container"'
+                sh 'echo "Removing Running ezfoodAdmin_dev container"'
+                sh 'docker rm ezfoodAdmin_dev || true'
+				        sh 'echo "Removed Running ezfoodAdmin_dev container"'
+                sh 'docker run -d -p 4201:80 --restart=always --name ezfoodAdmin_dev ezfood-admin/ezfood-admin-dev'
+            }
+        } 
+    }
+}
