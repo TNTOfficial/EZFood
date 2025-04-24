@@ -7,4 +7,5 @@ public interface IServiceManager
     IEmailService EmailService { get; }
     IDataSeedService DataSeedService { get; }
     ICuisineTypeService CuisineTypeService { get; }
+    ITruckDetailService TruckDetailService { get; }
 }

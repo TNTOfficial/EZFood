@@ -11,6 +11,7 @@ public class EZFoodContext(DbContextOptions<EZFoodContext> options) :
 {
     public DbSet<User> UserProfile { get; set; }
     public DbSet<CuisineType> CuisineTypes { get; set; }
+    public DbSet<TruckDetail> TruckDetails { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -28,7 +29,14 @@ public class EZFoodContext(DbContextOptions<EZFoodContext> options) :
             entity.HasKey(u => u.Id);
             entity.HasIndex(u => u.Email).IsUnique(true);
             entity.HasIndex(e => e.PhoneNumber).IsUnique(true);            
-        });      
+        });
+
+        builder.Entity<TruckDetail>(entity =>
+        {
+            entity.HasKey(u => u.Id);
+            entity.HasIndex(u => u.BusinessEmail).IsUnique(true);
+            entity.HasIndex(e => e.PhoneNumber).IsUnique(true);
+        });
 
     }
 }
