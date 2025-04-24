@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using AutoMapper;
 using EZFood.Shared.Dtos.TruckDetail;
 using MLM.Application.Services;
+using EZFood.Shared.Dtos.TruckDetail.Steps;
 
 namespace EZFood.Application.Services;
 
@@ -34,6 +35,63 @@ public class TruckDetailService : ITruckDetailService
     public async Task<IEnumerable<TruckDetail>> GetAllTruckDetailsAsync()
     {
         return await _repositoryManager.TruckDetail.GetAllTruckDetailsAsync();
+    }
+    public async Task<StepsResponseDto> GetTruckDetailStepsAsync()
+    {
+        TruckDetailStepsDto stepDetails = new TruckDetailStepsDto();
+         TruckDetail? truckDetail = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
+        if (truckDetail == null)
+        {
+            return new StepsResponseDto 
+            {
+               Result = false, 
+               Data = null
+            };
+        }
+
+        stepDetails.Step = truckDetail.OnboardingStatus;
+        stepDetails.StepOne = new StepOne
+        {
+            TruckName = truckDetail.TruckName,
+            TruckOwnerName = truckDetail.TruckOwnerName,
+            BusinessEmail = truckDetail.BusinessEmail,
+            PhoneNumber = truckDetail.PhoneNumber,
+            Address = truckDetail.Address
+        };
+        stepDetails.StepTwo = new StepTwo
+        {
+            IsOtherCuisine = truckDetail.IsOtherCuisine,
+            CuisineNote = truckDetail.CuisineNote,
+            Cuisines =truckDetail.CuisineTypes.Select(x => x.Id).ToList()
+        };
+        stepDetails.StepThree = new StepThree
+        {
+            BusinessDescription = truckDetail.BusinessDescription,
+            BussinessStartYear = truckDetail.BussinessStartYear,
+            EIN = truckDetail.EIN,
+            IsBreakfast = truckDetail.IsBreakfast,
+            IsLunch = truckDetail.IsLunch,
+            IsDinner = truckDetail.IsDinner,
+            MinimumGuaranteeAmount = truckDetail.MinimumGuaranteeAmount,
+            COI = truckDetail.COI,
+            W9 = truckDetail.W9,
+            DCHCertificate = truckDetail.DCHCertificate,
+            ServeSafeCertificate = truckDetail.ServeSafeCertificate,
+        };
+        stepDetails.StepFour = new StepFour
+        {
+            BannerUrl = truckDetail.BannerUrl,
+            ImageList = truckDetail.ImageList
+        };
+        stepDetails.StepFive = new StepFive
+        {            
+            MenuList = truckDetail.ImageList
+        };
+        return new StepsResponseDto
+        {
+            Result = true,
+            Data = stepDetails
+        };
     }
 
     public async Task<IEnumerable<TruckDetail>> GetPendingTruckDetailsAsync()

@@ -35,6 +35,23 @@ public class TruckDetailsController(IServiceManager serviceManager, ILogger<Truc
         }
 
     }
+
+    [HttpGet("truck-detail-steps")]
+    public async Task<ActionResult<StepsResponseDto>> GetTruckDetailSteps()
+    {
+        try
+        {
+            StepsResponseDto truckDetails = await _serviceManager.TruckDetailService.GetTruckDetailStepsAsync();
+            return Ok(truckDetails);
+        }
+        catch (Exception ex)
+        {
+
+            _logger.LogError(ex, " Error retrieving all truck details");
+            return StatusCode(500, "An error occurred while retrieving truck details.");
+        }
+
+    }
     [HttpGet("{id}")]
     public async Task<ActionResult<TruckDetail>> GetTruckDetailById(Guid id)
     {

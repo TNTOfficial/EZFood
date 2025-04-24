@@ -9,6 +9,7 @@ namespace EZFood.Application.Interfaces;
 public interface ITruckDetailService
 {
     Task<IEnumerable<TruckDetail>> GetAllTruckDetailsAsync();
+    Task<StepsResponseDto> GetTruckDetailStepsAsync();
     Task<IEnumerable<TruckDetail>> GetPendingTruckDetailsAsync();
     Task<IEnumerable<TruckDetail>> GetApprovedTruckDetailsAsync();
     Task<TruckDetail?> GetTruckDetailByIdAsync(Guid id);
