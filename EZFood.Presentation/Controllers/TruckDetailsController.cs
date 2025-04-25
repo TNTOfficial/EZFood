@@ -121,11 +121,11 @@ public class TruckDetailsController(IServiceManager serviceManager, ILogger<Truc
     }
 
     [HttpPost("step-four-data")]
-    public async Task<ActionResult<TruckDetail>> CreateStepFour([FromForm] CreateStepFourDto detailDto)
+    public async Task<ActionResult<StepResponse<StepFour>>> CreateStepFour([FromForm] CreateStepFourDto detailDto)
     {
         try
         {
-            StepResponseDto? response = await _serviceManager.TruckDetailService.CreateStepFourAsync(detailDto);
+            StepResponse<StepFour> response = await _serviceManager.TruckDetailService.CreateStepFourAsync(detailDto);
             return Ok(response);
         }
         catch (Exception ex)
@@ -141,6 +141,14 @@ public class TruckDetailsController(IServiceManager serviceManager, ILogger<Truc
     }
 
 
+    [HttpDelete("delete-step-four-image/{id}")]
+    public async Task<IActionResult> DeleteStepFourImage(int id)
+    {
+        var deleteCategory = await _serviceManager.TruckDetailService.DeleteStepFourImage(id);
+        if (deleteCategory == null) return NotFound();
+
+        return NoContent();
+    }
 
 
     [HttpPut("{id}")]

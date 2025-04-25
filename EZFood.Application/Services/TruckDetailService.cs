@@ -83,7 +83,7 @@ public class TruckDetailService : ITruckDetailService
         stepDetails.StepFour = new StepFour
         {
             BannerUrl = truckDetail.BannerUrl,
-            ImageList = truckDetail.ImageList
+            Files = truckDetail.ImageList
         };
         stepDetails.StepFive = new StepFive
         {            
@@ -277,7 +277,7 @@ public class TruckDetailService : ITruckDetailService
 
 
 
-    public async Task<StepResponseDto> CreateStepFourAsync(CreateStepFourDto detailDto)
+    public async Task<StepResponse<StepFour>> CreateStepFourAsync(CreateStepFourDto detailDto)
     {
         TruckDetail? existingTruck = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
         if (existingTruck != null)
@@ -294,29 +294,52 @@ public class TruckDetailService : ITruckDetailService
                 }
                 existingTruck.ImageList = images;
             }
-
+            StepFour stepFour = new()
+            {
+                Files = existingTruck.ImageList
+            };
             
             existingTruck.OnboardingStatus = OnboardingStatus.Step4;
             existingTruck.UpdatedAt = DateTime.UtcNow;
 
             _repositoryManager.TruckDetail.Update(existingTruck);
             await _repositoryManager.SaveAsync();
-            return new StepResponseDto
-            {
-                OnboardingStatus = OnboardingStatus.Step5,
-                Message = "Step 4 details updated successfully."
-            };
+            return StepResponse<StepFour>.SuccessResult(OnboardingStatus.Step5, stepFour, "Step 4 details updated successfully.");
+            
         }
         else
         {
-            return new StepResponseDto
-            {
-                Result = false,
-                OnboardingStatus = OnboardingStatus.Step4,
-                Message = "Step 4 details could not be updated."
-            };
+            return StepResponse<StepFour>.ErrorResult(OnboardingStatus.Step4, "Step 4 details could not be updated.");
+            
         }
     }
+
+
+    public async Task<StepResponse<StepFour>> DeleteStepFourImage(int id)
+    {
+        TruckDetail? existingTruck = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
+        if (existingTruck != null)
+        {
+            existingTruck.ImageList = existingTruck.ImageList?.Where(x => x != existingTruck.ImageList[id]).ToList();
+            StepFour stepFour = new()
+            {
+                Files = existingTruck.ImageList
+            };
+
+            existingTruck.UpdatedAt = DateTime.UtcNow;
+
+            _repositoryManager.TruckDetail.Update(existingTruck);
+            await _repositoryManager.SaveAsync();
+            return StepResponse<StepFour>.SuccessResult(OnboardingStatus.Step5, stepFour, "Step 4 details updated successfully.");
+
+        }
+        else
+        {
+            return StepResponse<StepFour>.ErrorResult(OnboardingStatus.Step4, "Step 4 details could not be updated.");
+
+        }
+    }
+
 
     public async Task<CuisineType?> UpdateCuisineTypeAsync(Guid id, UpdateCuisineTypeDto updateCuisineTypeDto)
     {
