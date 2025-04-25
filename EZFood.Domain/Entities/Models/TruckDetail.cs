@@ -30,7 +30,7 @@ public class TruckDetail
 
     [MaxLength(200, ErrorMessage = "Maximum length for Description is 200 characters.")]
     public string? CuisineNote { get; set; }
-    [MaxLength(200, ErrorMessage = "Maximum length for Description is 200 characters.")]
+    [MaxLength(500, ErrorMessage = "Maximum length for Description is 500 characters.")]
     public string? BusinessDescription { get; set; }
     public int? BussinessStartYear { get; set; }
     [MaxLength(15, ErrorMessage = "maximum length for EIN is 15 characters")]
@@ -50,10 +50,10 @@ public class TruckDetail
     public string? DCHCertificate { get; set; }
     public string? BannerUrl { get; set; }
     [JsonIgnore]
-    public string? ImageJson { get; set; }
+    public string ImageJson { get; set; } = string.Empty;
 
     [JsonIgnore]
-    public string? MenuJson { get; set; }
+    public string MenuJson { get; set; } = string.Empty;
     public bool Status { get; set; } = true;
     public OnboardingStatus OnboardingStatus { get; set; } = OnboardingStatus.Pending;
     [MaxLength(500, ErrorMessage = "Maximum length for onboarding note is 500 characters.")]
@@ -69,14 +69,14 @@ public class TruckDetail
     public virtual List<string>? ImageList
     {
         get => JsonOptions.ListData(ImageJson);
-        set => ImageJson = JsonOptions.ListDataObject<List<string>>(value!);
+        set => ImageJson = value != null ? JsonOptions.ListDataObject<List<string>>(value) : string.Empty;
     }
 
     [NotMapped]
     public virtual List<string>? MenuList
     {
         get => JsonOptions.ListData(MenuJson);
-        set => MenuJson = JsonOptions.ListDataObject<List<string>>(value!);
+        set => MenuJson = value != null ? JsonOptions.ListDataObject<List<string>>(value) : string.Empty;
     }
 
 

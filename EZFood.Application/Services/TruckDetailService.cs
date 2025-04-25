@@ -10,6 +10,8 @@ using AutoMapper;
 using EZFood.Shared.Dtos.TruckDetail;
 using MLM.Application.Services;
 using EZFood.Shared.Dtos.TruckDetail.Steps;
+using static System.Net.Mime.MediaTypeNames;
+using EZFood.Shared.Dtos.Response;
 
 namespace EZFood.Application.Services;
 
@@ -81,7 +83,7 @@ public class TruckDetailService : ITruckDetailService
         stepDetails.StepFour = new StepFour
         {
             BannerUrl = truckDetail.BannerUrl,
-            ImageList = truckDetail.ImageList
+            Files = truckDetail.ImageList
         };
         stepDetails.StepFive = new StepFive
         {            
@@ -114,9 +116,17 @@ public class TruckDetailService : ITruckDetailService
         return cuisineType;
     }
 
-    public async Task<StepResponseDto> CreateStepOneAsync(CreateStepOneDto detailDto)
+    public async Task<StepResponse<StepOne>> CreateStepOneAsync(CreateStepOneDto detailDto)
     {
-            TruckDetail? existingTruck = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
+        StepOne stepOne = new()
+        {
+            TruckName = detailDto.TruckName,
+            TruckOwnerName = detailDto.TruckOwnerName,
+            PhoneNumber = detailDto.PhoneNumber,
+            Address = detailDto.Address,
+            BusinessEmail = detailDto.BusinessEmail,
+        };
+        TruckDetail? existingTruck = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
             if (existingTruck != null)
             {
                 existingTruck.TruckName = detailDto.TruckName;
@@ -128,11 +138,6 @@ public class TruckDetailService : ITruckDetailService
                 existingTruck.UpdatedAt = DateTime.UtcNow;
                 _repositoryManager.TruckDetail.Update(existingTruck);
                 await _repositoryManager.SaveAsync();
-            return new StepResponseDto
-                {
-                    OnboardingStatus = OnboardingStatus.Step2,
-                    Message = "Step 1 details updated successfully."
-                };
             }
             else
             {
@@ -150,16 +155,11 @@ public class TruckDetailService : ITruckDetailService
                 };
                 _repositoryManager.TruckDetail.CreateTruckDetailAsync(truckDetail);
                 await _repositoryManager.SaveAsync();
-                return new StepResponseDto
-                {
-                    OnboardingStatus = OnboardingStatus.Step2,
-                    Message = "Step 1 details updated successfully."
-                };
             }
-        
+        return StepResponse<StepOne>.SuccessResult(OnboardingStatus.Step2, stepOne, "Step 1 details updated successfully.");
     }
 
-    public async Task<StepResponseDto> CreateStepTwoAsync(CreateStepTwoDto detailDto)
+    public async Task<StepResponse<StepTwo>> CreateStepTwoAsync(CreateStepTwoDto detailDto)
     {
         TruckDetail? existingTruck = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
         if (existingTruck != null)
@@ -177,27 +177,25 @@ public class TruckDetailService : ITruckDetailService
                 await _repositoryManager.SaveAsync();
                 existingTruck.CuisineTypes = cuisines;
             }
+            StepTwo stepTwo = new()
+            {
+                IsOtherCuisine = existingTruck.IsOtherCuisine,
+                CuisineNote = existingTruck.CuisineNote,
+                Cuisines = existingTruck.CuisineTypes.Select(x => x.Id).ToList()
+            };
             _repositoryManager.TruckDetail.Update(existingTruck);
             await _repositoryManager.SaveAsync();
-            return new StepResponseDto
-            {
-                OnboardingStatus = OnboardingStatus.Step3,
-                Message = "Step 2 details updated successfully."
-            };
+            return StepResponse<StepTwo>.SuccessResult(OnboardingStatus.Step3, stepTwo, "Step 2 details updated successfully.");
+            
         }
         else
-        {           
-            return new StepResponseDto
-            {
-                Result = false,
-                OnboardingStatus = OnboardingStatus.Step2,
-                Message = "Step 2 details could not be updated."
-            };
+        {
+            return StepResponse<StepTwo>.ErrorResult(OnboardingStatus.Step2, "Step 2 details could not be updated.");            
         }
 
     }
 
-    public async Task<StepResponseDto> CreateStepThreeAsync(CreateStepThreeDto detailDto)
+    public async Task<StepResponse<StepThree>> CreateStepThreeAsync(CreateStepThreeDto detailDto)
     {
         TruckDetail? existingTruck = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
         if (existingTruck != null)
@@ -254,23 +252,93 @@ public class TruckDetailService : ITruckDetailService
             
             _repositoryManager.TruckDetail.Update(existingTruck);
             await _repositoryManager.SaveAsync();
-            return new StepResponseDto
+
+            StepThree stepThree = new()
             {
-                OnboardingStatus = OnboardingStatus.Step4,
-                Message = "Step 3 details updated successfully."
+                BusinessDescription = existingTruck.BusinessDescription,
+                BussinessStartYear = existingTruck.BussinessStartYear,
+                EIN = existingTruck.EIN,
+                IsBreakfast = existingTruck.IsBreakfast,
+                IsLunch = existingTruck.IsLunch,
+                IsDinner = existingTruck.IsDinner,
+                MinimumGuaranteeAmount = detailDto.MinimumGuaranteeAmount,
+                COI = existingTruck.COI,
+                W9 = existingTruck.W9,
+                DCHCertificate = existingTruck.DCHCertificate,
+                ServeSafeCertificate = existingTruck.ServeSafeCertificate
             };
+            return StepResponse<StepThree>.SuccessResult(OnboardingStatus.Step4, stepThree, "Step 3 details updated successfully.");            
         }
         else
         {
-            return new StepResponseDto
-            {
-                Result = false,
-                OnboardingStatus = OnboardingStatus.Step3,
-                Message = "Step 3 details could not be updated."
-            };
+            return StepResponse<StepThree>.ErrorResult(OnboardingStatus.Step3, "Step 3 details could not be updated.");           
         }
     }
 
+
+
+    public async Task<StepResponse<StepFour>> CreateStepFourAsync(CreateStepFourDto detailDto)
+    {
+        TruckDetail? existingTruck = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
+        if (existingTruck != null)
+        {
+            if (detailDto.Images is not null)
+            {
+                List<string> images = new();
+                string subDirectory = $"images";
+
+                for (int i = 0; i < detailDto.Images.Count; i++)
+                {
+                    string img = await _fileStorageService.SaveFileAsync(detailDto.Images[i], subDirectory, "truck-gallaery");
+                    images.Add(img);
+                }
+                existingTruck.ImageList = images;
+            }
+            StepFour stepFour = new()
+            {
+                Files = existingTruck.ImageList
+            };
+            
+            existingTruck.OnboardingStatus = OnboardingStatus.Step4;
+            existingTruck.UpdatedAt = DateTime.UtcNow;
+
+            _repositoryManager.TruckDetail.Update(existingTruck);
+            await _repositoryManager.SaveAsync();
+            return StepResponse<StepFour>.SuccessResult(OnboardingStatus.Step5, stepFour, "Step 4 details updated successfully.");
+            
+        }
+        else
+        {
+            return StepResponse<StepFour>.ErrorResult(OnboardingStatus.Step4, "Step 4 details could not be updated.");
+            
+        }
+    }
+
+
+    public async Task<StepResponse<StepFour>> DeleteStepFourImage(int id)
+    {
+        TruckDetail? existingTruck = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
+        if (existingTruck != null)
+        {
+            existingTruck.ImageList = existingTruck.ImageList?.Where(x => x != existingTruck.ImageList[id]).ToList();
+            StepFour stepFour = new()
+            {
+                Files = existingTruck.ImageList
+            };
+
+            existingTruck.UpdatedAt = DateTime.UtcNow;
+
+            _repositoryManager.TruckDetail.Update(existingTruck);
+            await _repositoryManager.SaveAsync();
+            return StepResponse<StepFour>.SuccessResult(OnboardingStatus.Step5, stepFour, "Step 4 details updated successfully.");
+
+        }
+        else
+        {
+            return StepResponse<StepFour>.ErrorResult(OnboardingStatus.Step4, "Step 4 details could not be updated.");
+
+        }
+    }
 
 
     public async Task<CuisineType?> UpdateCuisineTypeAsync(Guid id, UpdateCuisineTypeDto updateCuisineTypeDto)
@@ -292,9 +360,6 @@ public class TruckDetailService : ITruckDetailService
         await _repositoryManager.SaveAsync();
         return cuisineType;
     }
-
-   
-
     public async Task<bool> DeleteCuisineTypeAsync(Guid id)
     {
         CuisineType? type = await _repositoryManager.CuisineType.GetCuisineTypeByIdAsync(id);

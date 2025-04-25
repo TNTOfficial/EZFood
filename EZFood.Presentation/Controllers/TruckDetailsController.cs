@@ -8,6 +8,8 @@ using EZFood.Domain.Entities.Models;
 using EZFood.Shared.Dtos.CuisineType;
 using EZFood.Shared.Dtos.TruckDetail;
 using EZFood.Domain.Entities.Enums;
+using EZFood.Shared.Dtos.Response;
+using EZFood.Shared.Dtos.TruckDetail.Steps;
 
 namespace MLM.Presentation.Controllers;
 
@@ -74,51 +76,56 @@ public class TruckDetailsController(IServiceManager serviceManager, ILogger<Truc
     }
 
     [HttpPost("step-one-data")]
-    public async Task<ActionResult<TruckDetail>> CreateStepOne([FromBody] CreateStepOneDto detailDto)
+    public async Task<ActionResult<StepResponse<StepOne>>> CreateStepOne([FromBody] CreateStepOneDto detailDto)
     {
         try
         {
-            StepResponseDto? response = await _serviceManager.TruckDetailService.CreateStepOneAsync(detailDto);
+            StepResponse<StepOne> response = await _serviceManager.TruckDetailService.CreateStepOneAsync(detailDto);
             return Ok(response);
         }
         catch (Exception ex) {
             _logger.LogError(ex, "Error creating/updating truck detail step 1");
-            return Ok(new StepResponseDto
-            {
-                Result = false,
-                OnboardingStatus = OnboardingStatus.Step1,
-                Message = ex.Message
-            });
+            return Ok(StepResponse<StepOne>.ErrorResult(OnboardingStatus.Step1, ex.Message));
         }            
     }
 
 
     [HttpPost("step-two-data")]
-    public async Task<ActionResult<TruckDetail>> CreateStepTwo([FromBody] CreateStepTwoDto detailDto)
+    public async Task<ActionResult<StepResponse<StepTwo>>> CreateStepTwo([FromBody] CreateStepTwoDto detailDto)
     {
         try
         {
-            StepResponseDto? response = await _serviceManager.TruckDetailService.CreateStepTwoAsync(detailDto);
+            StepResponse<StepTwo> response = await _serviceManager.TruckDetailService.CreateStepTwoAsync(detailDto);
             return Ok(response);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error creating/updating truck detail step 2");
-            return Ok(new StepResponseDto
-            {
-                Result = false,
-                OnboardingStatus = OnboardingStatus.Step1,
-                Message = ex.Message
-            });
+            return Ok(StepResponse<StepTwo>.ErrorResult(OnboardingStatus.Step2, ex.Message));            
         }
     }
 
     [HttpPost("step-three-data")]
-    public async Task<ActionResult<TruckDetail>> CreateStepThree([FromForm] CreateStepThreeDto detailDto)
+    public async Task<ActionResult<StepResponse<StepThree>>> CreateStepThree([FromForm] CreateStepThreeDto detailDto)
     {
         try
         {
-            StepResponseDto? response = await _serviceManager.TruckDetailService.CreateStepThreeAsync(detailDto);
+            StepResponse<StepThree> response = await _serviceManager.TruckDetailService.CreateStepThreeAsync(detailDto);
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error creating/updating truck detail step 3");
+            return Ok(StepResponse<StepThree>.ErrorResult(OnboardingStatus.Step3, ex.Message));           
+        }
+    }
+
+    [HttpPost("step-four-data")]
+    public async Task<ActionResult<StepResponse<StepFour>>> CreateStepFour([FromForm] CreateStepFourDto detailDto)
+    {
+        try
+        {
+            StepResponse<StepFour> response = await _serviceManager.TruckDetailService.CreateStepFourAsync(detailDto);
             return Ok(response);
         }
         catch (Exception ex)
@@ -131,6 +138,16 @@ public class TruckDetailsController(IServiceManager serviceManager, ILogger<Truc
                 Message = ex.Message
             });
         }
+    }
+
+
+    [HttpDelete("delete-step-four-image/{id}")]
+    public async Task<IActionResult> DeleteStepFourImage(int id)
+    {
+        var deleteCategory = await _serviceManager.TruckDetailService.DeleteStepFourImage(id);
+        if (deleteCategory == null) return NotFound();
+
+        return NoContent();
     }
 
 
