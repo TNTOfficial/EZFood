@@ -144,10 +144,8 @@ public class TruckDetailsController(IServiceManager serviceManager, ILogger<Truc
     [HttpDelete("delete-step-four-image/{id}")]
     public async Task<IActionResult> DeleteStepFourImage(int id)
     {
-        var deleteCategory = await _serviceManager.TruckDetailService.DeleteStepFourImage(id);
-        if (deleteCategory == null) return NotFound();
-
-        return NoContent();
+        var stepFourResponse = await _serviceManager.TruckDetailService.DeleteStepFourImage(id);       
+        return Ok(stepFourResponse);
     }
 
 

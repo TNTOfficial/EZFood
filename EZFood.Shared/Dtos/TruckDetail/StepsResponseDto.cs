@@ -11,6 +11,7 @@ namespace EZFood.Shared.Dtos.TruckDetail
     {
         public bool Result { get; set; } = true;
         public TruckDetailStepsDto? Data { get; set; }
+        public string? Message { get; set; }
     }
 }
 
