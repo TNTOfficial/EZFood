@@ -32,6 +32,23 @@ public class CuisineTypesController(IServiceManager serviceManager, ILogger<Cuis
         }
 
     }
+
+    [HttpGet("get-active-cuisines")]
+    public async Task<ActionResult<CuisineType>> GetActiveCuisineTypes()
+    {
+        try
+        {
+            IEnumerable<CuisineType>? types = await _serviceManager.CuisineTypeService.GetActiveCuisineTypesAsync();
+            return Ok(types.Select(x => new {Id = x.Id, Name = x.Name, IsSelected = false}));
+        }
+        catch (Exception ex)
+        {
+
+            _logger.LogError(ex, " Error retrieving all pack types");
+            return StatusCode(500, "An error occurred while retrieving pack types.");
+        }
+
+    }
     [HttpGet("{id}")]
     public async Task<ActionResult<CuisineType>> GetCuisineTypeById(Guid id)
     {

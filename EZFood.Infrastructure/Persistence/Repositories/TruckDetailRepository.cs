@@ -34,6 +34,11 @@ public class TruckDetailRepository(EZFoodContext context) : RepositoryBase<Truck
         return await FindByCondition(s => s.Id == id, trackChanges: false).SingleOrDefaultAsync();
     }
 
+    public async Task<TruckDetail?> getTruckDetailByUserAsync(Guid id)
+    {
+        return await FindByCondition(s => s.UserId == id, trackChanges: false).SingleOrDefaultAsync();
+    }
+
     public void CreateTruckDetailAsync(TruckDetail truckDetail)
     {
         Create(truckDetail);
@@ -67,6 +72,6 @@ public class TruckDetailRepository(EZFoodContext context) : RepositoryBase<Truck
         return await FindByCondition(s => s.OnboardingStatus == OnboardingStatus.Approved, trackChanges: false)
             .OrderByDescending(s => s.CreatedAt)
             .ToListAsync();
-    }    
+    }
 
 }

@@ -5,6 +5,7 @@ public interface IRepositoryManager
     IUserRepository User { get; }
     ICuisineTypeRepository CuisineType { get; }
     ITruckDetailRepository TruckDetail { get; }
+    ICuisineTypeTruckDetailRepository CuisineTypeTruckDetail { get; }
     Task SaveAsync();
 }
 

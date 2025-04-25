@@ -5,18 +5,93 @@ using EZFood.Domain.Entities.Models;
 using EZFood.Infrastructure.Persistence.Interfaces;
 using EZFood.Shared.Dtos.CuisineType;
 using EZFood.Domain.Entities.Enums;
+using Microsoft.AspNetCore.Http;
+using AutoMapper;
+using EZFood.Shared.Dtos.TruckDetail;
+using MLM.Application.Services;
+using EZFood.Shared.Dtos.TruckDetail.Steps;
 
 namespace EZFood.Application.Services;
 
-public class TruckDetailService(IRepositoryManager repositoryManager) : ITruckDetailService
+public class TruckDetailService : ITruckDetailService
 {
 
-    private readonly IRepositoryManager _repositoryManager = repositoryManager;
+    private readonly IRepositoryManager _repositoryManager;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private Guid _userId = Guid.Empty;
+    private readonly IFileStorageService _fileStorageService;
 
-
+    public TruckDetailService(IRepositoryManager repositoryManager, IHttpContextAccessor httpContextAccessor, IFileStorageService fileStorageService)
+    {
+        _repositoryManager = repositoryManager;
+        _httpContextAccessor = httpContextAccessor;
+        _fileStorageService = fileStorageService;
+        string? userId = _httpContextAccessor.HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "userId")?.Value;
+        if (userId != null)
+        {
+            _userId = Guid.Parse(userId);
+        }
+    }
     public async Task<IEnumerable<TruckDetail>> GetAllTruckDetailsAsync()
     {
         return await _repositoryManager.TruckDetail.GetAllTruckDetailsAsync();
+    }
+    public async Task<StepsResponseDto> GetTruckDetailStepsAsync()
+    {
+        TruckDetailStepsDto stepDetails = new TruckDetailStepsDto();
+         TruckDetail? truckDetail = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
+        if (truckDetail == null)
+        {
+            return new StepsResponseDto 
+            {
+               Result = false, 
+               Data = null
+            };
+        }
+
+        stepDetails.Step = truckDetail.OnboardingStatus;
+        stepDetails.StepOne = new StepOne
+        {
+            TruckName = truckDetail.TruckName,
+            TruckOwnerName = truckDetail.TruckOwnerName,
+            BusinessEmail = truckDetail.BusinessEmail,
+            PhoneNumber = truckDetail.PhoneNumber,
+            Address = truckDetail.Address
+        };
+        stepDetails.StepTwo = new StepTwo
+        {
+            IsOtherCuisine = truckDetail.IsOtherCuisine,
+            CuisineNote = truckDetail.CuisineNote,
+            Cuisines =truckDetail.CuisineTypes.Select(x => x.Id).ToList()
+        };
+        stepDetails.StepThree = new StepThree
+        {
+            BusinessDescription = truckDetail.BusinessDescription,
+            BussinessStartYear = truckDetail.BussinessStartYear,
+            EIN = truckDetail.EIN,
+            IsBreakfast = truckDetail.IsBreakfast,
+            IsLunch = truckDetail.IsLunch,
+            IsDinner = truckDetail.IsDinner,
+            MinimumGuaranteeAmount = truckDetail.MinimumGuaranteeAmount,
+            COI = truckDetail.COI,
+            W9 = truckDetail.W9,
+            DCHCertificate = truckDetail.DCHCertificate,
+            ServeSafeCertificate = truckDetail.ServeSafeCertificate,
+        };
+        stepDetails.StepFour = new StepFour
+        {
+            BannerUrl = truckDetail.BannerUrl,
+            ImageList = truckDetail.ImageList
+        };
+        stepDetails.StepFive = new StepFive
+        {            
+            MenuList = truckDetail.ImageList
+        };
+        return new StepsResponseDto
+        {
+            Result = true,
+            Data = stepDetails
+        };
     }
 
     public async Task<IEnumerable<TruckDetail>> GetPendingTruckDetailsAsync()
@@ -39,19 +114,165 @@ public class TruckDetailService(IRepositoryManager repositoryManager) : ITruckDe
         return cuisineType;
     }
 
-    public async Task<CuisineType> CreateCuisineTypeAsync(CreateCuisineTypeDto createCuisineTypeDto)
+    public async Task<StepResponseDto> CreateStepOneAsync(CreateStepOneDto detailDto)
     {
-
-        CuisineType type = new CuisineType
-        {
-            Id = Guid.NewGuid(),
-            Name = createCuisineTypeDto.Name,
-            Description = createCuisineTypeDto.Description
-        };
-        _repositoryManager.CuisineType.CreateCuisineTypeAsync(type);
-        await _repositoryManager.SaveAsync();
-        return type;
+            TruckDetail? existingTruck = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
+            if (existingTruck != null)
+            {
+                existingTruck.TruckName = detailDto.TruckName;
+                existingTruck.TruckOwnerName = detailDto.TruckOwnerName;
+                existingTruck.PhoneNumber = detailDto.PhoneNumber;
+                existingTruck.Address = detailDto.Address;
+                existingTruck.BusinessEmail = detailDto.BusinessEmail;
+                existingTruck.OnboardingStatus = OnboardingStatus.Step2;
+                existingTruck.UpdatedAt = DateTime.UtcNow;
+                _repositoryManager.TruckDetail.Update(existingTruck);
+                await _repositoryManager.SaveAsync();
+            return new StepResponseDto
+                {
+                    OnboardingStatus = OnboardingStatus.Step2,
+                    Message = "Step 1 details updated successfully."
+                };
+            }
+            else
+            {
+                TruckDetail truckDetail = new TruckDetail
+                {
+                    Id = Guid.NewGuid(),
+                    TruckName = detailDto.TruckName,
+                    TruckOwnerName = detailDto.TruckOwnerName,
+                    PhoneNumber = detailDto.PhoneNumber,
+                    Address = detailDto.Address,
+                    BusinessEmail = detailDto.BusinessEmail,
+                    OnboardingStatus = OnboardingStatus.Step2,
+                    UserId = _userId,
+                    UpdatedAt = DateTime.UtcNow
+                };
+                _repositoryManager.TruckDetail.CreateTruckDetailAsync(truckDetail);
+                await _repositoryManager.SaveAsync();
+                return new StepResponseDto
+                {
+                    OnboardingStatus = OnboardingStatus.Step2,
+                    Message = "Step 1 details updated successfully."
+                };
+            }
+        
     }
+
+    public async Task<StepResponseDto> CreateStepTwoAsync(CreateStepTwoDto detailDto)
+    {
+        TruckDetail? existingTruck = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
+        if (existingTruck != null)
+        {
+            List<CuisineType> cuisines = [.. _repositoryManager.CuisineType.FindByCondition(x => detailDto.Cuisines.Contains(x.Id), false)];
+             
+            existingTruck.IsOtherCuisine = detailDto.IsOtherCuisine;
+            existingTruck.CuisineNote = detailDto.IsOtherCuisine ? detailDto.CuisineNote : null;
+
+            existingTruck.OnboardingStatus = OnboardingStatus.Step3;
+            existingTruck.UpdatedAt = DateTime.UtcNow;
+            if(cuisines != null)
+            {
+                await _repositoryManager.CuisineTypeTruckDetail.DeleteRecordsAsync(existingTruck.Id);
+                await _repositoryManager.SaveAsync();
+                existingTruck.CuisineTypes = cuisines;
+            }
+            _repositoryManager.TruckDetail.Update(existingTruck);
+            await _repositoryManager.SaveAsync();
+            return new StepResponseDto
+            {
+                OnboardingStatus = OnboardingStatus.Step3,
+                Message = "Step 2 details updated successfully."
+            };
+        }
+        else
+        {           
+            return new StepResponseDto
+            {
+                Result = false,
+                OnboardingStatus = OnboardingStatus.Step2,
+                Message = "Step 2 details could not be updated."
+            };
+        }
+
+    }
+
+    public async Task<StepResponseDto> CreateStepThreeAsync(CreateStepThreeDto detailDto)
+    {
+        TruckDetail? existingTruck = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
+        if (existingTruck != null)
+        {
+            if (detailDto.COI is not null)
+            {
+                if (!string.IsNullOrEmpty(existingTruck.COI))
+                {
+                    _fileStorageService.DeleteFile(existingTruck.COI);
+                }
+                string subDirectory = $"documents/COI";
+                existingTruck.COI = await _fileStorageService.SaveFileAsync(detailDto.COI!, subDirectory, "coi");
+            }
+
+            if (detailDto.W9 is not null)
+            {
+                if (!string.IsNullOrEmpty(existingTruck.W9))
+                {
+                    _fileStorageService.DeleteFile(existingTruck.W9);
+                }
+                string subDirectory = $"documents/W9";
+                existingTruck.W9 = await _fileStorageService.SaveFileAsync(detailDto.W9!, subDirectory, "W9");
+            }
+
+            if (detailDto.DCHCertificate is not null)
+            {
+                if (!string.IsNullOrEmpty(existingTruck.DCHCertificate))
+                {
+                    _fileStorageService.DeleteFile(existingTruck.DCHCertificate);
+                }
+                string subDirectory = $"documents/DCHCertificate";
+                existingTruck.DCHCertificate = await _fileStorageService.SaveFileAsync(detailDto.DCHCertificate!, subDirectory, "DCHCertificate");
+            }
+
+            if (detailDto.ServeSafeCertificate is not null)
+            {
+                if (!string.IsNullOrEmpty(existingTruck.ServeSafeCertificate))
+                {
+                    _fileStorageService.DeleteFile(existingTruck.ServeSafeCertificate);
+                }
+                string subDirectory = $"documents/ServeSafeCertificate";
+                existingTruck.ServeSafeCertificate = await _fileStorageService.SaveFileAsync(detailDto.ServeSafeCertificate!, subDirectory, "ServeSafeCertificate");
+            }
+
+            existingTruck.BusinessDescription = detailDto.BusinessDescription;
+            existingTruck.BussinessStartYear = detailDto.BussinessStartYear;
+            existingTruck.EIN = detailDto.EIN;
+            existingTruck.IsBreakfast = detailDto.IsBreakfast;
+            existingTruck.IsLunch = detailDto.IsLunch;
+            existingTruck.IsDinner = detailDto.IsDinner;
+            existingTruck.MinimumGuaranteeAmount = detailDto.MinimumGuaranteeAmount;
+            existingTruck.OnboardingStatus = OnboardingStatus.Step4;
+            existingTruck.UpdatedAt = DateTime.UtcNow;
+            
+            _repositoryManager.TruckDetail.Update(existingTruck);
+            await _repositoryManager.SaveAsync();
+            return new StepResponseDto
+            {
+                OnboardingStatus = OnboardingStatus.Step4,
+                Message = "Step 3 details updated successfully."
+            };
+        }
+        else
+        {
+            return new StepResponseDto
+            {
+                Result = false,
+                OnboardingStatus = OnboardingStatus.Step3,
+                Message = "Step 3 details could not be updated."
+            };
+        }
+    }
+
+
+
     public async Task<CuisineType?> UpdateCuisineTypeAsync(Guid id, UpdateCuisineTypeDto updateCuisineTypeDto)
     {
         CuisineType? existingType = await _repositoryManager.CuisineType.GetCuisineTypeByIdAsync(id);

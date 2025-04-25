@@ -12,18 +12,181 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EZFood.Server.Migrations
 {
     [DbContext(typeof(EZFoodContext))]
-    [Migration("20250330165246_UserTableModified")]
-    partial class UserTableModified
+    [Migration("20250424101431_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.3")
+                .HasAnnotation("ProductVersion", "9.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("EZFood.Domain.Entities.Models.CuisineType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CuisineTypes");
+                });
+
+            modelBuilder.Entity("EZFood.Domain.Entities.Models.CuisineTypeTruckDetail", b =>
+                {
+                    b.Property<Guid>("CuisineTypesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TruckDetailsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CuisineTypesId", "TruckDetailsId");
+
+                    b.HasIndex("TruckDetailsId");
+
+                    b.ToTable("TruckDetailCuisineTypes");
+                });
+
+            modelBuilder.Entity("EZFood.Domain.Entities.Models.TruckDetail", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("BannerUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BusinessDescription")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("BusinessEmail")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("BussinessStartYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("COI")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CuisineNote")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("DCHCertificate")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EIN")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("ImageJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsBreakfast")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDinner")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsLunch")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsOtherCuisine")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MenuJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("MinimumGuaranteeAmount")
+                        .HasColumnType("decimal(7, 2)");
+
+                    b.Property<string>("OnboardingNote")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("OnboardingStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("ServeSafeCertificate")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TruckName")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.Property<string>("TruckOwnerName")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("W9")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("WhatsappNumber")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BusinessEmail")
+                        .IsUnique();
+
+                    b.HasIndex("PhoneNumber")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TruckDetails");
+                });
 
             modelBuilder.Entity("EZFood.Domain.Entities.Models.User", b =>
                 {
@@ -276,6 +439,36 @@ namespace EZFood.Server.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("EZFood.Domain.Entities.Models.CuisineTypeTruckDetail", b =>
+                {
+                    b.HasOne("EZFood.Domain.Entities.Models.CuisineType", "CuisineType")
+                        .WithMany()
+                        .HasForeignKey("CuisineTypesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EZFood.Domain.Entities.Models.TruckDetail", "TruckDetail")
+                        .WithMany()
+                        .HasForeignKey("TruckDetailsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CuisineType");
+
+                    b.Navigation("TruckDetail");
+                });
+
+            modelBuilder.Entity("EZFood.Domain.Entities.Models.TruckDetail", b =>
+                {
+                    b.HasOne("EZFood.Domain.Entities.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("EZFood.Domain.Entities.Models.User", b =>
