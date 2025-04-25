@@ -130,11 +130,50 @@ public class TruckDetailsController(IServiceManager serviceManager, ILogger<Truc
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error creating/updating truck detail step 3");
+            _logger.LogError(ex, "Error creating/updating truck detail step 4 data");
             return Ok(new StepResponseDto
             {
                 Result = false,
                 OnboardingStatus = OnboardingStatus.Step1,
+                Message = ex.Message
+            });
+        }
+    }
+
+    [HttpPost("step-five-data")]
+    public async Task<ActionResult<StepResponse<StepFive>>> CreateStepFive([FromForm] CreateStepFourDto detailDto)
+    {
+        try
+        {
+            StepResponse<StepFive> response = await _serviceManager.TruckDetailService.CreateStepFiveAsync(detailDto);
+            return Ok(response);
+        }
+        catch (Exception ex)    
+        {
+            _logger.LogError(ex, "Error creating/updating truck detail step 5 data");
+            return Ok(new StepResponseDto
+            {
+                Result = false,
+                OnboardingStatus = OnboardingStatus.Step5,
+                Message = ex.Message
+            });
+        }
+    }
+
+    [HttpGet("submit-for-review")]
+    public async Task<ActionResult<ResponseDto>> SubmitForReview()
+    {
+        try
+        {
+            ResponseDto response = await _serviceManager.TruckDetailService.SubmitForReviewAsync();
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error creating/updating truck detail step 5 data");
+            return Ok(new ResponseDto
+            {
+                Result = false,
                 Message = ex.Message
             });
         }

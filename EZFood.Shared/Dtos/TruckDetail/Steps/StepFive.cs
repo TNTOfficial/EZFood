@@ -8,6 +8,6 @@ namespace EZFood.Shared.Dtos.TruckDetail.Steps
 {
     public class StepFive
     {
-        public List<string>? MenuList { get; set; }
+        public List<string>? Files { get; set; }
     }
 }

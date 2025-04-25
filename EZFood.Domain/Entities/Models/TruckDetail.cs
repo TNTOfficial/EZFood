@@ -69,14 +69,14 @@ public class TruckDetail
     [NotMapped]
     public virtual List<string>? ImageList
     {
-        get => ImageJson != string.Empty ? JsonOptions.ListData(ImageJson) : new List<string>();
+        get => ImageJson == string.Empty ? new List<string>() : JsonOptions.ListData(ImageJson);
         set => ImageJson = JsonOptions.ListDataObject<List<string>>(value!);
     }
 
     [NotMapped]
     public virtual List<string>? MenuList
     {
-        get => MenuJson != string.Empty ? JsonOptions.ListData(MenuJson) : new List<string>();
+        get => MenuJson == string.Empty ? new List<string>() : JsonOptions.ListData(MenuJson);
         set => MenuJson = JsonOptions.ListDataObject<List<string>>(value!);
     }
 

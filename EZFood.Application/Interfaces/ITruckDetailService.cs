@@ -21,6 +21,9 @@ public interface ITruckDetailService
     Task<StepResponse<StepThree>> CreateStepThreeAsync(CreateStepThreeDto detailDto);
     Task<StepResponse<StepFour>> CreateStepFourAsync(CreateStepFourDto detailDto);
     Task<StepResponse<StepFour>> DeleteStepFourImage(int id);
+    Task<StepResponse<StepFive>> CreateStepFiveAsync(CreateStepFourDto detailDto);
+    Task<StepResponse<StepFive>> DeleteStepFiveFile(int id);
+    Task<ResponseDto> SubmitForReviewAsync();
     Task<TruckDetail?> UpdateTruckDetailAsync(Guid id, UpdateTruckDetailDto updatePackTypeDto);
     Task<bool> DeleteTruckDetailAsync(Guid id);
     Task<bool> UpdateOnboardingStatusAsync(Guid id, OnboardingStatus onboardingStatus);
