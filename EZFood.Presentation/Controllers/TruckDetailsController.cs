@@ -188,6 +188,16 @@ public class TruckDetailsController(IServiceManager serviceManager, ILogger<Truc
     }
 
 
+
+
+    [HttpDelete("delete-step-five-file/{id}")]
+    public async Task<IActionResult> DeleteStepFiveFile(int id)
+    {
+        var stepFiveResponse = await _serviceManager.TruckDetailService.DeleteStepFiveFile(id);
+        return Ok(stepFiveResponse);
+    }
+
+
     [HttpPut("{id}")]
     public async Task<ActionResult<TruckDetail>> UpdateTruckDetail(Guid id,
        [FromBody] UpdateTruckDetailDto updateDto
