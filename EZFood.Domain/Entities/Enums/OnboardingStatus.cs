@@ -14,9 +14,9 @@ public enum OnboardingStatus
     Step4 = 3,
     Step5 = 4,
     Pending = 5,
-    Approved = 6,
-    Rejected = 7,
-    Incomplete = 8,
-    Objection = 9,
-    
+    Submitted = 6,
+    Approved = 7,
+    Rejected = 8,
+    Incomplete = 9,
+    Objection = 10,    
 }

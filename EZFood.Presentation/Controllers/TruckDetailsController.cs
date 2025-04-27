@@ -130,7 +130,7 @@ public class TruckDetailsController(IServiceManager serviceManager, ILogger<Truc
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error creating/updating truck detail step 3");
+            _logger.LogError(ex, "Error creating/updating truck detail step 4 data");
             return Ok(new StepResponseDto
             {
                 Result = false,
@@ -140,14 +140,61 @@ public class TruckDetailsController(IServiceManager serviceManager, ILogger<Truc
         }
     }
 
+    [HttpPost("step-five-data")]
+    public async Task<ActionResult<StepResponse<StepFive>>> CreateStepFive([FromForm] CreateStepFourDto detailDto)
+    {
+        try
+        {
+            StepResponse<StepFive> response = await _serviceManager.TruckDetailService.CreateStepFiveAsync(detailDto);
+            return Ok(response);
+        }
+        catch (Exception ex)    
+        {
+            _logger.LogError(ex, "Error creating/updating truck detail step 5 data");
+            return Ok(new StepResponseDto
+            {
+                Result = false,
+                OnboardingStatus = OnboardingStatus.Step5,
+                Message = ex.Message
+            });
+        }
+    }
+
+    [HttpGet("submit-for-review")]
+    public async Task<ActionResult<ResponseDto>> SubmitForReview()
+    {
+        try
+        {
+            ResponseDto response = await _serviceManager.TruckDetailService.SubmitForReviewAsync();
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error creating/updating truck detail step 5 data");
+            return Ok(new ResponseDto
+            {
+                Result = false,
+                Message = ex.Message
+            });
+        }
+    }
+
 
     [HttpDelete("delete-step-four-image/{id}")]
     public async Task<IActionResult> DeleteStepFourImage(int id)
     {
-        var deleteCategory = await _serviceManager.TruckDetailService.DeleteStepFourImage(id);
-        if (deleteCategory == null) return NotFound();
+        var stepFourResponse = await _serviceManager.TruckDetailService.DeleteStepFourImage(id);       
+        return Ok(stepFourResponse);
+    }
 
-        return NoContent();
+
+
+
+    [HttpDelete("delete-step-five-file/{id}")]
+    public async Task<IActionResult> DeleteStepFiveFile(int id)
+    {
+        var stepFiveResponse = await _serviceManager.TruckDetailService.DeleteStepFiveFile(id);
+        return Ok(stepFiveResponse);
     }
 
 

@@ -38,62 +38,97 @@ public class TruckDetailService : ITruckDetailService
     {
         return await _repositoryManager.TruckDetail.GetAllTruckDetailsAsync();
     }
-    public async Task<StepsResponseDto> GetTruckDetailStepsAsync()
+
+    public async Task<ResponseDto> SubmitForReviewAsync()
     {
-        TruckDetailStepsDto stepDetails = new TruckDetailStepsDto();
-         TruckDetail? truckDetail = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
-        if (truckDetail == null)
-        {
-            return new StepsResponseDto 
+        TruckDetail? existingTruck = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
+        if (existingTruck != null)
+        {            
+            existingTruck.OnboardingStatus = OnboardingStatus.Submitted;
+            existingTruck.UpdatedAt = DateTime.UtcNow;
+            _repositoryManager.TruckDetail.Update(existingTruck);
+            await _repositoryManager.SaveAsync();
+            return new ResponseDto
             {
-               Result = false, 
-               Data = null
+                Result = true,
+                Message = "Application has been submitted for for review. You will be notified through mail for further action."
             };
         }
+        return new ResponseDto
+        {
+            Result = false,
+            Message = "Application could not be submitted for review."
 
-        stepDetails.Step = truckDetail.OnboardingStatus;
-        stepDetails.StepOne = new StepOne
+        };
+    }
+    public async Task<StepsResponseDto> GetTruckDetailStepsAsync()
+    {
+        try
         {
-            TruckName = truckDetail.TruckName,
-            TruckOwnerName = truckDetail.TruckOwnerName,
-            BusinessEmail = truckDetail.BusinessEmail,
-            PhoneNumber = truckDetail.PhoneNumber,
-            Address = truckDetail.Address
-        };
-        stepDetails.StepTwo = new StepTwo
+            TruckDetailStepsDto stepDetails = new TruckDetailStepsDto();
+            TruckDetail? truckDetail = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
+            if (truckDetail == null)
+            {
+                return new StepsResponseDto
+                {
+                    Result = false,
+                    Data = null
+                };
+            }
+
+            stepDetails.Step = truckDetail.OnboardingStatus;
+            stepDetails.StepOne = new StepOne
+            {
+                TruckName = truckDetail.TruckName,
+                TruckOwnerName = truckDetail.TruckOwnerName,
+                BusinessEmail = truckDetail.BusinessEmail,
+                PhoneNumber = truckDetail.PhoneNumber,
+                Address = truckDetail.Address
+            };
+            stepDetails.StepTwo = new StepTwo
+            {
+                IsOtherCuisine = truckDetail.IsOtherCuisine,
+                CuisineNote = truckDetail.CuisineNote,
+                Cuisines = truckDetail.CuisineTypes.Select(x => x.Id).ToList()
+            };
+            stepDetails.StepThree = new StepThree
+            {
+                BusinessDescription = truckDetail.BusinessDescription,
+                BussinessStartYear = truckDetail.BussinessStartYear,
+                EIN = truckDetail.EIN,
+                IsBreakfast = truckDetail.IsBreakfast,
+                IsLunch = truckDetail.IsLunch,
+                IsDinner = truckDetail.IsDinner,
+                MinimumGuaranteeAmount = truckDetail.MinimumGuaranteeAmount,
+                COI = truckDetail.COI,
+                W9 = truckDetail.W9,
+                DCHCertificate = truckDetail.DCHCertificate,
+                ServeSafeCertificate = truckDetail.ServeSafeCertificate,
+            };
+            stepDetails.StepFour = new StepFour
+            {
+                BannerUrl = truckDetail.BannerUrl,
+                Files = truckDetail.ImageList
+            };
+            stepDetails.StepFive = new StepFive
+            {
+                Files = truckDetail.MenuList
+            };
+            return new StepsResponseDto
+            {
+                Result = true,
+                Data = stepDetails
+            };
+
+        } catch(Exception ex)
         {
-            IsOtherCuisine = truckDetail.IsOtherCuisine,
-            CuisineNote = truckDetail.CuisineNote,
-            Cuisines =truckDetail.CuisineTypes.Select(x => x.Id).ToList()
-        };
-        stepDetails.StepThree = new StepThree
-        {
-            BusinessDescription = truckDetail.BusinessDescription,
-            BussinessStartYear = truckDetail.BussinessStartYear,
-            EIN = truckDetail.EIN,
-            IsBreakfast = truckDetail.IsBreakfast,
-            IsLunch = truckDetail.IsLunch,
-            IsDinner = truckDetail.IsDinner,
-            MinimumGuaranteeAmount = truckDetail.MinimumGuaranteeAmount,
-            COI = truckDetail.COI,
-            W9 = truckDetail.W9,
-            DCHCertificate = truckDetail.DCHCertificate,
-            ServeSafeCertificate = truckDetail.ServeSafeCertificate,
-        };
-        stepDetails.StepFour = new StepFour
-        {
-            BannerUrl = truckDetail.BannerUrl,
-            Files = truckDetail.ImageList
-        };
-        stepDetails.StepFive = new StepFive
-        {            
-            MenuList = truckDetail.ImageList
-        };
-        return new StepsResponseDto
-        {
-            Result = true,
-            Data = stepDetails
-        };
+            return new StepsResponseDto
+            {
+                Result = true,
+                Message = ex.Message
+            };
+        }
+        
     }
 
     public async Task<IEnumerable<TruckDetail>> GetPendingTruckDetailsAsync()
@@ -292,14 +327,16 @@ public class TruckDetailService : ITruckDetailService
                     string img = await _fileStorageService.SaveFileAsync(detailDto.Images[i], subDirectory, "truck-gallaery");
                     images.Add(img);
                 }
-                existingTruck.ImageList = images;
+                List<string> existingList = existingTruck.ImageList != null ? existingTruck.ImageList : new();
+                existingList.AddRange(images);
+                existingTruck.ImageList = existingList;
             }
             StepFour stepFour = new()
             {
                 Files = existingTruck.ImageList
             };
             
-            existingTruck.OnboardingStatus = OnboardingStatus.Step4;
+            existingTruck.OnboardingStatus = OnboardingStatus.Step5;
             existingTruck.UpdatedAt = DateTime.UtcNow;
 
             _repositoryManager.TruckDetail.Update(existingTruck);
@@ -330,7 +367,7 @@ public class TruckDetailService : ITruckDetailService
 
             _repositoryManager.TruckDetail.Update(existingTruck);
             await _repositoryManager.SaveAsync();
-            return StepResponse<StepFour>.SuccessResult(OnboardingStatus.Step5, stepFour, "Step 4 details updated successfully.");
+            return StepResponse<StepFour>.SuccessResult(OnboardingStatus.Step4, stepFour, "Step 4 details updated successfully.");
 
         }
         else
@@ -339,6 +376,78 @@ public class TruckDetailService : ITruckDetailService
 
         }
     }
+
+
+
+
+    public async Task<StepResponse<StepFive>> CreateStepFiveAsync(CreateStepFourDto detailDto)
+    {
+        TruckDetail? existingTruck = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
+        if (existingTruck != null)
+        {
+            if (detailDto.Images is not null)
+            {
+                List<string> images = new();
+                string subDirectory = $"menu";
+
+                for (int i = 0; i < detailDto.Images.Count; i++)
+                {
+                    string img = await _fileStorageService.SaveFileAsync(detailDto.Images[i], subDirectory, "truck-menu");
+                    images.Add(img);
+                }
+                List<string> existingList = existingTruck.MenuList != null ? existingTruck.MenuList : new();
+                existingList.AddRange(images);
+                existingTruck.MenuList = existingList;
+            }
+            StepFive stepFive = new()
+            {
+                Files = existingTruck.MenuList
+            };
+
+            existingTruck.OnboardingStatus = OnboardingStatus.Pending;
+            existingTruck.UpdatedAt = DateTime.UtcNow;
+
+            _repositoryManager.TruckDetail.Update(existingTruck);
+            await _repositoryManager.SaveAsync();
+            return StepResponse<StepFive>.SuccessResult(OnboardingStatus.Pending, stepFive, "Step 5 details updated successfully.");
+
+        }
+        else
+        {
+            return StepResponse<StepFive>.ErrorResult(OnboardingStatus.Step5, "Step 4 details could not be updated.");
+
+        }
+    }
+
+
+    public async Task<StepResponse<StepFive>> DeleteStepFiveFile(int id)
+    {
+        TruckDetail? existingTruck = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
+        if (existingTruck != null)
+        {
+            existingTruck.MenuList = existingTruck.MenuList?.Where(x => x != existingTruck.MenuList[id]).ToList();
+            StepFive stepFive = new()
+            {
+                Files = existingTruck.MenuList
+            };
+
+            existingTruck.UpdatedAt = DateTime.UtcNow;
+
+            _repositoryManager.TruckDetail.Update(existingTruck);
+            await _repositoryManager.SaveAsync();
+            return StepResponse<StepFive>.SuccessResult(OnboardingStatus.Step5, stepFive, "Step 5 details updated successfully.");
+
+        }
+        else
+        {
+            return StepResponse<StepFive>.ErrorResult(OnboardingStatus.Step5, "Step 5 details could not be updated.");
+
+        }
+    }
+
+
+
+
 
 
     public async Task<CuisineType?> UpdateCuisineTypeAsync(Guid id, UpdateCuisineTypeDto updateCuisineTypeDto)

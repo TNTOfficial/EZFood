@@ -64,19 +64,20 @@ public class TruckDetail
 
     [JsonIgnore]
     public virtual User? User { get; set; }
-    public List<CuisineType> CuisineTypes { get; set; } = [];
+    public List<CuisineType> CuisineTypes { get; set; } = [];   
+
     [NotMapped]
     public virtual List<string>? ImageList
     {
-        get => JsonOptions.ListData(ImageJson);
-        set => ImageJson = value != null ? JsonOptions.ListDataObject<List<string>>(value) : string.Empty;
+        get => ImageJson == string.Empty ? new List<string>() : JsonOptions.ListData(ImageJson);
+        set => ImageJson = JsonOptions.ListDataObject<List<string>>(value!);
     }
 
     [NotMapped]
     public virtual List<string>? MenuList
     {
-        get => JsonOptions.ListData(MenuJson);
-        set => MenuJson = value != null ? JsonOptions.ListDataObject<List<string>>(value) : string.Empty;
+        get => MenuJson == string.Empty ? new List<string>() : JsonOptions.ListData(MenuJson);
+        set => MenuJson = JsonOptions.ListDataObject<List<string>>(value!);
     }
 
 
