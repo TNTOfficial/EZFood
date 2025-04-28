@@ -49,9 +49,25 @@ export const ADMIN_ROUTES: Routes = [
             )
           }
 
-        ]
+        ]       
 
-        
+      },      
+      {
+        path: "truck-details",
+        children: [
+          {
+            path: "",
+            loadComponent: () => import("../admin/truck-details/truck-details.component").then(
+              p => p.TruckDetailsComponent)
+          },
+          {
+            path: "details/:id",
+            loadComponent: () => import("./truck-details/detail/truck-detail.component").then(
+              p => p.TruckDetailComponent
+            )
+          }
+
+        ]       
 
       },
     ]

@@ -31,7 +31,7 @@ public class TruckDetailRepository(EZFoodContext context) : RepositoryBase<Truck
 
     public async Task<TruckDetail?> GetTruckDetailByIdAsync(Guid id)
     {
-        return await FindByCondition(s => s.Id == id, trackChanges: false).SingleOrDefaultAsync();
+        return await FindByCondition(s => s.Id == id, trackChanges: false).Include(x => x.CuisineTypes).SingleOrDefaultAsync();
     }
 
     public async Task<TruckDetail?> getTruckDetailByUserAsync(Guid id)

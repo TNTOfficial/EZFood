@@ -22,6 +22,7 @@ import {
   IconLockPassword,
   IconBellStar,
   IconTruckDelivery,
+  IconTruck,
 } from 'angular-tabler-icons/icons';
 import { NgFor } from '@angular/common';
 import { AuthService } from '../../../../../core/services/auth/auth.service';
@@ -50,6 +51,7 @@ interface sideMenu {
       IconSubtask,
       IconLockPassword,
       IconBellStar,
+      IconTruck,
       IconTruckDelivery
     }),
   ],
@@ -71,7 +73,12 @@ export class SidebarComponent {
       name: 'User Management',
       link: '/dashboard/users',
       icon: 'subtask',
-    },    
+    },  
+    {
+      name: 'Truck details',
+      link: '/dashboard/truck-details',
+      icon: 'truck',
+    },   
     {
       name: 'Cuisine Types',
       link: '/dashboard/cuisine-types',

@@ -14,7 +14,7 @@ using EZFood.Shared.Dtos.TruckDetail.Steps;
 namespace MLM.Presentation.Controllers;
 
 [ApiController]
-[Authorize(Roles = "Seller")]
+[Authorize(Roles = "Admin, Seller")]
 [Route("api/truck-details")]
 public class TruckDetailsController(IServiceManager serviceManager, ILogger<TruckDetailsController> logger) : ControllerBase
 {

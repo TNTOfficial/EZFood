@@ -500,9 +500,14 @@ public class TruckDetailService : ITruckDetailService
 
     
 
-    public Task<TruckDetail?> GetTruckDetailByIdAsync(Guid id)
+    public async Task<TruckDetail?> GetTruckDetailByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        TruckDetail? truckDetail = await _repositoryManager.TruckDetail.GetTruckDetailByIdAsync(id);
+        if (truckDetail == null)
+        {
+            throw new EZFoodException("Truck detail id not found.");
+        }
+        return truckDetail;
     }
 
     public Task<TruckDetail> CreateTruckDetailAsync(CreateTruckDetailDto createPackTypeDto)
