@@ -19,6 +19,7 @@ public interface ITruckDetailService
     Task<StepResponse<StepOne>> CreateStepOneAsync(CreateStepOneDto detailDto);
     Task<StepResponse<StepTwo>> CreateStepTwoAsync(CreateStepTwoDto detailDto);
     Task<StepResponse<StepThree>> CreateStepThreeAsync(CreateStepThreeDto detailDto);
+    Task<StepResponse<string>> UpdateStepThreeFileAsync(CreateStepThreeFileDto detailDto);
     Task<StepResponse<StepFour>> CreateStepFourAsync(CreateStepFourDto detailDto);
     Task<StepResponse<StepFour>> DeleteStepFourImage(int id);
     Task<StepResponse<StepFive>> CreateStepFiveAsync(CreateStepFourDto detailDto);

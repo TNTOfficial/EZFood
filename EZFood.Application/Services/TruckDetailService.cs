@@ -312,6 +312,99 @@ public class TruckDetailService : ITruckDetailService
 
 
 
+
+
+
+
+
+
+    public async Task<StepResponse<string>> UpdateStepThreeFileAsync(CreateStepThreeFileDto detailDto)
+    {
+        TruckDetail? existingTruck = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
+        if (existingTruck != null)
+        {
+            string updatedFile = string.Empty;
+            if (detailDto.File is not null)
+            {
+                if (detailDto.Document == "COI")
+                {
+                    if (!string.IsNullOrEmpty(existingTruck.COI))
+                    {
+                        _fileStorageService.DeleteFile(existingTruck.COI);
+                    }
+                    string subDirectory = $"documents/COI";
+                    existingTruck.COI = await _fileStorageService.SaveFileAsync(detailDto.File, subDirectory, "coi");
+                    updatedFile = existingTruck.COI;
+                }
+
+                if (detailDto.Document == "W9")
+                {
+                    if (!string.IsNullOrEmpty(existingTruck.W9))
+                    {
+                        _fileStorageService.DeleteFile(existingTruck.W9);
+                    }
+                    string subDirectory = $"documents/W9";
+                    existingTruck.W9 = await _fileStorageService.SaveFileAsync(detailDto.File, subDirectory, "W9");
+                    updatedFile = existingTruck.W9;
+                }
+
+                if (detailDto.Document == "DCHCertificate")
+                {
+                    if (!string.IsNullOrEmpty(existingTruck.DCHCertificate))
+                    {
+                        _fileStorageService.DeleteFile(existingTruck.DCHCertificate);
+                    }
+                    string subDirectory = $"documents/DCHCertificate";
+                    existingTruck.DCHCertificate = await _fileStorageService.SaveFileAsync(detailDto.File, subDirectory, "DCHCertificate");
+                    updatedFile = existingTruck.DCHCertificate;
+                }
+
+                if (detailDto.Document == "ServeSafeCertificate")
+                {
+                    if (!string.IsNullOrEmpty(existingTruck.ServeSafeCertificate))
+                    {
+                        _fileStorageService.DeleteFile(existingTruck.ServeSafeCertificate);
+                    }
+                    string subDirectory = $"documents/ServeSafeCertificate";
+                    existingTruck.ServeSafeCertificate = await _fileStorageService.SaveFileAsync(detailDto.File, subDirectory, "ServeSafeCertificate");
+                    updatedFile = existingTruck.ServeSafeCertificate;
+                }
+            }
+
+            existingTruck.UpdatedAt = DateTime.UtcNow;
+
+            _repositoryManager.TruckDetail.Update(existingTruck);
+            await _repositoryManager.SaveAsync();
+
+            return StepResponse<string>.SuccessResult(OnboardingStatus.Step3, updatedFile, "Step 3 file updated successfully.");
+        }
+        else
+        {
+            return StepResponse<string>.ErrorResult(OnboardingStatus.Step3, "Step 3 file could not be updated.");
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public async Task<StepResponse<StepFour>> CreateStepFourAsync(CreateStepFourDto detailDto)
     {
         TruckDetail? existingTruck = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);

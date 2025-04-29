@@ -120,6 +120,21 @@ public class TruckDetailsController(IServiceManager serviceManager, ILogger<Truc
         }
     }
 
+    [HttpPost("step-three-file")]
+    public async Task<ActionResult<StepResponse<string>>> UpdateStepThreeFile([FromForm] CreateStepThreeFileDto detailDto)
+    {
+        try
+        {
+            StepResponse<string> response = await _serviceManager.TruckDetailService.UpdateStepThreeFileAsync(detailDto);
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error creating/updating truck detail step 3");
+            return Ok(StepResponse<string>.ErrorResult(OnboardingStatus.Step3, ex.Message));
+        }
+    }
+
     [HttpPost("step-four-data")]
     public async Task<ActionResult<StepResponse<StepFour>>> CreateStepFour([FromForm] CreateStepFourDto detailDto)
     {
