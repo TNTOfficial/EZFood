@@ -29,17 +29,8 @@
     <!-- User Profile -->
     @if (!loading() && !error() && truckDetail()) {
     <div class="bg-white rounded-lg shadow overflow-hidden">
-      <!-- Header -->
-      <div class="p-6 bg-gray-50 border-b border-gray-200">
-        <div class="flex justify-between items-start">
-          <div>
-            <h2 class="text-xl font-semibold text-gray-800">{{ truckDetail()!.truckName }}</h2>
-          </div>
-          <div class="flex gap-3">
+           <!-- Header -->
 
-          </div>
-        </div>
-      </div>
 
       <!-- Content -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
@@ -50,26 +41,26 @@
           <div class="space-y-3">
             <div>
               <p class="text-sm font-medium text-gray-500">Truck Name</p>
-              <p class="mt-1">{{ truckDetail()!.truckName }}</p>
+              <p class="mt-1">{{ truckDetail()!.data.stepOne.truckName }}</p>
             </div>
             <div>
               <p class="text-sm font-medium text-gray-500">Truck Owner Name</p>
-              <p class="mt-1">{{ truckDetail()!.truckOwnerName }}</p>
+              <p class="mt-1">{{ truckDetail()!.data.stepOne.truckOwnerName }}</p>
             </div>
 
             <div>
               <p class="text-sm font-medium text-gray-500">Phone Number</p>
-              <p class="mt-1">{{ truckDetail()!.phoneNumber }}</p>
+              <p class="mt-1">{{ truckDetail()!.data.stepOne.phoneNumber }}</p>
             </div>
 
             <div>
               <p class="text-sm font-medium text-gray-500">Address</p>
-              <p class="mt-1">{{ truckDetail()!.address }}</p>
+              <p class="mt-1">{{ truckDetail()!.data.stepOne.address }}</p>
             </div>
 
             <div>
               <p class="text-sm font-medium text-gray-500">Truck Status</p>
-              <p class="mt-1">{{ getStatus(truckDetail()!.onboardingStatus) }}</p>
+              <p class="mt-1">{{ getStatus(truckDetail()!.data.step) }}</p>
             </div>
           </div>
         </div>
@@ -78,6 +69,13 @@
 
         </div>
       </div>
+
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
+        @for(item of truckDetail()!.data.stepTwo.cuisines; track item){}
+        <span></span>
+      </div>
+
     </div>
     }
   </div>

@@ -603,6 +603,78 @@ public class TruckDetailService : ITruckDetailService
         return truckDetail;
     }
 
+    public async Task<StepsResponseDto> GetTruckDetailStepsByIdAsync(Guid id)
+    {
+        try
+        {
+            TruckDetailStepsDto stepDetails = new TruckDetailStepsDto();
+            TruckDetail? truckDetail = await _repositoryManager.TruckDetail.GetTruckDetailByIdAsync(id);
+            if (truckDetail == null)
+            {
+                return new StepsResponseDto
+                {
+                    Result = false,
+                    Data = null
+                };
+            }
+
+            stepDetails.Step = truckDetail.OnboardingStatus;
+            stepDetails.StepOne = new StepOne
+            {
+                TruckName = truckDetail.TruckName,
+                TruckOwnerName = truckDetail.TruckOwnerName,
+                BusinessEmail = truckDetail.BusinessEmail,
+                PhoneNumber = truckDetail.PhoneNumber,
+                Address = truckDetail.Address
+            };
+            stepDetails.StepTwo = new StepTwo
+            {
+                IsOtherCuisine = truckDetail.IsOtherCuisine,
+                CuisineNote = truckDetail.CuisineNote,
+                Cuisines = truckDetail.CuisineTypes.Select(x => x.Id).ToList()
+            };
+            stepDetails.StepThree = new StepThree
+            {
+                BusinessDescription = truckDetail.BusinessDescription,
+                BussinessStartYear = truckDetail.BussinessStartYear,
+                EIN = truckDetail.EIN,
+                IsBreakfast = truckDetail.IsBreakfast,
+                IsLunch = truckDetail.IsLunch,
+                IsDinner = truckDetail.IsDinner,
+                MinimumGuaranteeAmount = truckDetail.MinimumGuaranteeAmount,
+                COI = truckDetail.COI,
+                W9 = truckDetail.W9,
+                DCHCertificate = truckDetail.DCHCertificate,
+                ServeSafeCertificate = truckDetail.ServeSafeCertificate,
+            };
+            stepDetails.StepFour = new StepFour
+            {
+                BannerUrl = truckDetail.BannerUrl,
+                Files = truckDetail.ImageList
+            };
+            stepDetails.StepFive = new StepFive
+            {
+                Files = truckDetail.MenuList
+            };
+            return new StepsResponseDto
+            {
+                Result = true,
+                Data = stepDetails
+            };
+
+        }
+        catch (Exception ex)
+        {
+            return new StepsResponseDto
+            {
+                Result = true,
+                Message = ex.Message
+            };
+        }
+
+    }
+
+
     public Task<TruckDetail> CreateTruckDetailAsync(CreateTruckDetailDto createPackTypeDto)
     {
         throw new NotImplementedException();

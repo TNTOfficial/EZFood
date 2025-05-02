@@ -55,22 +55,18 @@ public class TruckDetailsController(IServiceManager serviceManager, ILogger<Truc
 
     }
     [HttpGet("{id}")]
-    public async Task<ActionResult<TruckDetail>> GetTruckDetailById(Guid id)
+    public async Task<ActionResult<TruckDetailStepsDto>> GetTruckDetailById(Guid id)
     {
         try
         {
-            TruckDetail? type = await _serviceManager.TruckDetailService.GetTruckDetailByIdAsync(id);
-            if (type == null)
-            {
-                return NotFound($"Truck details with ID{id} not Found");
-            }
-            return Ok(type);
+            StepsResponseDto truckDetails = await _serviceManager.TruckDetailService.GetTruckDetailStepsByIdAsync(id);
+            return Ok(truckDetails);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error retrieving truck details with ID {TruckDetailId}", id);
-            return StatusCode(500, "An error occurred while retrieving the truck details.");
 
+            _logger.LogError(ex, " Error retrieving all truck details");
+            return StatusCode(500, "An error occurred while retrieving truck details.");
         }
 
     }
