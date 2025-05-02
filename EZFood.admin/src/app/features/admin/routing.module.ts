@@ -49,11 +49,11 @@ export const ADMIN_ROUTES: Routes = [
             )
           }
 
-        ]       
+        ]
 
-      },      
+      },
       {
-        path: "truck-details",
+        path: "onboarding-requests",
         children: [
           {
             path: "",
@@ -67,7 +67,7 @@ export const ADMIN_ROUTES: Routes = [
             )
           }
 
-        ]       
+        ]
 
       },
     ]

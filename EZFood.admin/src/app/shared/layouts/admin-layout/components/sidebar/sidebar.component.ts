@@ -68,17 +68,17 @@ export class SidebarComponent {
 
   // Menu added
   public menus: sideMenu[] = [
-    { name: 'Home', link: '/dashboard', icon: 'heart-rate-monitor' },    
+    { name: 'Home', link: '/dashboard', icon: 'heart-rate-monitor' },
     {
       name: 'User Management',
       link: '/dashboard/users',
       icon: 'subtask',
-    },  
+    },
     {
-      name: 'Truck details',
-      link: '/dashboard/truck-details',
+      name: 'Onboarding Requests',
+      link: '/dashboard/onboarding-requests',
       icon: 'truck',
-    },   
+    },
     {
       name: 'Cuisine Types',
       link: '/dashboard/cuisine-types',
