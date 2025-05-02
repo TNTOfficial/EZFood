@@ -7,14 +7,14 @@
       </button>
       <h1 class="text-2xl font-semibold text-gray-800">Truck Details</h1>
     </div>
-  
+
     <!-- Loading State -->
     @if (loading()) {
     <div class="flex justify-center my-8">
       <app-loading-spinner></app-loading-spinner>
     </div>
     }
-  
+
     <!-- Error State -->
     @if (error()) {
     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -25,7 +25,7 @@
       </button>
     </div>
     }
-  
+
     <!-- User Profile -->
     @if (!loading() && !error() && truckDetail()) {
     <div class="bg-white rounded-lg shadow overflow-hidden">
@@ -36,33 +36,37 @@
             <h2 class="text-xl font-semibold text-gray-800">{{ truckDetail()!.truckName }}</h2>
           </div>
           <div class="flex gap-3">
-            
+
           </div>
         </div>
       </div>
-  
+
       <!-- Content -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
         <!-- Basic Information -->
         <div class="col-span-1 bg-white rounded-lg border border-gray-200 p-4">
-          <h3 class="text-lg font-medium text-gray-900 mb-4">Basic Information</h3>
-  
+          <h3 class="text-lg font-medium text-gray-900 mb-4">Step 1 - Truck details</h3>
+
           <div class="space-y-3">
+            <div>
+              <p class="text-sm font-medium text-gray-500">Truck Name</p>
+              <p class="mt-1">{{ truckDetail()!.truckName }}</p>
+            </div>
             <div>
               <p class="text-sm font-medium text-gray-500">Truck Owner Name</p>
               <p class="mt-1">{{ truckDetail()!.truckOwnerName }}</p>
             </div>
-  
+
             <div>
               <p class="text-sm font-medium text-gray-500">Phone Number</p>
               <p class="mt-1">{{ truckDetail()!.phoneNumber }}</p>
             </div>
-  
+
             <div>
               <p class="text-sm font-medium text-gray-500">Address</p>
               <p class="mt-1">{{ truckDetail()!.address }}</p>
-            </div>            
-  
+            </div>
+
             <div>
               <p class="text-sm font-medium text-gray-500">Truck Status</p>
               <p class="mt-1">{{ getStatus(truckDetail()!.onboardingStatus) }}</p>
@@ -70,11 +74,10 @@
           </div>
         </div>
         <!-- Network & Banking Information -->
-        <div class="col-span-1 space-y-6">        
-  
+        <div class="col-span-1 space-y-6">
+
         </div>
       </div>
     </div>
     }
   </div>
-  
