@@ -4,7 +4,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { CommonModule, DatePipe } from '@angular/common';
 import { LoadingSpinnerComponent } from '../../../../shared/components/loading-spinner/loading-spinner.component';
 import { TruckDetailsService } from '../../../../core/services/truck-details/truck-details.service';
-import { TruckDetail } from '../../../../shared/models/truck-details/truck-details.model';
+import { OnboardingResponse, TruckDetail } from '../../../../shared/models/truck-details/truck-details.model';
 import { OnboardingStatus } from '../../../../shared/enums/onboardingStatus';
 
 @Component({
@@ -22,7 +22,7 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private destroy$ = new Subject<void>();
 
-  truckDetail = signal<TruckDetail | null>(null);
+  truckDetail = signal<OnboardingResponse | null>(null);
   loading = signal<boolean>(true);
   error = signal<string | null>(null);
 
@@ -44,8 +44,8 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
     }
 
     this.truckDetailService.getTruckDetailById(truckId).pipe(takeUntil(this.destroy$)).subscribe({
-      next: (truckDetail: any) => {
-        this.truckDetail.set(truckDetail as TruckDetail);
+      next: (truckDetail: OnboardingResponse) => {
+        this.truckDetail.set(truckDetail);
         this.loading.set(false);
       },
       error: (err) => {
@@ -54,11 +54,11 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
       }
     });
   }
- 
+
    getStatus(key: number): string {
-      return OnboardingStatus[key]; 
+      return OnboardingStatus[key];
     }
-    
+
   goBack(): void {
     this.router.navigate(['/dashboard/truck-details']);
   }
