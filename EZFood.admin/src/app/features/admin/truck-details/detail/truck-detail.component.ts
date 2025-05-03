@@ -1,22 +1,30 @@
 import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { LoadingSpinnerComponent } from '../../../../shared/components/loading-spinner/loading-spinner.component';
 import { TruckDetailsService } from '../../../../core/services/truck-details/truck-details.service';
-import { OnboardingResponse, TruckDetail } from '../../../../shared/models/truck-details/truck-details.model';
+import { OnboardingResponse } from '../../../../shared/models/truck-details/truck-details.model';
 import { OnboardingStatus } from '../../../../shared/enums/onboardingStatus';
+import { ArrowLeft, ChevronDown, LucideAngularModule } from 'lucide-angular';
+import { ImageService } from '../../../../core/services/image.service';
 
 @Component({
   selector: 'app-user-profile',
   imports: [
     CommonModule,
     RouterModule,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    LucideAngularModule,
   ],
   templateUrl: './truck-detail.component.html',
 })
 export class TruckDetailComponent implements OnInit, OnDestroy {
+  ArrowLeft = ArrowLeft;
+  ChevronDown = ChevronDown;
+
+  
+  public imageService = inject(ImageService);
   private truckDetailService = inject(TruckDetailsService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -26,8 +34,8 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
   loading = signal<boolean>(true);
   error = signal<string | null>(null);
 
-  ngOnInit():void {
-    this.loadDetails()
+  ngOnInit(): void {
+    this.loadDetails();
   }
 
   ngOnDestroy(): void {
@@ -36,30 +44,59 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
   }
 
   public loadDetails(): void {
-    const truckId = this.route.snapshot.paramMap.get("id");
+    const truckId = this.route.snapshot.paramMap.get('id');
     if (!truckId) {
       this.error.set('Truck id is missing');
       this.loading.set(false);
       return;
     }
 
-    this.truckDetailService.getTruckDetailById(truckId).pipe(takeUntil(this.destroy$)).subscribe({
-      next: (truckDetail: OnboardingResponse) => {
-        this.truckDetail.set(truckDetail);
-        this.loading.set(false);
-      },
-      error: (err) => {
-        this.error.set(err.message || 'Failed to load user details');
-        this.loading.set(false);
-      }
-    });
+    this.truckDetailService
+      .getTruckDetailById(truckId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (truckDetail: OnboardingResponse) => {
+          this.truckDetail.set(truckDetail);
+          this.loading.set(false);
+        },
+        error: (err) => {
+          this.error.set(err.message || 'Failed to load user details');
+          this.loading.set(false);
+        },
+      });
   }
 
-   getStatus(key: number): string {
-      return OnboardingStatus[key];
-    }
+  getStatus(key: number): string {
+    return OnboardingStatus[key];
+  }
 
   goBack(): void {
     this.router.navigate(['/dashboard/truck-details']);
+  }
+
+  step1: boolean = false;
+  step2: boolean = false;
+  step3: boolean = false;
+  step4: boolean = false;
+  step5: boolean = false;
+
+  stepOpen(id: number) {
+    if (id == 1) {
+      this.step1 = !this.step1;
+    } else if (id == 2) {
+      this.step2 = !this.step2;
+    } else if (id == 3) {
+      this.step3 = !this.step3;
+    } else if (id == 4) {
+      this.step4 = !this.step4;
+    } else if (id == 5) {
+      this.step5 = !this.step5;
+    } else {
+      this.step1 = false;
+      this.step2 = false;
+      this.step3 = false;
+      this.step4 = false;
+      this.step5 = false;
+    }
   }
 }
