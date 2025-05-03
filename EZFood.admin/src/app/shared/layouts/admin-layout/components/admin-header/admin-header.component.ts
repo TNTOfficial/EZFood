@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   BellDot,
+  LogOut,
   LucideAngularModule,
   MessageSquareText,
   Moon,
@@ -10,14 +11,14 @@ import {
   Settings,
   Sun,
 } from 'lucide-angular';
-import {  } from 'angular-tabler-icons';
+import {} from 'angular-tabler-icons';
 import { AuthService } from '../../../../../core/services/auth/auth.service';
 @Component({
   selector: 'app-admin-header',
   standalone: true,
   templateUrl: './admin-header.component.html',
 
-  imports: [LucideAngularModule,  RouterLink],
+  imports: [LucideAngularModule],
 })
 export class AdminHeaderComponent {
   // Lucide icons
@@ -28,6 +29,7 @@ export class AdminHeaderComponent {
   ScanFace = ScanFace;
   Moon = Moon;
   Sun = Sun;
+  LogOut = LogOut;
 
   isDarkMode = signal(false);
   authService = inject(AuthService);
@@ -48,7 +50,7 @@ export class AdminHeaderComponent {
   showMenuIn() {
     this.isDropdownOpen = true;
   }
-  
+
   showMenuOut() {
     this.isDropdownOpen = false;
   }

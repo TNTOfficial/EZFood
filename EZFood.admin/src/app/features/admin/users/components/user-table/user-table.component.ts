@@ -3,6 +3,7 @@ import { UserDetail } from '../../../../../shared/models/user/user-detail.model'
 import { RouterModule } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
 import { UserStatusBadgeComponent } from '../user-status-badge/user-status-badge.component';
+import { GalleryVerticalEnd, LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-user-table',
@@ -11,12 +12,16 @@ import { UserStatusBadgeComponent } from '../user-status-badge/user-status-badge
     CommonModule,
     RouterModule,
     UserStatusBadgeComponent,
-    DatePipe
+    DatePipe,
+    LucideAngularModule
   ],
   templateUrl: './user-table.component.html',
   styleUrl: './user-table.component.css'
 })
 export class UserTableComponent {
+
+  GalleryVerticalEnd = GalleryVerticalEnd;
+
   @Input() users: UserDetail[] = []
   @Output() viewUser = new EventEmitter<string>();
 

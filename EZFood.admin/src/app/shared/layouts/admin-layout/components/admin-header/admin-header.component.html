@@ -27,45 +27,40 @@
     </div>
   </div> -->
 
-  <div class="uerSetting relative z-20">
-    <div (click)="showMenu()" [class]="isDropdownOpen ? '-rotate-90':'rotate-0'"
-      class="h-[45px] w-[45px] transition-all duration-300 cursor-pointer rounded-full bg-gray-25 dark:bg-zinc-950 flex justify-center items-center">
-      <i-lucide [img]="Settings" strokeWidth="2" class="text-zinc-950 dark:text-white"></i-lucide>
+
+  <button (click)="themeService.toggleDarkMode()"
+    class="flex justify-center items-center gap-1 text-base shadow-none outline-none font-normal p-1 rounded-full border border-zinc-200 dark:border-zinc-700 text-black dark:text-white bg-gray-25 dark:bg-zinc-950 ">
+
+    <div
+      class="size-9 aspect-square rounded-full flex justify-center items-center  bg-transparent dark:bg-zinc-900 border border-transparent dark:border-zinc-700">
+      <i-lucide strokeWidth="2" [img]="Moon"
+        class=" inline-block size-6  transition-all duration-700 text-zinc-600 dark:text-white"></i-lucide>
+    </div>
+
+    <div
+      class=" size-9 aspect-square rounded-full flex justify-center items-center   bg-white dark:bg-transparent border border-zinc-200 dark:border-transparent">
+
+      <i-lucide strokeWidth="2" [img]="Sun"
+        class="inline-block size-6 transition-all duration-700 text-yellow-500 "></i-lucide>
+    </div>
+
+  </button>
+
+
+  <div class="userLogout relative z-20">
+    <div (click)="showMenu()" [class]="isDropdownOpen ? 'rotate-90':'rotate-0'"
+      class="h-[45px] w-[45px] transition-all duration-300 cursor-pointer rounded-full bg-gray-25 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-700 flex justify-center items-center">
+      <i-lucide [img]="LogOut" strokeWidth="2" class="text-zinc-950 size-5 dark:text-white"></i-lucide>
     </div>
 
     <ul (mouseleave)="showMenuOut()"
-      [class]="isDropdownOpen ? 'visible opacity-100':'invisible opacity-0'"
+      [class]="isDropdownOpen  ? 'visible opacity-100 top-[105%]':'invisible opacity-0 top-[110%]'"
       class="transition-all duration-300 bg-white invisible opacity-0 top-[110%] dark:bg-zinc-800 shadow-fxl select-none rounded-xl p-1 min-w-[200px] absolute right-0 z-50">
-      <li>
-        <a routerLink="/setting"
-          class="flex justify-start items-center 2xl:gap-2 gap-2 text-[1rem] font-normal leading-[100%] 2xl:py-2 2xl:px-2 p-1 text-black dark:text-white hover:bg-gray-25 hover:dark:bg-zinc-950 rounded-lg">
-          <i-lucide strokeWidth="2" [img]="ScanFace" class=" h-7 w-7 text-blue-600"></i-lucide>
-          <span>Account Info</span>
-        </a>
-      </li>
-      <li>
-        <button 
-          class="flex justify-start items-stretch 2xl:gap-2 gap-2 text-[1rem] font-normal leading-[100%] 2xl:py-2 2xl:px-2 p-1 text-black dark:text-white hover:bg-gray-25 hover:dark:bg-zinc-950 rounded-lg">
-          <div class=" h-7 w-7 aspect-square relative z-0">
-            <i-lucide strokeWidth="2" [img]="Moon"
-              class="absolute inline-block z-0 inset-0 2 h-7 w-7 rotate-45 dark:rotate-0 transition-all duration-700 text-white opacity-0 dark:opacity-100 invisible dark:visible"></i-lucide>
 
-            <i-lucide strokeWidth="2" [img]="Sun"
-              class="absolute inline-block z-0 inset-0 2 h-7 w-7 rotate-0 dark:-rotate-45 transition-all duration-700 text-yellow-500 opacity-100 dark:opacity-0 visible dark:invisible"></i-lucide>
-          </div>
 
-          <span (click)="themeService.toggleDarkMode()" class="text-start text-nowrap flex justify-center items-center">Switch Appearance</span>
-        </button>
-      </li>
+
       <li>
-        <a routerLink="/setting"
-          class="flex justify-start items-center 2xl:gap-2 gap-2 text-[1rem] font-normal leading-[100%] 2xl:py-2 2xl:px-2 p-1 text-black dark:text-white hover:bg-gray-25 hover:dark:bg-zinc-950 rounded-lg">
-          <i-lucide strokeWidth="2" [img]="Settings" class=" h-7 w-7 text-green-600"></i-lucide>
-          <span>Settings</span>
-        </a>
-      </li>
-      <li>
-        <button (click)="logout()"
+        <button (click)="logout(); showMenu()"
           class="flex justify-start items-center 2xl:gap-2 gap-2 text-[1rem] font-normal leading-[100%] 2xl:py-2 2xl:px-2 p-1 text-black dark:text-white hover:bg-gray-25 hover:dark:bg-zinc-950 rounded-lg w-full">
           <i-lucide strokeWidth="2" [img]="Power" class=" h-7 w-7 text-red-600"></i-lucide>
           <span class="text-red-600 dark:text-red-300">Logout</span>
