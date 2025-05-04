@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace EZFood.Shared.Dtos.TruckDetail
 {
-    public class StepsResponseDto
+    public class StepsResponseDto<T>
     {
         public bool Result { get; set; } = true;
-        public TruckDetailStepsDto? Data { get; set; }
+        public T? Data { get; set; }
         public string? Message { get; set; }
     }
 }

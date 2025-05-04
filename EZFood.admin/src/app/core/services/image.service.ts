@@ -6,5 +6,5 @@ import { environment } from '../../../environments/environment';
  providedIn: 'root'
 })
 export class ImageService {
-    getImageUrl = (relPath: string) => `${environment.assetsUrl}${relPath}`;
+    getImageUrl = (relPath: string | null) => `${environment.assetsUrl}${relPath}`;
 }

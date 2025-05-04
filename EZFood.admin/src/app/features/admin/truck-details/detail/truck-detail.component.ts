@@ -8,6 +8,8 @@ import { OnboardingResponse } from '../../../../shared/models/truck-details/truc
 import { OnboardingStatus } from '../../../../shared/enums/onboardingStatus';
 import { ArrowLeft, ChevronDown, LucideAngularModule } from 'lucide-angular';
 import { ImageService } from '../../../../core/services/image.service';
+import { PdfViewerComponent } from '../../../../shared/components/pdf-viewer/pdf-viewer.component';
+import { PdfViewerService } from '../../../../core/services/pdf-viewer.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -16,6 +18,8 @@ import { ImageService } from '../../../../core/services/image.service';
     RouterModule,
     LoadingSpinnerComponent,
     LucideAngularModule,
+    PdfViewerComponent,
+
   ],
   templateUrl: './truck-detail.component.html',
 })
@@ -23,12 +27,14 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
   ArrowLeft = ArrowLeft;
   ChevronDown = ChevronDown;
 
-  
+
   public imageService = inject(ImageService);
   private truckDetailService = inject(TruckDetailsService);
+  public pdfViewerService = inject(PdfViewerService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private destroy$ = new Subject<void>();
+  public pdfData: string | null = null;
 
   truckDetail = signal<OnboardingResponse | null>(null);
   loading = signal<boolean>(true);
@@ -41,6 +47,17 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  checkDocType(document: string | null): string {
+
+    var docExt = document!.replace(/\.([^.]+)$/, ":;$1").split(":;");
+    return docExt[1];
+  };
+
+  openPdf(data: string | null) {
+    this.pdfData = this.imageService.getImageUrl(data);
+    this.pdfViewerService.showModal();
   }
 
   public loadDetails(): void {

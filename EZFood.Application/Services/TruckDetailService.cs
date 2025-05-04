@@ -61,7 +61,7 @@ public class TruckDetailService : ITruckDetailService
 
         };
     }
-    public async Task<StepsResponseDto> GetTruckDetailStepsAsync()
+    public async Task<StepsResponseDto<TruckDetailStepsDto>> GetTruckDetailStepsAsync()
     {
         try
         {
@@ -69,7 +69,7 @@ public class TruckDetailService : ITruckDetailService
             TruckDetail? truckDetail = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
             if (truckDetail == null)
             {
-                return new StepsResponseDto
+                return new StepsResponseDto<TruckDetailStepsDto>
                 {
                     Result = false,
                     Data = null
@@ -114,7 +114,7 @@ public class TruckDetailService : ITruckDetailService
             {
                 Files = truckDetail.MenuList
             };
-            return new StepsResponseDto
+            return new StepsResponseDto<TruckDetailStepsDto>
             {
                 Result = true,
                 Data = stepDetails
@@ -122,7 +122,7 @@ public class TruckDetailService : ITruckDetailService
 
         } catch(Exception ex)
         {
-            return new StepsResponseDto
+            return new StepsResponseDto<TruckDetailStepsDto>
             {
                 Result = true,
                 Message = ex.Message
@@ -603,15 +603,15 @@ public class TruckDetailService : ITruckDetailService
         return truckDetail;
     }
 
-    public async Task<StepsResponseDto> GetTruckDetailStepsByIdAsync(Guid id)
+    public async Task<StepsResponseDto<TruckDetailDto>> GetTruckDetailStepsByIdAsync(Guid id)
     {
         try
         {
-            TruckDetailStepsDto stepDetails = new TruckDetailStepsDto();
+            TruckDetailDto stepDetails = new TruckDetailDto();
             TruckDetail? truckDetail = await _repositoryManager.TruckDetail.GetTruckDetailByIdAsync(id);
             if (truckDetail == null)
             {
-                return new StepsResponseDto
+                return new StepsResponseDto<TruckDetailDto>
                 {
                     Result = false,
                     Data = null
@@ -627,11 +627,11 @@ public class TruckDetailService : ITruckDetailService
                 PhoneNumber = truckDetail.PhoneNumber,
                 Address = truckDetail.Address
             };
-            stepDetails.StepTwo = new StepTwo
+            stepDetails.StepTwo = new StepTwoDetail
             {
                 IsOtherCuisine = truckDetail.IsOtherCuisine,
                 CuisineNote = truckDetail.CuisineNote,
-                Cuisines = truckDetail.CuisineTypes.Select(x => x.Id).ToList()
+                Cuisines = truckDetail.CuisineTypes.Select(x => x.Name).ToList()
             };
             stepDetails.StepThree = new StepThree
             {
@@ -656,7 +656,7 @@ public class TruckDetailService : ITruckDetailService
             {
                 Files = truckDetail.MenuList
             };
-            return new StepsResponseDto
+            return new StepsResponseDto<TruckDetailDto>
             {
                 Result = true,
                 Data = stepDetails
@@ -665,7 +665,7 @@ public class TruckDetailService : ITruckDetailService
         }
         catch (Exception ex)
         {
-            return new StepsResponseDto
+            return new StepsResponseDto<TruckDetailDto>
             {
                 Result = true,
                 Message = ex.Message

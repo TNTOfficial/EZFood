@@ -1,0 +1,24 @@
+@if(isVisible){
+  <div class="fixed inset-0 z-[999] overflow-auto bg-gray-500 bg-opacity-75">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white w-full max-w-[800px] h-[80dvh] overflow-y-auto rounded-lg shadow-xl">
+        <div class="p-4">
+          <div class="flex justify-between items-center mb-2">
+            <h2 class="text-lg font-bold">Modal Title</h2>
+            <button class="p-1 hover:bg-gray-200 rounded-md" (click)="onClose()">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="mb-4">
+            <ngx-extended-pdf-viewer [src]="'http://143.198.101.124:5000/uploads/documents/DCHCertificate/DCHCertificate_638816969613587093.pdf'">
+            </ngx-extended-pdf-viewer>
+            <ng-content></ng-content>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+

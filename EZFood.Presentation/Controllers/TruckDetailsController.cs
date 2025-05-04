@@ -39,11 +39,12 @@ public class TruckDetailsController(IServiceManager serviceManager, ILogger<Truc
     }
 
     [HttpGet("truck-detail-steps")]
-    public async Task<ActionResult<StepsResponseDto>> GetTruckDetailSteps()
+    public async Task<ActionResult<StepsResponseDto<TruckDetailStepsDto>>> GetTruckDetailSteps()
     {
+        
         try
         {
-            StepsResponseDto truckDetails = await _serviceManager.TruckDetailService.GetTruckDetailStepsAsync();
+            StepsResponseDto<TruckDetailStepsDto> truckDetails = await _serviceManager.TruckDetailService.GetTruckDetailStepsAsync();
             return Ok(truckDetails);
         }
         catch (Exception ex)
@@ -55,11 +56,11 @@ public class TruckDetailsController(IServiceManager serviceManager, ILogger<Truc
 
     }
     [HttpGet("{id}")]
-    public async Task<ActionResult<TruckDetailStepsDto>> GetTruckDetailById(Guid id)
+    public async Task<ActionResult<StepsResponseDto<TruckDetailDto>>> GetTruckDetailById(Guid id)
     {
         try
         {
-            StepsResponseDto truckDetails = await _serviceManager.TruckDetailService.GetTruckDetailStepsByIdAsync(id);
+            StepsResponseDto<TruckDetailDto> truckDetails = await _serviceManager.TruckDetailService.GetTruckDetailStepsByIdAsync(id);
             return Ok(truckDetails);
         }
         catch (Exception ex)
