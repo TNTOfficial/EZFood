@@ -50,9 +50,13 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
   }
 
   checkDocType(document: string | null): string {
+if(document){
+  var docExt = document!.replace(/\.([^.]+)$/, ":;$1").split(":;");
+  return docExt[1];
+} else {
+  return 'null';
+}
 
-    var docExt = document!.replace(/\.([^.]+)$/, ":;$1").split(":;");
-    return docExt[1];
   };
 
   openPdf(data: string | null) {
