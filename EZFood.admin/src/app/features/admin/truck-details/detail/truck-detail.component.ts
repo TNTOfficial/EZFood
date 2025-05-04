@@ -7,8 +7,7 @@ import { TruckDetailsService } from '../../../../core/services/truck-details/tru
 import { OnboardingResponse } from '../../../../shared/models/truck-details/truck-details.model';
 import { OnboardingStatus } from '../../../../shared/enums/onboardingStatus';
 import { ArrowLeft, ChevronDown, LucideAngularModule } from 'lucide-angular';
-import { ImageService } from '../../../../core/services/image.service';
-import { PdfViewerComponent } from '../../../../shared/components/pdf-viewer/pdf-viewer.component';
+import { ImageService } from '../../../../core/services/image.service'; 
 import { PdfViewerService } from '../../../../core/services/pdf-viewer.service';
 
 @Component({
@@ -17,8 +16,7 @@ import { PdfViewerService } from '../../../../core/services/pdf-viewer.service';
     CommonModule,
     RouterModule,
     LoadingSpinnerComponent,
-    LucideAngularModule,
-    PdfViewerComponent,
+    LucideAngularModule, 
 
   ],
   templateUrl: './truck-detail.component.html',
