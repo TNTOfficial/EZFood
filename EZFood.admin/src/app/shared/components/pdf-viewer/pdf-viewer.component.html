@@ -12,8 +12,21 @@
             </button>
           </div>
           <div class="mb-4">
-            <ngx-extended-pdf-viewer [src]="'http://143.198.101.124:5000/uploads/documents/DCHCertificate/DCHCertificate_638816969613587093.pdf'">
-            </ngx-extended-pdf-viewer>
+            <pdf-viewer
+      [src]="src"
+      [rotation]="0"
+      [original-size]="false"
+      [show-all]="true"
+      [fit-to-page]="false"
+      [zoom]="1"
+      [zoom-scale]="'page-width'"
+      [stick-to-page]="false"
+      [render-text]="true"
+      [external-link-target]="'blank'"
+      [autoresize]="true"
+      [show-borders]="false"
+      style="width: 100%; height: 100vh;"
+    ></pdf-viewer>
             <ng-content></ng-content>
           </div>
         </div>
