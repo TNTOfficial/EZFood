@@ -15,6 +15,7 @@ import {
 } from 'lucide-angular';
 import { ImageService } from '../../../../core/services/image.service';
 import { PdfViewerService } from '../../../../core/services/pdf-viewer.service';
+import { PdfViewerComponent } from "../../../../shared/components/pdf-viewer/pdf-viewer.component";
 
 @Component({
   selector: 'app-user-profile',
@@ -23,7 +24,8 @@ import { PdfViewerService } from '../../../../core/services/pdf-viewer.service';
     RouterModule,
     LoadingSpinnerComponent,
     LucideAngularModule,
-  ],
+    PdfViewerComponent
+],
   templateUrl: './truck-detail.component.html',
 })
 export class TruckDetailComponent implements OnInit, OnDestroy {
@@ -39,6 +41,7 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private destroy$ = new Subject<void>();
   public pdfData: string | null = null;
+  public imageSRC: string | null = null;
 
   truckDetail = signal<OnboardingResponse | null>(null);
   loading = signal<boolean>(true);
@@ -63,6 +66,8 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
   }
 
   openPdf(data: string | null) {
+    console.log("pdf click");
+
     this.pdfData = this.imageService.getImageUrl(data);
     this.pdfViewerService.showModal();
   }
@@ -126,7 +131,12 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
 
   isModalOpen: boolean = false;
 
-  viewDocument() {
-    this.isModalOpen = !this.isModalOpen;
+  viewDocument(data: string) {
+    this.imageSRC = data;
+    this.isModalOpen = true;
+  }
+  closeDocument() {
+    this.imageSRC = null;
+    this.isModalOpen = false;
   }
 }
