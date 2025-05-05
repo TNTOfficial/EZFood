@@ -6,8 +6,14 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
 import { TruckDetailsService } from '../../../../core/services/truck-details/truck-details.service';
 import { OnboardingResponse } from '../../../../shared/models/truck-details/truck-details.model';
 import { OnboardingStatus } from '../../../../shared/enums/onboardingStatus';
-import { ArrowLeft, ChevronDown, LucideAngularModule } from 'lucide-angular';
-import { ImageService } from '../../../../core/services/image.service'; 
+import {
+  ArrowLeft,
+  ChevronDown,
+  LucideAngularModule,
+  View,
+  X,
+} from 'lucide-angular';
+import { ImageService } from '../../../../core/services/image.service';
 import { PdfViewerService } from '../../../../core/services/pdf-viewer.service';
 
 @Component({
@@ -16,15 +22,15 @@ import { PdfViewerService } from '../../../../core/services/pdf-viewer.service';
     CommonModule,
     RouterModule,
     LoadingSpinnerComponent,
-    LucideAngularModule, 
-
+    LucideAngularModule,
   ],
   templateUrl: './truck-detail.component.html',
 })
 export class TruckDetailComponent implements OnInit, OnDestroy {
   ArrowLeft = ArrowLeft;
   ChevronDown = ChevronDown;
-
+  View = View;
+  X = X;
 
   public imageService = inject(ImageService);
   private truckDetailService = inject(TruckDetailsService);
@@ -48,14 +54,13 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
   }
 
   checkDocType(document: string | null): string {
-if(document){
-  var docExt = document!.replace(/\.([^.]+)$/, ":;$1").split(":;");
-  return docExt[1];
-} else {
-  return 'null';
-}
-
-  };
+    if (document) {
+      var docExt = document!.replace(/\.([^.]+)$/, ':;$1').split(':;');
+      return docExt[1];
+    } else {
+      return 'null';
+    }
+  }
 
   openPdf(data: string | null) {
     this.pdfData = this.imageService.getImageUrl(data);
@@ -117,5 +122,11 @@ if(document){
       this.step4 = false;
       this.step5 = false;
     }
+  }
+
+  isModalOpen: boolean = false;
+
+  viewDocument() {
+    this.isModalOpen = !this.isModalOpen;
   }
 }
