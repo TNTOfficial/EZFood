@@ -100,7 +100,7 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
   }
 
   goBack(): void {
-    this.router.navigate(['/dashboard/truck-details']);
+    this.router.navigate(['/dashboard/onboarding-requests']);
   }
 
   step1: boolean = false;

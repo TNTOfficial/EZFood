@@ -39,6 +39,27 @@ public class TruckDetailService : ITruckDetailService
         return await _repositoryManager.TruckDetail.GetAllTruckDetailsAsync();
     }
 
+    public async Task<IEnumerable<TruckDetail>> GetTruckDetailsForStatusAsync(OnboardingStatus status)
+    {
+        return await _repositoryManager.TruckDetail.GetTruckDetailsForStatusAsync(status);
+    }
+
+    public async Task<IEnumerable<TruckDetail>> GetTruckDetailsForIncompleteStatusAsync()
+    {
+        return await _repositoryManager.TruckDetail.GetTruckDetailsForIncompleteStatusAsync();
+    }
+
+    public async Task<List<int>> GetOnboardingStatsAsync()
+    {
+        List<int> counts = new();
+        counts.Add(await _repositoryManager.TruckDetail.GetTruckDetailsForStatusCountAsync(OnboardingStatus.Submitted));
+        counts.Add(await _repositoryManager.TruckDetail.GetTruckDetailsForStatusCountAsync(OnboardingStatus.Objection));
+        counts.Add(await _repositoryManager.TruckDetail.GetTruckDetailsForStatusIncompleteCountAsync());
+        counts.Add(await _repositoryManager.TruckDetail.GetTruckDetailsForStatusCountAsync(OnboardingStatus.Rejected));
+        return counts;
+    }
+
+
     public async Task<ResponseDto> SubmitForReviewAsync()
     {
         TruckDetail? existingTruck = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
@@ -699,4 +720,5 @@ public class TruckDetailService : ITruckDetailService
     {
         throw new NotImplementedException();
     }
+
 };

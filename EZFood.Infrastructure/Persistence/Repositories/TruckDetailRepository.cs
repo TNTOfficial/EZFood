@@ -18,6 +18,26 @@ public class TruckDetailRepository(EZFoodContext context) : RepositoryBase<Truck
         return await FindAll(trackChanges: false).ToListAsync();
     }
 
+    public async Task<IEnumerable<TruckDetail>> GetTruckDetailsForStatusAsync(OnboardingStatus status)
+    {
+        return await FindAll(trackChanges: false).Where(x => x.OnboardingStatus == status).OrderByDescending(x => x.CreatedAt).ToListAsync();
+    }
+
+    public async Task<IEnumerable<TruckDetail>> GetTruckDetailsForIncompleteStatusAsync()
+    {
+        return await FindAll(trackChanges: false).Where(x => x.OnboardingStatus >= OnboardingStatus.Step1 && x.OnboardingStatus <= OnboardingStatus.Pending).OrderByDescending(x => x.CreatedAt).ToListAsync();
+    }
+
+    public async Task<int> GetTruckDetailsForStatusCountAsync(OnboardingStatus status)
+    {
+        return await FindAll(trackChanges: false).Where(x => x.OnboardingStatus == status).CountAsync();
+    }
+
+    public async Task<int> GetTruckDetailsForStatusIncompleteCountAsync()
+    {
+        return await FindAll(trackChanges: false).Where(x => x.OnboardingStatus >= OnboardingStatus.Step1  && x.OnboardingStatus <= OnboardingStatus.Pending).CountAsync();
+    }
+
     public async Task<IEnumerable<TruckDetail>> GetPendingTruckDetaisAsync()
     {
         return await FindAll(trackChanges: false).Where(x => x.OnboardingStatus == OnboardingStatus.Pending).ToListAsync();

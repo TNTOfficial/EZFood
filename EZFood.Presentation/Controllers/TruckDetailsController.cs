@@ -38,6 +38,59 @@ public class TruckDetailsController(IServiceManager serviceManager, ILogger<Truc
 
     }
 
+
+    [HttpGet("get-onboarding-stats")]
+    public async Task<ActionResult<List<int>>> GetOnboardingStats()
+    {
+        try
+        {
+            List<int> counts = await _serviceManager.TruckDetailService.GetOnboardingStatsAsync();
+            return Ok(counts);
+        }
+        catch (Exception ex)
+        {
+
+            _logger.LogError(ex, " Error retrieving all onboarding counts");
+            return StatusCode(500, "An error occurred while retrieving onboarding counts.");
+        }
+
+    }
+
+
+    [HttpGet("get-onboardings/{status}")]
+    public async Task<ActionResult> GetAllTruckDetails(OnboardingStatus status)
+    {
+        try
+        {
+            IEnumerable<TruckDetail>? truckDetails = await _serviceManager.TruckDetailService.GetTruckDetailsForStatusAsync(status);
+            return Ok(truckDetails);
+        }
+        catch (Exception ex)
+        {
+
+            _logger.LogError(ex, " Error retrieving all truck details");
+            return StatusCode(500, "An error occurred while retrieving truck details.");
+        }
+
+    }
+
+    [HttpGet("get-incomplete-onboardings")]
+    public async Task<ActionResult> GetIncompleteTruckDetails()
+    {
+        try
+        {
+            IEnumerable<TruckDetail>? truckDetails = await _serviceManager.TruckDetailService.GetTruckDetailsForIncompleteStatusAsync();
+            return Ok(truckDetails);
+        }
+        catch (Exception ex)
+        {
+
+            _logger.LogError(ex, " Error retrieving all truck details");
+            return StatusCode(500, "An error occurred while retrieving truck details.");
+        }
+
+    }
+
     [HttpGet("truck-detail-steps")]
     public async Task<ActionResult<StepsResponseDto<TruckDetailStepsDto>>> GetTruckDetailSteps()
     {
