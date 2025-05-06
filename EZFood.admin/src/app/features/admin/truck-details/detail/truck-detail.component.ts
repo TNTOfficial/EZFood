@@ -8,7 +8,11 @@ import { OnboardingResponse } from '../../../../shared/models/truck-details/truc
 import { OnboardingStatus } from '../../../../shared/enums/onboardingStatus';
 import {
   ArrowLeft,
+  BadgeCheck,
   ChevronDown,
+  CircleX,
+  FileText,
+  Image,
   LucideAngularModule,
   View,
   X,
@@ -33,6 +37,10 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
   ChevronDown = ChevronDown;
   View = View;
   X = X;
+  CircleX = CircleX;
+  BadgeCheck = BadgeCheck;
+  Image = Image
+  FileText = FileText;
 
   public imageService = inject(ImageService);
   private truckDetailService = inject(TruckDetailsService);
@@ -100,7 +108,7 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
   }
 
   goBack(): void {
-    this.router.navigate(['/dashboard/truck-details']);
+    this.router.navigate(['/dashboard/onboarding-requests']);
   }
 
   step1: boolean = false;
