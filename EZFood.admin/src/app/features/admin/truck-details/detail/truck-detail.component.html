@@ -92,6 +92,9 @@
             <p class="text-sm font-bold text-gray-800 dark:text-zinc-100">{{item}}</p>
           </li> }
         </ul>
+        @if(truckDetail()!.data.stepTwo.isOtherCuisine){
+        <span>Other cuisine: {{truckDetail()!.data.stepTwo.cuisineNote}}</span>
+        }
       </div>
     </div>
 
@@ -322,6 +325,13 @@
     </div>
 
   </div>
+  <div class="space-x-4 space-y-4 text-center mt-10">
+    <button type="button"
+      class="px-5 py-2.5 rounded-lg text-white text-sm tracking-wider font-medium border border-current outline-none bg-blue-700 hover:bg-blue-800 active:bg-blue-700">Blue</button>
+
+    <button type="button"
+      class="px-5 py-2.5 rounded-lg text-white text-sm tracking-wider font-medium border border-current outline-none bg-red-700 hover:bg-red-800 active:bg-red-700">Red</button>
+  </div>
   }
 </div>
 
@@ -336,10 +346,11 @@
       <i-lucide [img]="X"></i-lucide>
     </div>
 
-    <img [class]="isModalOpen ? 'scale-x-100 delay-600':'scale-x-0 delay-0'" [src]="imageService.getImageUrl(imageSRC)" alt="Document"
-      class="h-full w-full object-contain inline-block transition-transform duration-300 scale-x-0 ">
+    <img [class]="isModalOpen ? 'scale-x-100 delay-600':'scale-x-0 delay-0'" [src]="imageService.getImageUrl(imageSRC)"
+      alt="Document" class="h-full w-full object-contain inline-block transition-transform duration-300 scale-x-0 ">
 
   </div>
 </div>
-<app-pdf-viewer [dataUrl]="pdfData" [isVisible]="(pdfViewerService.isModalVisible$ | async)" (closeModal)="pdfViewerService.hideModal()">
+<app-pdf-viewer [dataUrl]="pdfData" [isVisible]="(pdfViewerService.isModalVisible$ | async)"
+  (closeModal)="pdfViewerService.hideModal()">
 </app-pdf-viewer>
