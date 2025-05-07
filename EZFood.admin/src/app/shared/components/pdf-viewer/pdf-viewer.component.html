@@ -1,37 +1,29 @@
 @if(isVisible){
-  <div class="fixed inset-0 z-[999] overflow-auto bg-gray-500 bg-opacity-75">
-    <div class="flex items-center justify-center min-h-screen p-4">
-      <div class="bg-white w-full max-w-[800px] h-[80dvh] overflow-y-auto rounded-lg shadow-xl">
-        <div class="p-4">
-          <div class="flex justify-between items-center mb-2">
-            <h2 class="text-lg font-bold">Modal Title</h2>
-            <button class="p-1 hover:bg-gray-200 rounded-md" (click)="onClose()">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </button>
-          </div>
-          <div class="mb-4">
-            <pdf-viewer
-      [src]="dataUrl!"
-      [rotation]="0"
-      [original-size]="false"
-      [show-all]="true"
-      [fit-to-page]="false"
-      [zoom]="1"
-      [zoom-scale]="'page-width'"
-      [stick-to-page]="false"
-      [render-text]="true"
-      [external-link-target]="'blank'"
-      [autoresize]="true"
-      [show-borders]="false"
-      style="width: 100%; height: 100vh;"
-    ></pdf-viewer>
-            <ng-content></ng-content>
-          </div>
-        </div>
-      </div>
+<div [class]="isLoading ? 'opacity-100 z-[1399]':'opacity-0 -z-10'"
+  class="fixed -z-10 opacity-0 inset-0 bg-black/50 flex justify-center items-center transition-all duration-300">
+  <h3 class="text-white text-3xl font-bold">Loading...</h3>
+</div>
+}
+<div [class]="isVisible ? 'opacity-100 z-[990] delay-0':'opacity-0 -z-10 delay-600'"
+  class="modal fixed inset-0 bg-black/50 transition-all duration-300 flex justify-center items-center opacity-0 -z-10 ">
+  <div [class]="isVisible ? 'scale-y-100 delay-300':'scale-y-0 delay-300'"
+    class="max-w-xl w-full bg-white dark:bg-zinc-800 p-2 rounded-lg relative z-0 transition-transform duration-300 h-fit scale-y-0">
+    <div 
+      class="download size-10 shadow rounded-full bg-white dark:bg-zinc-600 text-blue-700 dark:text-blue-300 absolute top-4 left-4 z-10 flex justify-center items-center cursor-pointer">
+      <i-lucide [img]="Download"></i-lucide>
+    </div>
+
+    <div (click)="onClose()"
+      class="closeButton size-10 shadow rounded-full bg-white dark:bg-zinc-600 text-red-700 dark:text-red-300 absolute top-4 right-4 z-10 flex justify-center items-center cursor-pointer">
+      <i-lucide [img]="X"></i-lucide>
+    </div>
+
+    <div class="mb-4">
+      <pdf-viewer [src]="dataUrl!" [rotation]="0" [original-size]="false" [show-all]="true" [fit-to-page]="false"
+        [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true"
+        [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false" style="width: 100%; height: 80dvh; overflow: hidden
+        ;" (after-load-complete)="onPdfLoadComplete()" (error)="onError($event)"></pdf-viewer>
+      <ng-content></ng-content>
     </div>
   </div>
-}
-
+</div>
