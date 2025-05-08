@@ -8,13 +8,12 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PdfViewerModule } from 'ng2-pdf-viewer'; // <- import PdfViewerModule
-import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 import { Download, LucideAngularModule, X } from 'lucide-angular';
 
 @Component({
   selector: 'app-pdf-viewer',
   templateUrl: './pdf-viewer.component.html',
-  imports: [FormsModule, PdfViewerModule, LoadingSpinnerComponent, LucideAngularModule],
+  imports: [FormsModule, PdfViewerModule,  LucideAngularModule],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

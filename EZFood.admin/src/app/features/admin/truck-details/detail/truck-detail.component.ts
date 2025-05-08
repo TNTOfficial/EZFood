@@ -10,10 +10,14 @@ import {
   ArrowLeft,
   BadgeCheck,
   ChevronDown,
+  CircleCheckBig,
   CircleX,
+  ClipboardCheck,
   Download,
   FileText,
+  GitPullRequestClosed,
   Image,
+  ListRestart,
   LucideAngularModule,
   View,
   X,
@@ -43,6 +47,14 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
   Image = Image
   FileText = FileText;
   Download = Download;
+  ClipboardCheck = ClipboardCheck
+  ListRestart = ListRestart
+  GitPullRequestClosed = GitPullRequestClosed
+  CircleCheckBig = CircleCheckBig;
+  
+
+  // Lucide Icons<<
+
   public imageService = inject(ImageService);
   private truckDetailService = inject(TruckDetailsService);
   public pdfViewerService = inject(PdfViewerService);
@@ -139,6 +151,7 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
   }
 
   isModalOpen: boolean = false;
+  isReactionModalOpen: boolean = false;
 
   viewDocument(data: string) {
     this.imageSRC = data;
@@ -146,5 +159,13 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
   }
   closeDocument() {
     this.isModalOpen = false;
+  }
+
+  openReactionModal(){
+    this.isReactionModalOpen = true;
+  }
+  
+  closeReactionModal(){
+    this.isReactionModalOpen = false;
   }
 }
