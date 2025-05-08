@@ -53,7 +53,7 @@ public class TruckDetailService : ITruckDetailService
     {
         List<int> counts = new();
         counts.Add(await _repositoryManager.TruckDetail.GetTruckDetailsForStatusCountAsync(OnboardingStatus.Submitted));
-        counts.Add(await _repositoryManager.TruckDetail.GetTruckDetailsForStatusCountAsync(OnboardingStatus.Objection));
+        counts.Add(await _repositoryManager.TruckDetail.GetTruckDetailsForStatusCountAsync(OnboardingStatus.ReferBack));
         counts.Add(await _repositoryManager.TruckDetail.GetTruckDetailsForStatusIncompleteCountAsync());
         counts.Add(await _repositoryManager.TruckDetail.GetTruckDetailsForStatusCountAsync(OnboardingStatus.Rejected));
         return counts;

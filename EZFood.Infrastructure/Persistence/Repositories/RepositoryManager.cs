@@ -12,13 +12,14 @@ public sealed class RepositoryManager(EZFoodContext context):IRepositoryManager
     private readonly Lazy<ICuisineTypeRepository> cuisineTypeRepository = new(() => new CuisineTypeRepository(context));
     private readonly Lazy<ITruckDetailRepository> TruckDetailRepository = new(() => new TruckDetailRepository(context));
     private readonly Lazy<ICuisineTypeTruckDetailRepository> CuisineTypeTruckDetailRepository = new(() => new CuisineTypeTruckDetailRepository(context));
-
+    private readonly Lazy<IOnboardingActionRepository> OnboardingActionRepository = new(() => new OnboardingActionRepository(context));
 
     public IUserRepository User => userRepository.Value;
     public ICuisineTypeRepository CuisineType => cuisineTypeRepository.Value;
 
     public ITruckDetailRepository TruckDetail => TruckDetailRepository.Value;
     public ICuisineTypeTruckDetailRepository CuisineTypeTruckDetail => CuisineTypeTruckDetailRepository.Value;
+    public IOnboardingActionRepository OnboardingAction => OnboardingActionRepository.Value;
 
     public async Task<T> ExecuteScalarAsync<T>(string sql)
     {

@@ -14,6 +14,7 @@ public class EZFoodContext(DbContextOptions<EZFoodContext> options) :
     public DbSet<CuisineType> CuisineTypes { get; set; }
     public DbSet<TruckDetail> TruckDetails { get; set; }
     public DbSet<CuisineTypeTruckDetail> TruckDetailCuisineTypes { get; set; }
+    public DbSet<OnboardingAction> OnboardingActions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -43,9 +44,5 @@ public class EZFoodContext(DbContextOptions<EZFoodContext> options) :
                 .WithMany(c => c.TruckDetails) // Course can have many Students
                 .UsingEntity<CuisineTypeTruckDetail>();
         });
-
-
-
-
     }
 }

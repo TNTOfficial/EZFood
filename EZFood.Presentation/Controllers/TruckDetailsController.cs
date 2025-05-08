@@ -10,6 +10,7 @@ using EZFood.Shared.Dtos.TruckDetail;
 using EZFood.Domain.Entities.Enums;
 using EZFood.Shared.Dtos.Response;
 using EZFood.Shared.Dtos.TruckDetail.Steps;
+using EZFood.Shared.Dtos.OnboardingAction;
 
 namespace MLM.Presentation.Controllers;
 
@@ -283,6 +284,26 @@ public class TruckDetailsController(IServiceManager serviceManager, ILogger<Truc
         {
             _logger.LogError(ex, "Error updating truck details with ID {TruckDetailId}", id);
             return StatusCode(500, "An error occurred while updating the  truck details.");
+        }
+
+    }
+
+    [HttpPut("onboarding-action/{id}")]
+    public async Task<ActionResult<ResponseDto>> OnboardingAction(Guid id, [FromBody] CreateOnboardingActionDto updateDto
+      )
+    {
+        try
+        {
+            ResponseDto response = await _serviceManager.OnboardingActionService.CreateActionAsync(updateDto);
+            return response;
+        }
+        catch (Exception ex)
+        {
+            return new ResponseDto
+            {
+                Result = false,
+                Message = ex.Message,
+            };
         }
 
     }
