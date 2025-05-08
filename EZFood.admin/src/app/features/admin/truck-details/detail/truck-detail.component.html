@@ -9,10 +9,7 @@
 
 
   <div
-    class="bg-white dark:bg-zinc-900 text-black dark:text-white rounded-lg shadow-lg shadow-zinc-100 dark:shadow-zinc-700 border-t border-zinc-200 dark:border-zinc-700 overflow-hidden">
-
-
-
+    class="bg-white dark:bg-zinc-900 text-black dark:text-white rounded-lg shadow shadow-zinc-100 dark:shadow-zinc-700 border-t border-zinc-200 dark:border-zinc-700 overflow-hidden">
     <!-- Loading State -->
     @if (loading()) {
     <div class="flex justify-center my-8">
@@ -48,41 +45,41 @@
         <div class="overflow-hidden">
           <ul class="gap-3 flex justify-start items-center flex-wrap px-5">
             <li
-              class="flex-[1_1_12.5rem] py-2 px-4 rounded-md bg-white dark:bg-zinc-800 flex flex-col gap-3 items-stretch justify-center">
+              class="flex-[1_1_12.5rem] py-2 px-0 rounded-md bg-white dark:bg-zinc-800 flex flex-col gap-3 items-stretch justify-center">
               <p class="text-sm font-bold text-gray-800 dark:text-zinc-100">Truck Name:</p>
               <p
-                class="text-zinc-700 dark:text-zinc-300 p-3 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800">
+                class="text-zinc-700 dark:text-zinc-300 p-3 text-nowrap rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800">
                 {{ truckDetail()!.data.stepOne.truckName }}</p>
             </li>
             <li
-              class="flex-[1_1_12.5rem] py-2 px-4 rounded-md bg-white dark:bg-zinc-800 flex flex-col gap-3 items-stretch justify-center">
+              class="flex-[1_1_12.5rem] py-2 px-0 rounded-md bg-white dark:bg-zinc-800 flex flex-col gap-3 items-stretch justify-center">
               <p class="text-sm font-bold text-gray-800 dark:text-zinc-100">Truck Owner Name:</p>
               <p
-                class="text-zinc-700 dark:text-zinc-300 p-3 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800">
+                class="text-zinc-700 dark:text-zinc-300 p-3 text-nowrap rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800">
                 {{ truckDetail()!.data.stepOne.truckOwnerName }}</p>
             </li>
 
             <li
-              class="flex-[1_1_12.5rem] py-2 px-4 rounded-md bg-white dark:bg-zinc-800 flex flex-col gap-3 items-stretch justify-center">
+              class="flex-[1_1_12.5rem] py-2 px-0 rounded-md bg-white dark:bg-zinc-800 flex flex-col gap-3 items-stretch justify-center">
               <p class="text-sm font-bold text-gray-800 dark:text-zinc-100">Phone Number:</p>
               <p
-                class="text-zinc-700 dark:text-zinc-300 p-3 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800">
+                class="text-zinc-700 dark:text-zinc-300 p-3 text-nowrap rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800">
                 {{ truckDetail()!.data.stepOne.phoneNumber }}</p>
             </li>
 
             <li
-              class="flex-[1_1_12.5rem] py-2 px-4 rounded-md bg-white dark:bg-zinc-800 flex flex-col gap-3 items-stretch justify-center">
+              class="flex-[1_1_12.5rem] py-2 px-0 rounded-md bg-white dark:bg-zinc-800 flex flex-col gap-3 items-stretch justify-center">
               <p class="text-sm font-bold text-gray-800 dark:text-zinc-100">Address:</p>
               <p
-                class="text-zinc-700 dark:text-zinc-300 p-3 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800">
+                class="text-zinc-700 dark:text-zinc-300 p-3 text-nowrap rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800">
                 {{ truckDetail()!.data.stepOne.address }}</p>
             </li>
 
             <li
-              class="flex-[1_1_12.5rem] py-2 px-4 rounded-md bg-white dark:bg-zinc-800 flex flex-col gap-3 items-stretch justify-center">
+              class="flex-[1_1_12.5rem] py-2 px-0 rounded-md bg-white dark:bg-zinc-800 flex flex-col gap-3 items-stretch justify-center">
               <p class="text-sm font-bold text-gray-800 dark:text-zinc-100">Truck Status:</p>
               <p
-                class="text-zinc-700 dark:text-zinc-300 p-3 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800">
+                class="text-zinc-700 dark:text-zinc-300 p-3 text-nowrap rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800">
                 {{ getStatus(truckDetail()!.data.step) }}</p>
             </li>
           </ul>
@@ -106,8 +103,8 @@
           <ul class="gap-3 flex justify-start items-center flex-wrap px-5">
             @for(item of truckDetail()!.data.stepTwo.cuisines; track item){
             <li
-              class="flex-[1_1_12.5rem] py-2 px-3 rounded-full bg-white dark:bg-zinc-800 border-2 border-green-400 dark:border-green-700 flex gap-1 justify-center items-center max-w-fit">
-              <i-lucide [img]="BadgeCheck" class="size-6 text-green-600 dark:text-green-700" strokeWidth="2"></i-lucide>
+              class="flex-[1_1_12.5rem] py-2 px-3 rounded-full bg-white dark:bg-zinc-800 border-2 border-tree-400 dark:border-tree-700 flex gap-1 justify-center items-center max-w-fit">
+              <i-lucide [img]="BadgeCheck" class="size-6 text-tree-600 dark:text-tree-700" strokeWidth="2"></i-lucide>
               <span class="text-sm font-bold text-gray-800 dark:text-zinc-100">{{item}}</span>
             </li> }
           </ul>
@@ -131,7 +128,7 @@
           <ul class="gap-3 flex justify-start items-stretch flex-wrap px-5">
 
             <li
-              class="flex-[1_1_12.5rem] py-2 px-4 rounded-md bg-white dark:bg-zinc-800 flex flex-col gap-3 items-stretch justify-center">
+              class="flex-[1_1_12.5rem] py-2 px-0 rounded-md bg-white dark:bg-zinc-800 flex flex-col gap-3 items-stretch justify-center">
               <p class="text-sm font-bold text-gray-800 dark:text-zinc-100">Bussiness Start Year:</p>
               <p
                 class="text-zinc-700 dark:text-zinc-300 p-3 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800">
@@ -139,7 +136,7 @@
             </li>
 
             <li
-              class="flex-[1_1_12.5rem] py-2 px-4 rounded-md bg-white dark:bg-zinc-800 flex flex-col gap-3 items-stretch justify-center">
+              class="flex-[1_1_12.5rem] py-2 px-0 rounded-md bg-white dark:bg-zinc-800 flex flex-col gap-3 items-stretch justify-center">
               <p class="text-sm font-bold text-gray-800 dark:text-zinc-100">EIN:</p>
               <p
                 class="text-zinc-700 dark:text-zinc-300 p-3 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800">
@@ -147,31 +144,31 @@
             </li>
 
             <li
-              class="flex-[1_1_12.5rem] py-2 px-4 rounded-md bg-white dark:bg-zinc-800 flex gap-3 items-end justify-between">
+              class="flex-[1_1_12.5rem] py-2 px-0 rounded-md bg-white dark:bg-zinc-800 flex gap-3 items-end justify-between">
 
               <div
-                [class]="truckDetail()!.data.stepThree.isBreakfast == true ? ' border-green-400 dark:border-green-700': ' border-red-400 dark:border-red-400'"
+                [class]="truckDetail()!.data.stepThree.isBreakfast == true ? ' border-tree-400 dark:border-tree-700': ' border-red-400 dark:border-red-400'"
                 class="flex-[1_1_12.5rem] py-2 px-3 rounded-full bg-white dark:bg-zinc-800 border-2 flex gap-1 justify-center items-center max-w-fit max-h-fit">
                 <i-lucide
-                  [class]="truckDetail()!.data.stepThree.isBreakfast == true ? '  text-green-600 dark:text-green-700 ': '  text-red-500 dark:text-red-400 '"
+                  [class]="truckDetail()!.data.stepThree.isBreakfast == true ? '  text-tree-600 dark:text-tree-700 ': '  text-red-500 dark:text-red-400 '"
                   [img]="truckDetail()!.data.stepThree.isBreakfast == true ? BadgeCheck : CircleX" class="size-6"
                   strokeWidth="2"></i-lucide>
                 <span class="text-sm font-bold text-gray-800 dark:text-zinc-100"> BreakFast </span>
               </div>
               <div
-                [class]="truckDetail()!.data.stepThree.isLunch == true ? ' border-green-400 dark:border-green-700': ' border-red-400 dark:border-red-400'"
+                [class]="truckDetail()!.data.stepThree.isLunch == true ? ' border-tree-400 dark:border-tree-700': ' border-red-400 dark:border-red-400'"
                 class="flex-[1_1_12.5rem] py-2 px-3 rounded-full bg-white dark:bg-zinc-800 border-2 flex gap-1 justify-center items-center max-w-fit max-h-fit">
                 <i-lucide
-                  [class]="truckDetail()!.data.stepThree.isLunch == true ? '  text-green-600 dark:text-green-700 ': '  text-red-500 dark:text-red-400 '"
+                  [class]="truckDetail()!.data.stepThree.isLunch == true ? '  text-tree-600 dark:text-tree-700 ': '  text-red-500 dark:text-red-400 '"
                   [img]="truckDetail()!.data.stepThree.isLunch == true ? BadgeCheck : CircleX" class="size-6"
                   strokeWidth="2"></i-lucide>
                 <span class="text-sm font-bold text-gray-800 dark:text-zinc-100"> Lunch</span>
               </div>
               <div
-                [class]="truckDetail()!.data.stepThree.isDinner == true ? ' border-green-400 dark:border-green-700': ' border-red-400 dark:border-red-400'"
+                [class]="truckDetail()!.data.stepThree.isDinner == true ? ' border-tree-400 dark:border-tree-700': ' border-red-400 dark:border-red-400'"
                 class="flex-[1_1_12.5rem] py-2 px-3 rounded-full bg-white dark:bg-zinc-800 border-2 flex gap-1 justify-center items-center max-w-fit max-h-fit">
                 <i-lucide
-                  [class]="truckDetail()!.data.stepThree.isDinner == true ? '  text-green-600 dark:text-green-700 ': '  text-red-500 dark:text-red-400 '"
+                  [class]="truckDetail()!.data.stepThree.isDinner == true ? '  text-tree-600 dark:text-tree-700 ': '  text-red-500 dark:text-red-400 '"
                   [img]="truckDetail()!.data.stepThree.isDinner == true ? BadgeCheck : CircleX" class="size-6"
                   strokeWidth="2"></i-lucide>
                 <span class="text-sm font-bold text-gray-800 dark:text-zinc-100"> Dinner</span>
@@ -179,7 +176,7 @@
             </li>
 
             <li
-              class="flex-[1_1_12.5rem] py-2 px-4 rounded-md bg-white dark:bg-zinc-800 flex flex-col gap-3 items-stretch justify-center">
+              class="flex-[1_1_12.5rem] py-2 px-0 rounded-md bg-white dark:bg-zinc-800 flex flex-col gap-3 items-stretch justify-center">
               <p class="text-sm font-bold text-gray-800 dark:text-zinc-100">Minimum Guarantee Amount:</p>
               <p
                 class="text-zinc-700 dark:text-zinc-300 p-3 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800">
@@ -188,7 +185,7 @@
             </li>
 
             <li
-              class="flex-[1_1_12.5rem] min-w-full py-2 px-4 rounded-md bg-white dark:bg-zinc-800 flex flex-col gap-3 items-stretch justify-center">
+              class="flex-[1_1_12.5rem] min-w-full py-2 px-0 rounded-md bg-white dark:bg-zinc-800 flex flex-col gap-3 items-stretch justify-center">
               <p class="text-sm font-bold text-gray-800 dark:text-zinc-100">Business Description:</p>
               <p
                 class="text-zinc-700 dark:text-zinc-300 p-3 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800">
@@ -210,12 +207,12 @@
               </div>
               @if(checkDocType(truckDetail()!.data.stepThree.coi) == "pdf"){
               <button (click)="openPdf(truckDetail()!.data.stepThree.coi)"
-                class="text-sm font-medium bg-zinc-500 hover:bg-green-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
+                class="text-sm font-medium bg-zinc-500 hover:bg-tree-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
                   [img]="View" class="size-5"></i-lucide><span>View Document</span></button>
 
               } @else {
               <button (click)="viewDocument(truckDetail()!.data.stepThree.coi!)"
-                class="text-sm font-medium bg-zinc-500 hover:bg-green-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
+                class="text-sm font-medium bg-zinc-500 hover:bg-tree-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
                   [img]="View" class="size-5"></i-lucide><span>View Document</span></button>
               }
             </li>
@@ -227,12 +224,12 @@
               </div>
               @if(checkDocType(truckDetail()!.data.stepThree.w9) == "pdf"){
               <button (click)="openPdf(truckDetail()!.data.stepThree.w9)"
-                class="text-sm font-medium bg-zinc-500 hover:bg-green-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
+                class="text-sm font-medium bg-zinc-500 hover:bg-tree-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
                   [img]="View" class="size-5"></i-lucide><span>View Document</span></button>
 
               } @else {
               <button (click)="viewDocument(truckDetail()!.data.stepThree.w9!)"
-                class="text-sm font-medium bg-zinc-500 hover:bg-green-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
+                class="text-sm font-medium bg-zinc-500 hover:bg-tree-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
                   [img]="View" class="size-5"></i-lucide><span>View Document</span></button>
               }
             </li>
@@ -244,12 +241,12 @@
               </div>
               @if(checkDocType(truckDetail()!.data.stepThree.serveSafeCertificate) == "pdf"){
               <button (click)="openPdf(truckDetail()!.data.stepThree.serveSafeCertificate)"
-                class="text-sm font-medium bg-zinc-500 hover:bg-green-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
+                class="text-sm font-medium bg-zinc-500 hover:bg-tree-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
                   [img]="View" class="size-5"></i-lucide><span>View Document</span></button>
 
               } @else {
               <button (click)="viewDocument(truckDetail()!.data.stepThree.serveSafeCertificate!)"
-                class="text-sm font-medium bg-zinc-500 hover:bg-green-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
+                class="text-sm font-medium bg-zinc-500 hover:bg-tree-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
                   [img]="View" class="size-5"></i-lucide><span>View Document</span></button>
               }
             </li>
@@ -261,12 +258,12 @@
               </div>
               @if(checkDocType(truckDetail()!.data.stepThree.dchCertificate) == "pdf"){
               <button (click)="openPdf(truckDetail()!.data.stepThree.dchCertificate)"
-                class="text-sm font-medium bg-zinc-500 hover:bg-green-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
+                class="text-sm font-medium bg-zinc-500 hover:bg-tree-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
                   [img]="View" class="size-5"></i-lucide><span>View Document</span></button>
 
               } @else {
               <button (click)="viewDocument(truckDetail()!.data.stepThree.dchCertificate!)"
-                class="text-sm font-medium bg-zinc-500 hover:bg-green-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
+                class="text-sm font-medium bg-zinc-500 hover:bg-tree-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
                   [img]="View" class="size-5"></i-lucide><span>View Document</span></button>
               }
             </li>
@@ -300,7 +297,7 @@
                 </div>
 
                 <button (click)="viewDocument(item)"
-                  class="text-sm font-medium bg-zinc-500 hover:bg-green-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
+                  class="text-sm font-medium bg-zinc-500 hover:bg-tree-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
                     [img]="View" class="size-5"></i-lucide><span>View Document</span></button>
 
 
@@ -337,12 +334,12 @@
 
                 @if(checkDocType(item) == "pdf"){
                 <button (click)="openPdf(item)"
-                  class="text-sm font-medium bg-zinc-500 hover:bg-green-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
+                  class="text-sm font-medium bg-zinc-500 hover:bg-tree-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
                     [img]="View" class="size-5"></i-lucide><span>View Document</span></button>
 
                 } @else {
                 <button (click)="viewDocument(item)"
-                  class="text-sm font-medium bg-zinc-500 hover:bg-green-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
+                  class="text-sm font-medium bg-zinc-500 hover:bg-tree-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
                     [img]="View" class="size-5"></i-lucide><span>View Document</span></button>
                 }
               </div>
@@ -354,6 +351,29 @@
 
     </div>
     }
+  </div>
+
+
+  <!-- Reaction of Approval, Reject, Refer Back -->
+  <div
+    class="reaction p-3 mt-5 rounded-md bg-white dark:bg-zinc-900  shadow shadow-zinc-100 dark:shadow-zinc-700  border-t border-zinc-200 dark:border-zinc-700 flex justify-end items-center gap-3 ">
+    <button (click)="openReactionModal()"
+      class="text-sm font-medium bg-tree-500 hover:bg-tree-600 cursor-pointer dark:bg-tree-500 text-nowrap px-4 py-3.5 rounded text-white flex justify-center items-center gap-1">
+      <i-lucide [img]="ClipboardCheck" class="size-5"></i-lucide>
+      <span>Approval</span>
+    </button>
+
+    <button
+      class="text-sm font-medium bg-yellow-600 hover:bg-yellow-700 cursor-pointer dark:bg-yellow-600 text-nowrap px-4 py-3.5 rounded text-white flex justify-center items-center gap-1">
+      <i-lucide [img]="ListRestart" class="size-5"></i-lucide>
+      <span>Refer Back</span>
+    </button>
+
+    <button
+      class="text-sm font-medium bg-red-600 hover:bg-red-700 cursor-pointer dark:bg-red-600 text-nowrap px-4 py-3.5 rounded text-white flex justify-center items-center gap-1">
+      <i-lucide [img]="GitPullRequestClosed" class="size-5"></i-lucide>
+      <span>Reject</span>
+    </button>
   </div>
 
   <!-- Modal Document Viewer -->
@@ -377,3 +397,24 @@
   <app-pdf-viewer [dataUrl]="pdfData" [isVisible]="(pdfViewerService.isModalVisible$ | async)"
     (closeModal)="pdfViewerService.hideModal()">
   </app-pdf-viewer>
+
+
+  <!-- Reaction Modal of Approval, Reject, Refer Back -->
+  <div [class]="isReactionModalOpen ? 'opacity-100 z-[990] delay-0':'opacity-0 -z-10 delay-600'"
+    class="modal fixed inset-0 bg-black/50 transition-all duration-300 flex justify-center items-center opacity-0 -z-10 ">
+    <div [class]="isReactionModalOpen ? 'scale-100 delay-300':'scale-0 delay-300'"
+      class="max-w-lg w-full bg-white dark:bg-zinc-800 p-5 rounded-lg relative z-0 transition-transform duration-300 max-h-[80dvh] overflow-y-auto">
+      <h3 class="text-xl font-bold text-zinc-700 dark:text-zinc-50 mb-1">Approve Documents</h3>
+      <p class="text-zinc-600 text-sm font-semibold">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste, vero.</p>
+
+      <div class="my-3">
+        <label for="reasons" class="text-sm text-zinc-600 dark:text-zinc-200 font-bold inline-block mb-2"> Reasons of Rejections</label>
+        <textarea placeholder="Enter your reason" id="reasons" rows="5" class="px-4 py-2 text-sm bg-zinc-100/80 dark:bg-zinc-800 dark:text-white border-solid text-black w-full border border-zinc-400 dark:border-zinc-600 focus:border-tree-500 rounded outline-none"></textarea>
+      </div>
+
+      <div class="btuns flex gap-3 justify-end items-stertch">
+        <button class="rounded flex-1 text-sm font-semibold text-white dark:text-white bg-tree-600 dark:bg-tree-600 hover:bg-tree-700 py-3 px-4 flex gap-1 justify-center items-center"><i-lucide [img]="CircleCheckBig" class="size-6"></i-lucide> <span>Approve</span></button>
+        <button class="rounded flex-1 text-sm font-semibold text-white dark:text-white bg-zinc-600 dark:bg-zinc-600 hover:bg-zinc-700 py-3 px-4 flex gap-1 justify-center items-center" (click)="closeReactionModal()"><i-lucide [img]="CircleX" class="size-6"></i-lucide> <span>Cancel</span></button>
+      </div>
+    </div>
+  </div>
