@@ -11,6 +11,7 @@ import {
   BadgeCheck,
   ChevronDown,
   CircleX,
+  Download,
   FileText,
   Image,
   LucideAngularModule,
@@ -41,7 +42,7 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
   BadgeCheck = BadgeCheck;
   Image = Image
   FileText = FileText;
-
+  Download = Download;
   public imageService = inject(ImageService);
   private truckDetailService = inject(TruckDetailsService);
   public pdfViewerService = inject(PdfViewerService);
@@ -144,7 +145,6 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
     this.isModalOpen = true;
   }
   closeDocument() {
-    this.imageSRC = null;
     this.isModalOpen = false;
   }
 }

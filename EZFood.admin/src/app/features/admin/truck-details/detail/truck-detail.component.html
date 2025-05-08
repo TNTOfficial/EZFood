@@ -200,8 +200,10 @@
             Uploaded Documents
           </h3>
 
-          <ul class="flex flex-wrap gap-3 items-stretch justify-center divide-zinc-200 dark:divide-zinc-700 px-4 overflow-hidden">
-            <li class="flex-1 border border-zinc-200 dark:border-zink-700 rounded-lg bg-zinc-50 dark:bg-zinc-800 px-4 py-2 flex gap-3 justify-between items-center">
+          <ul
+            class="flex flex-wrap gap-3 items-stretch justify-center divide-zinc-200 dark:divide-zinc-700 px-4 overflow-hidden">
+            <li
+              class="flex-1 border border-zinc-200 dark:border-zink-700 rounded-lg bg-zinc-50 dark:bg-zinc-800 px-4 py-2 flex gap-3 justify-between items-center">
               <div class="titel flex justify-strat items-center gap-1 text-sm font-bold ">
                 <i-lucide [img]="Image" class="size-6 text-zinc-500 dark:text-zinc-300"></i-lucide>
                 <span class="text-nowrap">COI</span>
@@ -217,7 +219,8 @@
                   [img]="View" class="size-5"></i-lucide><span>View Document</span></button>
               }
             </li>
-            <li class="flex-1 border border-zinc-200 dark:border-zink-700 rounded-lg bg-zinc-50 dark:bg-zinc-800 px-4 py-2 flex gap-3 justify-between items-center">
+            <li
+              class="flex-1 border border-zinc-200 dark:border-zink-700 rounded-lg bg-zinc-50 dark:bg-zinc-800 px-4 py-2 flex gap-3 justify-between items-center">
               <div class="titel flex justify-strat items-center gap-1 text-sm font-bold ">
                 <i-lucide [img]="Image" class="size-6 text-zinc-500 dark:text-zinc-300"></i-lucide>
                 <span class="text-nowrap">W9</span>
@@ -233,7 +236,8 @@
                   [img]="View" class="size-5"></i-lucide><span>View Document</span></button>
               }
             </li>
-            <li class="flex-1 border border-zinc-200 dark:border-zink-700 rounded-lg bg-zinc-50 dark:bg-zinc-800 px-4 py-2 flex gap-3 justify-between items-center">
+            <li
+              class="flex-1 border border-zinc-200 dark:border-zink-700 rounded-lg bg-zinc-50 dark:bg-zinc-800 px-4 py-2 flex gap-3 justify-between items-center">
               <div class="titel flex justify-strat items-center gap-1 text-sm font-bold ">
                 <i-lucide [img]="Image" class="size-6 text-zinc-500 dark:text-zinc-300"></i-lucide>
                 <span class="text-nowrap">Serve Safe Certificate</span>
@@ -249,7 +253,8 @@
                   [img]="View" class="size-5"></i-lucide><span>View Document</span></button>
               }
             </li>
-            <li class="flex-1 border border-zinc-200 dark:border-zink-700 rounded-lg bg-zinc-50 dark:bg-zinc-800 px-4 py-2 flex gap-3 justify-between items-center">
+            <li
+              class="flex-1 border border-zinc-200 dark:border-zink-700 rounded-lg bg-zinc-50 dark:bg-zinc-800 px-4 py-2 flex gap-3 justify-between items-center">
               <div class="titel flex justify-strat items-center gap-1 text-sm font-bold ">
                 <i-lucide [img]="Image" class="size-6 text-zinc-500 dark:text-zinc-300"></i-lucide>
                 <span class="text-nowrap">DCH Certificate</span>
@@ -285,11 +290,21 @@
       <div class="transition-all duration-300" [class]="step4  ? 'my-3 grid grid-rows-[1fr]':'grid grid-rows-[0fr]'">
         <div class="overflow-hidden">
           <div class="flex flex-wrap justify-start items-stretch gap-5 mt-4 px-5">
-            @for(item of truckDetail()!.data.stepFour.files; track item){
-            <div
-              class="flex-[1_1_18.75rem] border border-zinc-200 dark:border-zinc-700 rounded-lg overflow-hidden max-w-[18.75rem]">
-              <img [src]="imageService.getImageUrl(item)" [alt]="item"
-                class="h-full w-full object-cover max-h-[100px] rounded-lg" />
+            @for(item of truckDetail()!.data.stepFour.files; track item; let i = $index){
+            <div class="flex-[1_1_18.75rem] max-w-fit">
+              <div
+                class="flex-1 border border-zinc-200 dark:border-zink-700 rounded-lg bg-zinc-50 dark:bg-zinc-800 px-4 py-2 flex gap-3 justify-between items-center">
+                <div class="titel flex justify-strat items-center gap-1 text-sm font-bold ">
+                  <i-lucide [img]="Image" class="size-6 text-zinc-500 dark:text-zinc-300"></i-lucide>
+                  <span class="text-nowrap">Image {{i + 1}}</span>
+                </div>
+
+                <button (click)="viewDocument(item)"
+                  class="text-sm font-medium bg-zinc-500 hover:bg-green-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
+                    [img]="View" class="size-5"></i-lucide><span>View Document</span></button>
+
+
+              </div>
             </div>
             }
           </div>
@@ -310,36 +325,55 @@
       <div class="transition-all duration-300" [class]="step5  ? 'my-3 grid grid-rows-[1fr]':'grid grid-rows-[0fr]'">
         <div class="overflow-hidden">
           <div class="flex flex-wrap justify-start items-stretch gap-5 mt-4 px-5">
-            @for(item of truckDetail()!.data.stepFive.files; track item){
-            <div
-              class="flex-[1_1_18.75rem] border border-zinc-200 dark:border-zinc-700 rounded-lg overflow-hidden max-w-[18.75rem]">
-              <img [src]="imageService.getImageUrl(item)" [alt]="item"
-                class="h-full w-full object-cover max-h-[100px] rounded-lg" />
+            @for(item of truckDetail()!.data.stepFive.files; track item; let i = $index){
+            <div class="flex-[1_1_18.75rem] max-w-fit">
+              <div
+                class="flex-1 border border-zinc-200 dark:border-zink-700 rounded-lg bg-zinc-50 dark:bg-zinc-800 px-4 py-2 flex gap-3 justify-between items-center">
+                <div class="titel flex justify-strat items-center gap-1 text-sm font-bold ">
+                  <i-lucide [img]="Image" class="size-6 text-zinc-500 dark:text-zinc-300"></i-lucide>
+                  <span class="text-nowrap">Image {{i + 1}}</span>
+                </div>
+
+
+                @if(checkDocType(item) == "pdf"){
+                <button (click)="openPdf(item)"
+                  class="text-sm font-medium bg-zinc-500 hover:bg-green-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
+                    [img]="View" class="size-5"></i-lucide><span>View Document</span></button>
+
+                } @else {
+                <button (click)="viewDocument(item)"
+                  class="text-sm font-medium bg-zinc-500 hover:bg-green-600 cursor-pointer dark:bg-zinc-700 text-nowrap px-3 py-3.5 rounded text-white flex justify-center items-center gap-1"><i-lucide
+                    [img]="View" class="size-5"></i-lucide><span>View Document</span></button>
+                }
+              </div>
             </div>
             }
           </div>
         </div>
       </div>
 
-  </div>
-  }
-</div>
-
-<!-- Modal Document Viewer -->
-
-<div [class]="isModalOpen ? 'opacity-100 z-[990] delay-0':'opacity-0 -z-10 delay-600'"
-  class="modal fixed inset-0 bg-black/50 transition-all duration-300 flex justify-center items-center opacity-0 -z-10 ">
-  <div [class]="isModalOpen ? 'scale-y-100 delay-300':'scale-y-0 delay-300'"
-    class="max-w-xl w-full bg-white dark:bg-zinc-800 p-2 rounded-lg relative z-0 transition-transform duration-300 h-fit scale-y-0">
-    <div (click)="closeDocument()"
-      class="closeButton size-10 shadow rounded-full bg-white dark:bg-zinc-600 text-red-700 absolute top-4 right-4 z-10 flex justify-center items-center cursor-pointer">
-      <i-lucide [img]="X"></i-lucide>
     </div>
-
-    <img [class]="isModalOpen ? 'scale-x-100 delay-600':'scale-x-0 delay-0'" [src]="imageService.getImageUrl(imageSRC)"
-      alt="Document" class="h-full w-full object-contain inline-block transition-transform duration-300 scale-x-0 ">
-
+    }
   </div>
-</div>
-<app-pdf-viewer [dataUrl]="pdfData" [isVisible]="(pdfViewerService.isModalVisible$ | async)" (closeModal)="pdfViewerService.hideModal()">
-</app-pdf-viewer>
+
+  <!-- Modal Document Viewer -->
+
+  <div [class]="isModalOpen ? 'opacity-100 z-[990] delay-0':'opacity-0 -z-10 delay-600'"
+    class="modal fixed inset-0 bg-black/50 transition-all duration-300 flex justify-center items-center opacity-0 -z-10 ">
+    <div [class]="isModalOpen ? 'scale-y-100 delay-300':'scale-y-0 delay-300'"
+      class="max-w-7xl min-w-[200px] w-fit bg-white dark:bg-zinc-800 p-2 rounded-lg relative z-0 transition-transform duration-300 h-full max-h-[80dvh] scale-y-0">
+      <div (click)="closeDocument()"
+        class="closeButton size-10 shadow rounded-full bg-white dark:bg-zinc-600 text-red-700 absolute me-3 top-4 right-4 z-10 flex justify-center items-center cursor-pointer">
+        <i-lucide [img]="X"></i-lucide>
+      </div>
+      <div
+        class="download size-10 shadow rounded-full bg-white dark:bg-zinc-600 text-blue-700 dark:text-blue-300 absolute ml-3 top-4 left-4 z-10 flex justify-center items-center cursor-pointer">
+        <i-lucide [img]="Download"></i-lucide>
+      </div>
+      <img [src]="imageService.getImageUrl(imageSRC)" alt="Document" class="h-full w-full object-contain  block  ">
+
+    </div>
+  </div>
+  <app-pdf-viewer [dataUrl]="pdfData" [isVisible]="(pdfViewerService.isModalVisible$ | async)"
+    (closeModal)="pdfViewerService.hideModal()">
+  </app-pdf-viewer>
