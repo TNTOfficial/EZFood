@@ -34,6 +34,11 @@ export class TruckDetailsService {
   }
 
 
+createAction(data: any): Observable<any> {
+
+    return this.http.put<any>(`${this.apiUrl}/onboarding-action`, data);
+  }
+
 
 
   getTruckDetailByIserId(id: string): Observable<TruckDetail> {

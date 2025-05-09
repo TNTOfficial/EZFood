@@ -24,6 +24,7 @@ export interface TruckDetail {
   dchCertificate: string | null;
   imageList: string[];
   menuList: string[];
+  createdAt: string;
   onboardingStatus: OnboardingStatus;
 }
 

@@ -16,7 +16,7 @@ export const getOnboardingStatus = (status: OnboardingStatus) => {
       return "Confirm & submission";
     case OnboardingStatus.Submitted:
       return "Submitted for review";
-    case OnboardingStatus.Objection:
+    case OnboardingStatus.ReferBack:
       return "Referred back";
     case OnboardingStatus.Rejected:
       return "Rejected";

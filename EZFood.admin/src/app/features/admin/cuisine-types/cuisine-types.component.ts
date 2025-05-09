@@ -6,15 +6,13 @@ import { CuisineType } from '../../../shared/models/cuisine-types/cuisine-types.
 import { finalize } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { ToastContainerComponent } from '../../../shared/components/toast-container/toast-container.component';
-
 @Component({
   selector: 'app-pack-types',
-  imports: [CommonModule, RouterLink, LucideAngularModule, ToastContainerComponent],
+  imports: [CommonModule, RouterLink, LucideAngularModule],
   templateUrl: './cuisine-types.component.html'
 })
 export class CuisineTypesComponent implements OnInit {
- 
+
   // Lucide Icons >>
   Plus = Plus;
   Pencil = Pencil;

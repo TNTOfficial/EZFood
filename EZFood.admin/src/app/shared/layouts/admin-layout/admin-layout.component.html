@@ -1,5 +1,7 @@
 <admin-sidebar [handleSideClose]="handleSideClose" ></admin-sidebar>
 <main [class]="sideClose ?'lg:pl-[70px]':'lg:pl-[280px]'" class="transition-all duration-300 p-[5px] font-body tracking-wider font-light">
+
+  <app-toast-container></app-toast-container>
   <app-admin-header></app-admin-header>
   <div class="rounded-xl mt-[5px]">
     <router-outlet></router-outlet>

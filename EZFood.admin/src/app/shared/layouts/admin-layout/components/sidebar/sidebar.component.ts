@@ -80,6 +80,11 @@ export class SidebarComponent {
       icon: 'truck',
     },
     {
+      name: 'Food Trucks',
+      link: '/dashboard/food-trucks',
+      icon: 'truck',
+    },
+    {
       name: 'Cuisine Types',
       link: '/dashboard/cuisine-types',
       icon: 'bell-star',

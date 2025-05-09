@@ -68,7 +68,23 @@ export const ADMIN_ROUTES: Routes = [
           }
 
         ]
+      },
+      {
+        path: "food-trucks",
+        children: [
+          {
+            path: "",
+            loadComponent: () => import("../admin/food-trucks/food-trucks.component").then(
+              p => p.FoodTrucksComponent)
+          },
+          {
+            path: "details/:id",
+            loadComponent: () => import("./food-trucks/detail/food-truck-detail.component").then(
+              p => p.FoodTruckDetailComponent
+            )
+          }
 
+        ]
       },
     ]
   }

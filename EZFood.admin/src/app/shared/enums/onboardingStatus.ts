@@ -4,10 +4,10 @@ export enum OnboardingStatus {
     Step3 = 2,
     Step4 = 3,
     Step5 = 4,
-    Pending = 5,    
+    Pending = 5,
     Submitted = 6,
     Approved = 7,
     Rejected = 8,
     Incomplete = 9,
-    Objection = 10,    
+    ReferBack = 10,
 }

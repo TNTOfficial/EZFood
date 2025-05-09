@@ -1,0 +1,56 @@
+<section class="categoriesTable bg-white dark:bg-zinc-900 rounded-lg shadow p-1">
+  <div class="px-4 py-2 flex gap-4 justify-between items-center relative z-0">
+    <div class="tableHeading flex-[1_1_300px]  ">
+      <h2 class="text-2xl font-semibold text-zinc-800 dark:text-white">Food Trucks</h2>
+    </div>
+  </div>
+  @if (loading()) {
+  <div class="flex justify-center my-8">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+  } @else if (truckDetails().length === 0) {
+  <div class="bg-white dark:bg-zinc-800 rounded shadow p-6 text-center">
+    <p class="text-gray-600 dark:text-gray-300">
+      No records found.
+    </p>
+  </div>
+  } @else {
+  <div class="bg-white dark:bg-zinc-800 rounded shadow overflow-x-auto">
+    <table class="min-w-full">
+      <thead>
+        <tr class="bg-gray-100 dark:bg-zinc-700 text-left">
+          <th class="py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-300 text-nowrap">Truck Name</th>
+          <th class="py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-300 text-nowrap">Owner Name</th>
+          <th class="py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-300 text-nowrap">Phone Number</th>
+          <th class="py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-300 text-nowrap">Address</th>
+          <th class="py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-300 text-nowrap">Joining date</th>
+          <th class="py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-300 text-nowrap">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(item of truckDetails(); track item.id){
+        <tr class="border-t border-gray-200 dark:border-zinc-700">
+          <td class="py-3 px-4 text-nowrap text-gray-800 dark:text-gray-200">{{ item.truckName }}</td>
+          <td class="py-3 px-4 text-nowrap text-gray-800 dark:text-gray-200">{{ item.truckOwnerName }}</td>
+          <td class="py-3 px-4 text-nowrap text-gray-800 dark:text-gray-200">{{ item.phoneNumber }}</td>
+          <td class="py-3 px-4 text-nowrap text-gray-800 dark:text-gray-200">{{ item.address }}</td>
+          <td class="py-3 px-4 text-nowrap text-gray-800 dark:text-gray-200">{{ item.createdAt | utcToIst | date : "short" }}
+          </td>
+
+          <td class="py-3 px-4 text-nowrap whitespace-nowrap">
+            <div class="flex items-center gap-2">
+              <a [routerLink]="['/dashboard/food-trucks/details', item.id]"
+                class="text-white hover:text-white h-10 w-10 flex justify-center items-center rounded-full bg-zinc-600 relative z-0 cursor-pointer group">
+                <span
+                  class="text-sm text-black dark:text-white bg-zinc-50 dark:bg-zinc-600 border border-zinc-300 dark:border-zinc-800 py-1 px-2 rounded absolute -top-1/2 -left-1/2 z-[2] group-hover:visible invisible group-hover:opacity-100 opacity-0 transition-all duration-100">Details</span>
+                <i-lucide [img]="Files" class="size-5"></i-lucide>
+              </a>
+            </div>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  }
+
+</section>

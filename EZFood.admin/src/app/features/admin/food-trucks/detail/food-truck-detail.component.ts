@@ -27,11 +27,11 @@ import { PdfViewerService } from '../../../../core/services/pdf-viewer.service';
 import { PdfViewerComponent } from '../../../../shared/components/pdf-viewer/pdf-viewer.component';
 import { FormBuilder, FormsModule, Validators } from '@angular/forms';
 import { ToastService } from '../../../../core/services/common/toast/toast.service';
-import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { getOnboardingStatus } from '../../../../shared/utils/helper';
 
 @Component({
-  selector: 'app-user-profile',
+  selector: 'app-food-truck-detail',
   imports: [
     CommonModule,
     RouterModule,
@@ -41,9 +41,9 @@ import { getOnboardingStatus } from '../../../../shared/utils/helper';
     FormsModule,
     ReactiveFormsModule,
   ],
-  templateUrl: './truck-detail.component.html',
+  templateUrl: './food-truck-detail.component.html',
 })
-export class TruckDetailComponent implements OnInit, OnDestroy {
+export class FoodTruckDetailComponent implements OnInit, OnDestroy {
   ArrowLeft = ArrowLeft;
   ChevronDown = ChevronDown;
   View = View;
@@ -78,12 +78,6 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
   public get OnboardingStatus() {
     return OnboardingStatus;
   }
-
-  step1: boolean = true;
-  step2: boolean = true;
-  step3: boolean = true;
-  step4: boolean = true;
-  step5: boolean = true;
   rForm!: FormGroup;
 
   ngOnInit(): void {
@@ -192,6 +186,12 @@ export class TruckDetailComponent implements OnInit, OnDestroy {
   goBack(): void {
     this.router.navigate(['/dashboard/onboarding-requests']);
   }
+
+  step1: boolean = false;
+  step2: boolean = false;
+  step3: boolean = false;
+  step4: boolean = false;
+  step5: boolean = false;
 
   stepOpen(id: number) {
     if (id == 1) {

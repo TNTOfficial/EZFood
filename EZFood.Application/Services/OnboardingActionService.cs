@@ -28,7 +28,7 @@ public class OnboardingActionService(IRepositoryManager repositoryManager) : IOn
     public async Task<ResponseDto> CreateActionAsync(CreateOnboardingActionDto createActionDto)
     {
 
-        TruckDetail? truckDetail = await _repositoryManager.TruckDetail.GetTruckDetailByIdAsync(createActionDto.TruckDetailId);
+        TruckDetail? truckDetail = await _repositoryManager.TruckDetail.GetTruckDetailForUpdateByIdAsync(createActionDto.TruckDetailId);
         if (truckDetail != null)
         {
             OnboardingAction action = new OnboardingAction
@@ -39,6 +39,7 @@ public class OnboardingActionService(IRepositoryManager repositoryManager) : IOn
                 OnboardingStatus = createActionDto.OnboardingStatus
             };
             _repositoryManager.OnboardingAction.CreateActionAsync(action);
+            await _repositoryManager.SaveAsync();
             truckDetail.OnboardingStatus = createActionDto.OnboardingStatus;
             _repositoryManager.TruckDetail.UpdateTruckDetailAsync(truckDetail);
             await _repositoryManager.SaveAsync();

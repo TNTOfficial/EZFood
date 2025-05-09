@@ -288,18 +288,29 @@ public class TruckDetailsController(IServiceManager serviceManager, ILogger<Truc
 
     }
 
-    [HttpPut("onboarding-action/{id}")]
-    public async Task<ActionResult<ResponseDto>> OnboardingAction(Guid id, [FromBody] CreateOnboardingActionDto updateDto
-      )
+    [HttpPut("onboarding-action")]
+    public async Task<ActionResult<StepsResponseDto<TruckDetailDto>>> OnboardingAction([FromBody] CreateOnboardingActionDto updateDto)
     {
         try
         {
             ResponseDto response = await _serviceManager.OnboardingActionService.CreateActionAsync(updateDto);
-            return response;
+            if (response.Result)
+            {
+
+                StepsResponseDto<TruckDetailDto> truckDetails = await _serviceManager.TruckDetailService.GetTruckDetailStepsByIdAsync(updateDto.TruckDetailId);
+                return Ok(truckDetails);
+            } else
+            {
+                return new StepsResponseDto<TruckDetailDto>
+                {
+                    Result = false,
+                    Message = "Onboarding response could not be executed. Please try again.",
+                };
+            }
         }
         catch (Exception ex)
         {
-            return new ResponseDto
+            return new StepsResponseDto<TruckDetailDto>
             {
                 Result = false,
                 Message = ex.Message,

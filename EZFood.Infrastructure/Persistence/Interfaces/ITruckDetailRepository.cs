@@ -12,6 +12,7 @@ public interface ITruckDetailRepository : IReposioryBase<TruckDetail>
     Task<int> GetTruckDetailsForStatusCountAsync(OnboardingStatus status);
     Task<int> GetTruckDetailsForStatusIncompleteCountAsync();
     Task<TruckDetail?> GetTruckDetailByIdAsync(Guid id);
+    Task<TruckDetail?> GetTruckDetailForUpdateByIdAsync(Guid id);
     Task<TruckDetail?> getTruckDetailByUserAsync(Guid id);
     void CreateTruckDetailAsync(TruckDetail truckDetail);
     void UpdateTruckDetailAsync(TruckDetail truckDetail);
