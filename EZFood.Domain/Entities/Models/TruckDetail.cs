@@ -55,7 +55,9 @@ public class TruckDetail
     [JsonIgnore]
     public string MenuJson { get; set; } = string.Empty;
     public bool Status { get; set; } = false;
+    public bool IsActive { get; set; } = false;
     public OnboardingStatus OnboardingStatus { get; set; } = OnboardingStatus.Pending;
+
     [MaxLength(500, ErrorMessage = "Maximum length for onboarding note is 500 characters.")]
     public string? OnboardingNote { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

@@ -96,50 +96,62 @@ public class TruckDetailService : ITruckDetailService
                     Data = null
                 };
             }
+            if(truckDetail.IsActive)
+            {
+                return new StepsResponseDto<TruckDetailStepsDto>
+                {
+                    Result = true,
+                    IsActive = truckDetail.IsActive,
+                    Data = null
+                };
+            }
+            else
+            {
 
-            stepDetails.Step = truckDetail.OnboardingStatus;
-            stepDetails.StepOne = new StepOne
-            {
-                TruckName = truckDetail.TruckName,
-                TruckOwnerName = truckDetail.TruckOwnerName,
-                BusinessEmail = truckDetail.BusinessEmail,
-                PhoneNumber = truckDetail.PhoneNumber,
-                Address = truckDetail.Address
-            };
-            stepDetails.StepTwo = new StepTwo
-            {
-                IsOtherCuisine = truckDetail.IsOtherCuisine,
-                CuisineNote = truckDetail.CuisineNote,
-                Cuisines = truckDetail.CuisineTypes.Select(x => x.Id).ToList()
-            };
-            stepDetails.StepThree = new StepThree
-            {
-                BusinessDescription = truckDetail.BusinessDescription,
-                BussinessStartYear = truckDetail.BussinessStartYear,
-                EIN = truckDetail.EIN,
-                IsBreakfast = truckDetail.IsBreakfast,
-                IsLunch = truckDetail.IsLunch,
-                IsDinner = truckDetail.IsDinner,
-                MinimumGuaranteeAmount = truckDetail.MinimumGuaranteeAmount,
-                COI = truckDetail.COI,
-                W9 = truckDetail.W9,
-                DCHCertificate = truckDetail.DCHCertificate,
-                ServeSafeCertificate = truckDetail.ServeSafeCertificate,
-            };
-            stepDetails.StepFour = new StepFour
-            {
-                BannerUrl = truckDetail.BannerUrl,
-                Files = truckDetail.ImageList
-            };
-            stepDetails.StepFive = new StepFive
-            {
-                Files = truckDetail.MenuList
-            };
-            return new StepsResponseDto<TruckDetailStepsDto>
-            {
-                Result = true,
-                Data = stepDetails
-            };
+                stepDetails.Step = truckDetail.OnboardingStatus;
+                stepDetails.StepOne = new StepOne
+                {
+                    TruckName = truckDetail.TruckName,
+                    TruckOwnerName = truckDetail.TruckOwnerName,
+                    BusinessEmail = truckDetail.BusinessEmail,
+                    PhoneNumber = truckDetail.PhoneNumber,
+                    Address = truckDetail.Address
+                };
+                stepDetails.StepTwo = new StepTwo
+                {
+                    IsOtherCuisine = truckDetail.IsOtherCuisine,
+                    CuisineNote = truckDetail.CuisineNote,
+                    Cuisines = truckDetail.CuisineTypes.Select(x => x.Id).ToList()
+                };
+                stepDetails.StepThree = new StepThree
+                {
+                    BusinessDescription = truckDetail.BusinessDescription,
+                    BussinessStartYear = truckDetail.BussinessStartYear,
+                    EIN = truckDetail.EIN,
+                    IsBreakfast = truckDetail.IsBreakfast,
+                    IsLunch = truckDetail.IsLunch,
+                    IsDinner = truckDetail.IsDinner,
+                    MinimumGuaranteeAmount = truckDetail.MinimumGuaranteeAmount,
+                    COI = truckDetail.COI,
+                    W9 = truckDetail.W9,
+                    DCHCertificate = truckDetail.DCHCertificate,
+                    ServeSafeCertificate = truckDetail.ServeSafeCertificate,
+                };
+                stepDetails.StepFour = new StepFour
+                {
+                    BannerUrl = truckDetail.BannerUrl,
+                    Files = truckDetail.ImageList
+                };
+                stepDetails.StepFive = new StepFive
+                {
+                    Files = truckDetail.MenuList
+                };
+                return new StepsResponseDto<TruckDetailStepsDto>
+                {
+                    Result = true,
+                    Data = stepDetails
+                };
+            }
 
         } catch(Exception ex)
         {

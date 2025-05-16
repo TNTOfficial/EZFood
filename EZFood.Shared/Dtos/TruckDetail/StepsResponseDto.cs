@@ -10,6 +10,7 @@ namespace EZFood.Shared.Dtos.TruckDetail
     public class StepsResponseDto<T>
     {
         public bool Result { get; set; } = true;
+        public bool IsActive { get; set; } = false;
         public T? Data { get; set; }
         public string? Message { get; set; }
     }
