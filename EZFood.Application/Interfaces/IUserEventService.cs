@@ -10,5 +10,5 @@ public interface IUserEventService
 {
     Task<IEnumerable<UserEvent>> GetAllUserEventsAsync();
     Task<IEnumerable<UserEvent>> GetUserEventsByUserIdAsync(Guid id);
-    Task<ResponseDto> UpdateUserEventsAsync(UpdateUserEventDto updateDto);   
+    Task<ResponseDto> UpdateUserEventsAsync(List<CreateUserEventDto> updateDto);   
 }

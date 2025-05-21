@@ -20,7 +20,7 @@ public class UserEventsController(IServiceManager serviceManager, ILogger<UserEv
 
     
     [HttpPost]
-    public async Task<ActionResult<ResponseDto>> CreateCuisineType([FromBody] UpdateUserEventDto updateDto)
+    public async Task<ActionResult<ResponseDto>> CreateCuisineType([FromBody] List<CreateUserEventDto> updateDto)
     {
         try
         {

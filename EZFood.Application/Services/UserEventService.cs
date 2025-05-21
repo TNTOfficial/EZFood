@@ -39,10 +39,10 @@ public class UserEventService : IUserEventService
         throw new NotImplementedException();
     }
 
-    public async Task<ResponseDto> UpdateUserEventsAsync(UpdateUserEventDto updateDto)
+    public async Task<ResponseDto> UpdateUserEventsAsync(List<CreateUserEventDto> updateDto)
     {
 
-        List<UserEvent> userEvents = [.. updateDto.UserEvents.Select(x => new UserEvent
+        List<UserEvent> userEvents = [.. updateDto.Select(x => new UserEvent
         {
             Id = Guid.NewGuid(),
             EventId = x.EventId,
