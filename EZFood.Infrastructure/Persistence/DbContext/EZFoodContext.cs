@@ -15,6 +15,7 @@ public class EZFoodContext(DbContextOptions<EZFoodContext> options) :
     public DbSet<TruckDetail> TruckDetails { get; set; }
     public DbSet<CuisineTypeTruckDetail> TruckDetailCuisineTypes { get; set; }
     public DbSet<OnboardingAction> OnboardingActions { get; set; }
+    public DbSet<UserEvent> UserEvents { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

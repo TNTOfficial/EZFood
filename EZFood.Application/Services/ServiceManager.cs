@@ -23,6 +23,7 @@ public sealed class ServiceManager : IServiceManager
     private readonly Lazy<ITruckDetailService> _truckDetailService;
     private readonly Lazy<IFileStorageService> _fileStorageService;
     private readonly Lazy<IOnboardingActionService> _onboardingActionService;
+    private readonly Lazy<IUserEventService> _userEventService;
 
     public ServiceManager(EZFoodContext context,IRepositoryManager repositoryManager, IHttpContextAccessor httpContextAccessor,
         UserManager<ApplicationUser> userManager,RoleManager<IdentityRole<Guid>> roleManager, IConfiguration configuration, HttpClient httpClient, IWebHostEnvironment environment)
@@ -37,6 +38,7 @@ public sealed class ServiceManager : IServiceManager
         _truckDetailService = new Lazy<ITruckDetailService>(() => new TruckDetailService(repositoryManager, httpContextAccessor, _fileStorageService.Value)); 
         _fileStorageService = new Lazy<IFileStorageService>(() => new FileStorageService(environment, configuration));
         _onboardingActionService = new Lazy<IOnboardingActionService>(() => new OnboardingActionService(repositoryManager));
+        _userEventService = new Lazy<IUserEventService>(() => new UserEventService(repositoryManager));
     }
     public IUserService UserService => _userService.Value;
     public IEmailService EmailService => _emailService.Value;
@@ -47,6 +49,7 @@ public sealed class ServiceManager : IServiceManager
     public ITruckDetailService TruckDetailService => _truckDetailService.Value;
     public IFileStorageService FileStorageService => _fileStorageService.Value;
     public IOnboardingActionService OnboardingActionService => _onboardingActionService.Value;
+    public IUserEventService UserEventService => _userEventService.Value;
 
 
 }

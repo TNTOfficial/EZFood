@@ -20,6 +20,7 @@ public interface ITruckDetailService
     Task<IEnumerable<TruckDetail>> GetPendingTruckDetailsAsync();
     Task<IEnumerable<TruckDetail>> GetApprovedTruckDetailsAsync();
     Task<TruckDetail?> GetTruckDetailByIdAsync(Guid id);
+    Task<TruckDetail?> GetTruckDetailByUserAsync(Guid id);
     Task<TruckDetail> CreateTruckDetailAsync(CreateTruckDetailDto createPackTypeDto);
     Task<StepResponse<StepOne>> CreateStepOneAsync(CreateStepOneDto detailDto);
     Task<StepResponse<StepTwo>> CreateStepTwoAsync(CreateStepTwoDto detailDto);

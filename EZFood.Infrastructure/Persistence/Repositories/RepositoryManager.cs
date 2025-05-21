@@ -10,16 +10,17 @@ public sealed class RepositoryManager(EZFoodContext context):IRepositoryManager
     private readonly EZFoodContext _context = context;
     private readonly Lazy<IUserRepository> userRepository = new(() => new UserRepository(context));
     private readonly Lazy<ICuisineTypeRepository> cuisineTypeRepository = new(() => new CuisineTypeRepository(context));
-    private readonly Lazy<ITruckDetailRepository> TruckDetailRepository = new(() => new TruckDetailRepository(context));
-    private readonly Lazy<ICuisineTypeTruckDetailRepository> CuisineTypeTruckDetailRepository = new(() => new CuisineTypeTruckDetailRepository(context));
+    private readonly Lazy<ITruckDetailRepository> truckDetailRepository = new(() => new TruckDetailRepository(context));
+    private readonly Lazy<ICuisineTypeTruckDetailRepository> cuisineTypeTruckDetailRepository = new(() => new CuisineTypeTruckDetailRepository(context));
     private readonly Lazy<IOnboardingActionRepository> OnboardingActionRepository = new(() => new OnboardingActionRepository(context));
+    private readonly Lazy<IUserEventRepository> userEventRepository = new(() => new UserEventRepository(context));
 
     public IUserRepository User => userRepository.Value;
     public ICuisineTypeRepository CuisineType => cuisineTypeRepository.Value;
-
-    public ITruckDetailRepository TruckDetail => TruckDetailRepository.Value;
-    public ICuisineTypeTruckDetailRepository CuisineTypeTruckDetail => CuisineTypeTruckDetailRepository.Value;
+    public ITruckDetailRepository TruckDetail => truckDetailRepository.Value;
+    public ICuisineTypeTruckDetailRepository CuisineTypeTruckDetail => cuisineTypeTruckDetailRepository.Value;
     public IOnboardingActionRepository OnboardingAction => OnboardingActionRepository.Value;
+    public IUserEventRepository UserEvent => userEventRepository.Value;
 
     public async Task<T> ExecuteScalarAsync<T>(string sql)
     {

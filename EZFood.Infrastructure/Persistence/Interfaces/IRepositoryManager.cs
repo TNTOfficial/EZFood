@@ -7,6 +7,7 @@ public interface IRepositoryManager
     ITruckDetailRepository TruckDetail { get; }
     ICuisineTypeTruckDetailRepository CuisineTypeTruckDetail { get; }
     IOnboardingActionRepository OnboardingAction { get; }
+    IUserEventRepository UserEvent { get; }
     Task SaveAsync();
 }
 

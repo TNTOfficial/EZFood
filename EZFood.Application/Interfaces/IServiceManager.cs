@@ -9,5 +9,6 @@ public interface IServiceManager
     ICuisineTypeService CuisineTypeService { get; }
     ITruckDetailService TruckDetailService { get; }
     IOnboardingActionService OnboardingActionService { get; }
+    IUserEventService UserEventService { get; }
     //IFileStorageService FileStorageService { get; }
 }

@@ -416,28 +416,6 @@ public class TruckDetailService : ITruckDetailService
             return StepResponse<string>.ErrorResult(OnboardingStatus.Step3, "Step 3 file could not be updated.");
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public async Task<StepResponse<StepFour>> CreateStepFourAsync(CreateStepFourDto detailDto)
     {
         TruckDetail? existingTruck = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
@@ -633,6 +611,12 @@ public class TruckDetailService : ITruckDetailService
         {
             throw new EZFoodException("Truck detail id not found.");
         }
+        return truckDetail;
+    }
+
+    public async Task<TruckDetail?> GetTruckDetailByUserAsync(Guid id)
+    {
+        TruckDetail? truckDetail = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(id);     
         return truckDetail;
     }
 

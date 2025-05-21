@@ -5,6 +5,7 @@ using EZFood.Shared.Dtos.Auth;
 using EZFood.Shared.Dtos.User;
 using EZFood.Shared.Exceptions;
 using Newtonsoft.Json.Linq;
+using EZFood.Domain.Entities.Models;
 
 namespace EZFood.Presentation.Controllers;
 
@@ -37,6 +38,8 @@ public class AuthController(IServiceManager serviceManager) : ControllerBase
         try
         {
            var (token, userDto) = await _serviceManager.AuthService.LoginAsync(loginRequest);
+            TruckDetail? details = await _serviceManager.TruckDetailService.GetTruckDetailByIdAsync(userDto.Id);
+            userDto.IsActive = details != null && details.IsActive;
             return Ok(new { success = true, user = userDto, token });
         }
         catch (Exception ex)
