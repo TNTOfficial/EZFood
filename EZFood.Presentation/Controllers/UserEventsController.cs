@@ -10,7 +10,7 @@ using EZFood.Shared.Dtos.Response;
 using EZFood.Shared.Dtos.UserEvent;
 
 namespace MLM.Presentation.Controllers;
-
+[Authorize]
 [ApiController]
 [Route("api/user-events")]
 public class UserEventsController(IServiceManager serviceManager, ILogger<UserEventsController> logger) : ControllerBase

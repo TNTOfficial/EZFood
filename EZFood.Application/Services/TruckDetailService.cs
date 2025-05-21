@@ -609,7 +609,7 @@ public class TruckDetailService : ITruckDetailService
         TruckDetail? truckDetail = await _repositoryManager.TruckDetail.GetTruckDetailByIdAsync(id);
         if (truckDetail == null)
         {
-            throw new EZFoodException("Truck detail id not found.");
+            return null;
         }
         return truckDetail;
     }

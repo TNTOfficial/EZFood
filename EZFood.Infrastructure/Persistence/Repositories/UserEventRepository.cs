@@ -22,9 +22,10 @@ public class UserEventRepository(EZFoodContext context) : RepositoryBase<UserEve
 
     public async Task<bool> UpdateUserEventsAsync(List<UserEvent> events)
     {
-        events.ForEach(async x =>
+        events.ForEach(x =>
         {
-            if (!await EventExistsByEventIdAsync(x.EventId!, x.UserId))
+            UserEvent? event1 = _context.UserEvents.Where(t => t.EventId == x.EventId && t.UserId == x.UserId).FirstOrDefault();
+            if (event1 == null)
             {
                 Create(x);
             }
