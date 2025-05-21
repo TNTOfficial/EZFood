@@ -38,7 +38,7 @@ public sealed class ServiceManager : IServiceManager
         _truckDetailService = new Lazy<ITruckDetailService>(() => new TruckDetailService(repositoryManager, httpContextAccessor, _fileStorageService.Value)); 
         _fileStorageService = new Lazy<IFileStorageService>(() => new FileStorageService(environment, configuration));
         _onboardingActionService = new Lazy<IOnboardingActionService>(() => new OnboardingActionService(repositoryManager));
-        _userEventService = new Lazy<IUserEventService>(() => new UserEventService(repositoryManager));
+        _userEventService = new Lazy<IUserEventService>(() => new UserEventService(repositoryManager, httpContextAccessor));
     }
     public IUserService UserService => _userService.Value;
     public IEmailService EmailService => _emailService.Value;

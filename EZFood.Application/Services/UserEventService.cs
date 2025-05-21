@@ -6,12 +6,28 @@ using EZFood.Infrastructure.Persistence.Interfaces;
 using EZFood.Shared.Dtos.CuisineType;
 using EZFood.Shared.Dtos.Response;
 using EZFood.Shared.Dtos.UserEvent;
+using Microsoft.AspNetCore.Http;
 
 namespace EZFood.Application.Services;
 
-public class UserEventService(IRepositoryManager repositoryManager) : IUserEventService
+public class UserEventService : IUserEventService
 {
-    private readonly IRepositoryManager _repositoryManager = repositoryManager;
+    private readonly IRepositoryManager _repositoryManager;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private Guid _userId = Guid.Empty;
+    
+
+    public UserEventService(IRepositoryManager repositoryManager, IHttpContextAccessor httpContextAccessor)
+    {
+        _repositoryManager = repositoryManager;
+        _httpContextAccessor = httpContextAccessor;
+
+        string? userId = _httpContextAccessor.HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "userId")?.Value;
+        if (userId != null)
+        {
+            _userId = Guid.Parse(userId);
+        }
+    }
 
     public Task<IEnumerable<UserEvent>> GetAllUserEventsAsync()
     {
@@ -30,7 +46,7 @@ public class UserEventService(IRepositoryManager repositoryManager) : IUserEvent
         {
             Id = Guid.NewGuid(),
             EventId = x.EventId,
-            UserId = updateDto.Id,
+            UserId = _userId,
             Title = null,
             StartDate = x.StartDate,
             EndDate = x.EndDate,
