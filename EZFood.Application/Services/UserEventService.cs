@@ -34,9 +34,15 @@ public class UserEventService : IUserEventService
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<UserEvent>> GetUserEventsByUserIdAsync(Guid id)
+    public async Task<IEnumerable<CreateUserEventDto>> GetUserEventsByUserIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        IEnumerable<UserEvent> events = await _repositoryManager.UserEvent.GetUserEventsByIdAsync(id);
+        return events.Select(x => new CreateUserEventDto
+        {
+            EventId = x.EventId!,
+            StartDate = x.StartDate,
+            EndDate = x.EndDate
+        });
     }
 
     public async Task<ResponseDto> UpdateUserEventsAsync(List<CreateUserEventDto> updateDto)

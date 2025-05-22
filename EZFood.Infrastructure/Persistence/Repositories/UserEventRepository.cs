@@ -15,9 +15,9 @@ public class UserEventRepository(EZFoodContext context) : RepositoryBase<UserEve
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<UserEvent>> GetUserEventsByIdAsync(Guid id)
+    public async Task<IEnumerable<UserEvent>> GetUserEventsByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await FindByCondition(s => s.UserId == id && s.StartDate > DateTime.UtcNow, trackChanges: false).ToListAsync();
     }
 
     public async Task<bool> UpdateUserEventsAsync(List<UserEvent> events)

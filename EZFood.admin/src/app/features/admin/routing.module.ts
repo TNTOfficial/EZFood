@@ -26,6 +26,11 @@ export const ADMIN_ROUTES: Routes = [
             loadComponent: () => import('./users/components/user-profile/user-profile.component').then(c => c.UserProfileComponent),
             title: 'User Profile'
           },
+          {
+            path: 'events/:id',
+            loadComponent: () => import('./users/events/events.component').then(c => c.EventsComponent),
+            title: 'User Profile'
+          },
         ]
       },
       {

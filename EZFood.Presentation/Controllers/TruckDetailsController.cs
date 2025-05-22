@@ -11,6 +11,7 @@ using EZFood.Domain.Entities.Enums;
 using EZFood.Shared.Dtos.Response;
 using EZFood.Shared.Dtos.TruckDetail.Steps;
 using EZFood.Shared.Dtos.OnboardingAction;
+using EZFood.Shared.Dtos.UserEvent;
 
 namespace MLM.Presentation.Controllers;
 
@@ -133,6 +134,23 @@ public class TruckDetailsController(IServiceManager serviceManager, ILogger<Truc
         {
             StepsResponseDto<TruckDetailDto> truckDetails = await _serviceManager.TruckDetailService.GetTruckDetailStepsByIdAsync(id);
             return Ok(truckDetails);
+        }
+        catch (Exception ex)
+        {
+
+            _logger.LogError(ex, " Error retrieving all truck details");
+            return StatusCode(500, "An error occurred while retrieving truck details.");
+        }
+
+    }
+
+    [HttpGet("get-events/{id}")]
+    public async Task<ActionResult<IEnumerable<CreateUserEventDto>>> GetUserCalendarEvents(Guid id)
+    {
+        try
+        {
+            IEnumerable<CreateUserEventDto> events = await _serviceManager.UserEventService.GetUserEventsByUserIdAsync(id);
+            return Ok(events);
         }
         catch (Exception ex)
         {

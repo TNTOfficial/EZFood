@@ -1,8 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { identity, Observable } from 'rxjs';
 import { OnboardingResponse, TruckDetail } from '../../../shared/models/truck-details/truck-details.model';
+import { UserEvent } from '../../../shared/models/user-events/user-events.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,10 @@ export class TruckDetailsService {
 
   getAll(status: number): Observable<TruckDetail[]> {
     return this.http.get<TruckDetail[]>(`${this.apiUrl}/get-onboardings/${status}`);
+  }
+
+  getUserCalendarEvents(id: string): Observable<UserEvent[]> {
+    return this.http.get<UserEvent[]>(`${this.apiUrl}/get-events/${id}`);
   }
 
   getAactiveTrucks(): Observable<TruckDetail[]> {
