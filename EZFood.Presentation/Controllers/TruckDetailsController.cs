@@ -75,6 +75,23 @@ public class TruckDetailsController(IServiceManager serviceManager, ILogger<Truc
 
     }
 
+    [HttpGet("get-active-food-trucks")]
+    public async Task<ActionResult> GetActiveFoodTrucks(OnboardingStatus status)
+    {
+        try
+        {
+            IEnumerable<TruckDetail>? truckDetails = await _serviceManager.TruckDetailService.GetActiveFoodTrucksAsync();
+            return Ok(truckDetails);
+        }
+        catch (Exception ex)
+        {
+
+            _logger.LogError(ex, " Error retrieving all truck details");
+            return StatusCode(500, "An error occurred while retrieving truck details.");
+        }
+
+    }
+
     [HttpGet("get-incomplete-onboardings")]
     public async Task<ActionResult> GetIncompleteTruckDetails()
     {

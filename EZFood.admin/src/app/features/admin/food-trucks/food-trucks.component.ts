@@ -60,7 +60,7 @@ export class FoodTrucksComponent implements OnInit {
   loadData(status: number): void {
     this.loading.set(true);
     this.truckDetailService
-      .getAll(status)
+      .getAactiveTrucks()
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (data) => {

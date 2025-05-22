@@ -93,9 +93,9 @@ public class TruckDetailRepository(EZFoodContext context) : RepositoryBase<Truck
         return await FindByCondition(s => s.Id == id, trackChanges: false).AnyAsync();
     }
 
-    public async Task<IEnumerable<TruckDetail>> GetActiveTruckDetaisAsync()
+    public async Task<IEnumerable<TruckDetail>> GetActiveTruckDetailsAsync()
     {
-        return await FindByCondition(s => s.OnboardingStatus == OnboardingStatus.Approved, trackChanges: false)
+        return await FindByCondition(s => s.IsActive && s.Status, trackChanges: false)
             .OrderByDescending(s => s.CreatedAt)
             .ToListAsync();
     }

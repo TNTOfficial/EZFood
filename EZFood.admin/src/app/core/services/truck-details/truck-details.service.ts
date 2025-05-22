@@ -15,6 +15,10 @@ export class TruckDetailsService {
   getAll(status: number): Observable<TruckDetail[]> {
     return this.http.get<TruckDetail[]>(`${this.apiUrl}/get-onboardings/${status}`);
   }
+
+  getAactiveTrucks(): Observable<TruckDetail[]> {
+    return this.http.get<TruckDetail[]>(`${this.apiUrl}/get-active-food-trucks`);
+  }
   getIncomplete(): Observable<TruckDetail[]> {
     return this.http.get<TruckDetail[]>(`${this.apiUrl}/get-incomplete-onboardings`);
   }

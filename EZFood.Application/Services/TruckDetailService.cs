@@ -44,6 +44,11 @@ public class TruckDetailService : ITruckDetailService
         return await _repositoryManager.TruckDetail.GetTruckDetailsForStatusAsync(status);
     }
 
+    public async Task<IEnumerable<TruckDetail>> GetActiveFoodTrucksAsync()
+    {
+        return await _repositoryManager.TruckDetail.GetActiveTruckDetailsAsync();
+    }
+
     public async Task<IEnumerable<TruckDetail>> GetTruckDetailsForIncompleteStatusAsync()
     {
         return await _repositoryManager.TruckDetail.GetTruckDetailsForIncompleteStatusAsync();
@@ -717,4 +722,5 @@ public class TruckDetailService : ITruckDetailService
         throw new NotImplementedException();
     }
 
+    
 };

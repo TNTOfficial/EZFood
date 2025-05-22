@@ -56,12 +56,26 @@ public class UserEventService : IUserEventService
         bool res = await _repositoryManager.UserEvent.UpdateUserEventsAsync(userEvents);
         if (res)
         {
-            return new ResponseDto
+            TruckDetail? truckDetail = await _repositoryManager.TruckDetail.getTruckDetailByUserAsync(_userId);
+            if (truckDetail != null)
             {
-                Result = true,
-                Message = "Events synced successfully."
+                truckDetail.IsActive = true;
+                truckDetail.Status = true;
+                _repositoryManager.TruckDetail.Update(truckDetail);
+                return new ResponseDto
+                {
+                    Result = true,
+                    Message = "Events synced successfully."
 
-            };
+                };
+            } else
+            {
+                return new ResponseDto
+                {
+                    Result = false,
+                    Message = "User status could not be update. Please tru again."
+                };
+            }
         } else
         {
             return new ResponseDto

@@ -13,6 +13,7 @@ public interface ITruckDetailService
     Task<IEnumerable<TruckDetail>> GetAllTruckDetailsAsync();
     Task<List<int>> GetOnboardingStatsAsync();
     Task<IEnumerable<TruckDetail>> GetTruckDetailsForStatusAsync(OnboardingStatus status);
+    Task<IEnumerable<TruckDetail>> GetActiveFoodTrucksAsync();
     Task<IEnumerable<TruckDetail>> GetTruckDetailsForIncompleteStatusAsync();
     //Task<int> GetTruckDetailsForStatusCountAsync(OnboardingStatus status);
     Task<StepsResponseDto<TruckDetailStepsDto>> GetTruckDetailStepsAsync();
