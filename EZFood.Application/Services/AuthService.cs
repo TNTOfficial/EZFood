@@ -28,6 +28,7 @@ public class AuthService(IRepositoryManager repositoryManager,UserManager<Applic
             throw new EZFoodException("Invalid credentials");
         UserDto userDto = new()
         {
+            Id = userProfile.Id,
             Name = userProfile.Name,
             Email = userProfile.Email,
             PhoneNumber = userProfile.PhoneNumber,
