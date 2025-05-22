@@ -62,6 +62,7 @@ public class UserEventService : IUserEventService
                 truckDetail.IsActive = true;
                 truckDetail.Status = true;
                 _repositoryManager.TruckDetail.Update(truckDetail);
+                await _repositoryManager.SaveAsync();
                 return new ResponseDto
                 {
                     Result = true,
